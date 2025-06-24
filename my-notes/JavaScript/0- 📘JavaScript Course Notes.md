@@ -13,9 +13,10 @@ Click on any topic below to jump to the notes:
 - [JavaScript Releases: ES5, ES6+, and ESNext](./notes/EcamScript/JavaScript%20Versions%20Overview.md)
 - [Values and Variables](./notes/values%20and%20variables/Variables%20in%20JavaScript.md)
 - [Data Types](./notes/Data%20Types/Javascript%20Data%20Types.md)
+- [Type Conversion vs. Coercion](./notes/type%20conversion,%20coercion/Type%20Conversion%20Vs.%20Type%20Coercion.md)
 
 - ==IN PROGRESS ....==
-- [Type Conversion vs. Coercion](./Type%20Conversion%20vs%20Coercion.md)
+
 - [Operators](./Operators.md)
 - [Strings and Template Literals](./Strings%20and%20Template%20Literals.md)
 - [Control Flow (Selection Statements)](./Control%20Flow.md)
