@@ -1,4 +1,5 @@
 
+# Compilation vs. Interpretation vs. JIT
 ---
 
 [[#1- We must translate the code into machine code before executing it]]

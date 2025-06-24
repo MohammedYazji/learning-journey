@@ -1,9 +1,10 @@
+# ⚙️ JavaScript Engine and Memory Model
 
 This page is divided into two major sections:
 
-- [[#1. 🧠 JavaScript Engine]]
-- [[#2. 🗃️ Memory Model in the JS Engine]]
-- [[#3.📍 Where Are the Call Stack and Heap Actually Located?]]
+- [1. 🧠 JavaScript Engine](#1--javascript-engine)
+- [2. 🗃️ Memory Model in the JS Engine](#2-️-memory-model-in-the-js-engine)
+- [#3.📍 Where Are the Call Stack and Heap Actually Located?](#3-where-are-the-call-stack-and-heap-actually-located)
 
 ---
 
@@ -17,6 +18,7 @@ Each browser has its own engine (e.g., **V8** for Chrome and Node.js).
 ### 🔹 Responsibilities
 
 The engine is responsible for:
+
 - Parsing and compiling your JavaScript code
 - Executing it line-by-line
 - Managing memory and handling tasks such as **garbage collection**
@@ -76,13 +78,14 @@ Used for **dynamic memory allocation** — where objects and reference types liv
 
 ```js
 function greet() {
-  const name = "John";         // 'name' is a primitive → stored in stack
-  const user = { age: 30 };    // 'user' is an object → reference in stack, value in heap
+  const name = "John"; // 'name' is a primitive → stored in stack
+  const user = { age: 30 }; // 'user' is an object → reference in stack, value in heap
 }
 greet();
 ```
 
 ---
+
 ## 3.📍 Where Are the Call Stack and Heap Actually Located?
 
 Physically, the **Call Stack** and **Heap** are areas of **RAM (Random Access Memory)**, managed by the **JavaScript engine**. Let’s break it down step-by-step:
@@ -92,24 +95,17 @@ Physically, the **Call Stack** and **Heap** are areas of **RAM (Random Access Me
 ### 🧠 1. Your Device (Computer / Phone)
 
 - Has **RAM** (physical memory)
-    
 - The **operating system** allocates this memory to running programs
-    
 
 ---
 
 ### 🧱 2. Runtime Environment (Browser or Node.js)
 
 - When you run JavaScript code, your environment (e.g., browser) starts a **JavaScript engine** (e.g., V8)
-    
 - The engine reserves memory in RAM for:
-    
-    - The **Call Stack**
-        
-    - The **Heap**
-        
-    - Other parts like the **event loop**, **callback queue**, etc.
-        
+  - The **Call Stack**
+  - The **Heap**
+  - Other parts like the **event loop**, **callback queue**, etc.
 
 ---
 
@@ -118,16 +114,10 @@ Physically, the **Call Stack** and **Heap** are areas of **RAM (Random Access Me
 The engine handles memory like this:
 
 - 🧮 **Call Stack** → Reserved memory block for keeping track of what function is currently running
-    
-    - Tightly managed
-        
-    - Usually small in size (risk of stack overflow if overloaded)
-        
+  - Tightly managed
+  - Usually small in size (risk of stack overflow if overloaded)
 - 🗃️ **Heap** → Large, unstructured memory block for storing dynamic data
-    
-    - Stores **objects, arrays, functions**, etc.
-        
-    - Automatically managed through **garbage collection**
-        
+  - Stores **objects, arrays, functions**, etc.
+  - Automatically managed through **garbage collection**
 
 ➡️ Both memory regions **live in RAM**, but they are **fully controlled by the JavaScript engine**, not by you as the developer.

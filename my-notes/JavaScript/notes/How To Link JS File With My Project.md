@@ -1,4 +1,4 @@
-
+# How To Link JS File With My Project
 ---
 
 - We can add a `<script>` tag in the `<head>` or at the last line of the `<body>`.

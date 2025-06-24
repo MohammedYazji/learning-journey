@@ -1,4 +1,3 @@
-
 # 📘JavaScript Course Notes
 
 Welcome to my JavaScript course notes! These notes were taken while following **The Complete JavaScript Course 2025** by **Jonas Schmedtmann**, and are meant to help me (and maybe you!) revise core concepts, techniques, and language features.
@@ -10,9 +9,11 @@ Welcome to my JavaScript course notes! These notes were taken while following **
 Click on any topic below to jump to the notes:
 
 ==DONE==
-- [[What is JavaScript]]
+
+- [What is JavaScript](./notes/What%20is%20JavaScript.md)
 
 ==IN PROGRESS ....==
+
 - [JavaScript Releases: ES5, ES6+, and ESNext](./JavaScript%20Releases.md)
 - [Values and Variables](./Values%20and%20Variables.md)
 - [Data Types](./Data%20Types.md)

@@ -1,4 +1,6 @@
 
+# 🌐 Role in Web
+
 JavaScript plays a crucial role in modern web development by making web pages **interactive** and **dynamic**.
 
 ---

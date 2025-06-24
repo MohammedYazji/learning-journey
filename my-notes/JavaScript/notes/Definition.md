@@ -1,3 +1,4 @@
+# ⁉️ Definition
 
 > **JavaScript is a high-level, prototype-based, object-oriented, multi-paradigm, interpreted or just-in-time compiled, dynamic, single-threaded, garbage-collected programming language with first-class functions and a non-blocking event loop concurrency model.**
 

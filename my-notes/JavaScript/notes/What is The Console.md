@@ -1,4 +1,6 @@
+# What is The Console
 
+---
 
 - The console is a crucial tool for debugging web applications.
 - We can also add JS code and run it inside the console.

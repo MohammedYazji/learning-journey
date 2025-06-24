@@ -1,4 +1,4 @@
-
+# Strict Mode
 ---
 
 Quick Links:
