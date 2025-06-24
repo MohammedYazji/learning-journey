@@ -15,12 +15,11 @@ Click on any topic below to jump to the notes:
 - [Data Types](./notes/Data%20Types/Javascript%20Data%20Types.md)
 - [Type Conversion vs. Coercion](./notes/type%20conversion,%20coercion/Type%20Conversion%20Vs.%20Type%20Coercion.md)
 - [Operators](./notes/operators/operators%20in%20JavaScript.md)
+- [Strings and Template Literals](./notes/strings%20and%20template%20literals/Strings%20and%20Template%20Literals.md)
+- [Control Flow (Selection Statements)](<./notes/control%20flow/Control%20Flow%20(Selection%20Statements).md>)
+- [Statements and Expressions](./notes/statements%20and%20expressions/Statements%20and%20Expressions.md)
 
 - ==IN PROGRESS ....==
-
-- [Strings and Template Literals](./Strings%20and%20Template%20Literals.md)
-- [Control Flow (Selection Statements)](./Control%20Flow.md)
-- [Statements and Expressions](./Statements%20and%20Expressions.md)
 - [Functions](./Functions.md)
 - [Array](./Array.md)
 - [Objects](./Objects.md)
