@@ -10,9 +10,9 @@ Click on any topic below to jump to the notes:
 
 ==DONE==
 
-- [What is JavaScript](./notes/Intro/What%20is%20JavaScript.md)
-- [JavaScript Releases: ES5, ES6+, and ESNext](./notes/EcamScript/JavaScript%20Versions%20Overview.md)
-  ==IN PROGRESS ....==
+- [What is JavaScript](What%20is%20JavaScript.md)
+- [JavaScript Releases: ES5, ES6+, and ESNext](obsidian://open?vault=Mohammed's%20Vault&file=learning-journey%2FJavaScript%2Fnotes%2FEcamScript%2FJavaScript%20Versions%20Overview)
+==IN PROGRESS ....==
 
 - [Values and Variables](./Values%20and%20Variables.md)
 - [Data Types](./Data%20Types.md)

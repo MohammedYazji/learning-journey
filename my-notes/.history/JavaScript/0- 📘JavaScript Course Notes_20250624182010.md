@@ -10,7 +10,7 @@ Click on any topic below to jump to the notes:
 
 ==DONE==
 
-- [What is JavaScript](./notes/Intro/What%20is%20JavaScript.md)
+- [What is JavaScript](What%20is%20JavaScript.md)
 - [JavaScript Releases: ES5, ES6+, and ESNext](./notes/EcamScript/JavaScript%20Versions%20Overview.md)
   ==IN PROGRESS ....==
 

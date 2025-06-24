@@ -1,11 +1,12 @@
 # Strict Mode
+
 ---
 
 Quick Links:
 
-- [[#How to Activate Strict Mode]]
-- [[#Benefits of Strict Mode]]
-- [[#Example]]
+- [How to Activate Strict Mode](#how-to-activate-strict-mode)
+- [Benefits of Strict Mode](#benefits-of-strict-mode)
+- [Example](#example)
 
 ---
 
@@ -27,7 +28,7 @@ Quick Links:
 
 ## Example
 
-- An example is shown where a typo in a variable name is missed in regular JavaScript.  
+- An example is shown where a typo in a variable name is missed in regular JavaScript.
 - Strict Mode detects the typo and raises an error in the console, helping to prevent silent bugs.
 
 ### 🐞 Without Strict Mode (Bug is silent)
@@ -41,7 +42,6 @@ function sayHi() {
 
 sayHi(); // No error, bug goes unnoticed
 ```
-
 
 ### ✅ With Strict Mode (Catches the typo)
 
