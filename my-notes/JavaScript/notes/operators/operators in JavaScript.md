@@ -312,8 +312,3 @@ console.log(ageMohammed, ageYosif, averageAge);
   // If owner="Giovanni" → becomes "Anonymous"
   // If owner=undefined → remains undefined
   ```
-
-```
-
-Let me know if you'd like me to add examples, explanations, or format more content!
-```
