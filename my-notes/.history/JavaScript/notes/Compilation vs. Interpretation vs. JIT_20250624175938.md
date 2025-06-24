@@ -10,7 +10,7 @@
   [2- Parsing and Code Optimization - In JIT](#2--parsing-and-code-optimization---in-jit)
   [3-🧑‍🍳 Kitchen Analogy Example](#3--kitchen-analogy-example)
   [🔚 Quick Summary](#-quick-summary)
-  [RAM and CPU and Call Stack Analogy](#ram-and-cpu-and-call-stack-analogyadd)
+  [RAM and CPU and Call Stack Analogy](#ram-and-cpu-and-call-stack-analogy)
 
 ---
 

@@ -1,18 +1,19 @@
-
 # ⚙️ JavaScript Runtime, Event Loop & Callback Functions
 
 ---
+
 Quick Links:
 
-- [[#JavaScript Runtime Environment]]
-  - [[#Runtime Environment (Browser)]]
-  - [[#Node.js Runtime Environment]]
-- [[#Event Loop]]
-  - [[#Role]]
-  - [[#Process]]
-- [[#Callback Functions (with a Pizza Example) & Event Loop]]
+- [JavaScript Runtime Environment](#javascript-runtime-environment)
+  - [Runtime Environment (Browser)](#runtime-environment-browser)
+  - [Node.js Runtime Environment](#nodejs-runtime-environment)
+- [Event Loop](#event-loop)
+  - [Role](#role)
+  - [Process](#process)
+- [Callback Functions (with a Pizza Example) & Event Loop](#callback-functions-with-a-pizza-example--event-loop)
 
 ---
+
 ## JavaScript Runtime Environment
 
 ### Runtime Environment (Browser)
@@ -53,22 +54,22 @@ Manages asynchronous tasks by continuously checking the call stack and callback 
 
 1. 📞 **You ordered a pizza ()**, and they said: callback function
 
-    > "Okay, it will be ready in 20 minutes."
-    
-2. 🍳 They started making the pizza **in the kitchen (Web APIs)**,  
-   
+   > "Okay, it will be ready in 20 minutes."
+
+2. 🍳 They started making the pizza **in the kitchen (Web APIs)**,
+
    but you went on with your work, you didn’t wait around.
 
-3. 🕒 After 20 minutes, **the pizza was ready**.  
-   
-   Now, the restaurant says:  
-   
+3. 🕒 After 20 minutes, **the pizza was ready**.
+
+   Now, the restaurant says:
+
    > "Alright, let’s call you."
 
-4. 📥 But if your phone line is busy (Call Stack is full),  
-   
+4. 📥 But if your phone line is busy (Call Stack is full),
+
    the restaurant waits a bit **(Callback Queue)**.
 
-5. 📞 As soon as the line is free (Call Stack becomes empty),  
-   
+5. 📞 As soon as the line is free (Call Stack becomes empty),
+
    they call you back → **execute the Callback**.
