@@ -8,14 +8,13 @@ Welcome to my JavaScript course notes! These notes were taken while following **
 
 Click on any topic below to jump to the notes:
 
-==DONE==
-
+- ==DONE==
 - [What is JavaScript](./notes/Intro/What%20is%20JavaScript.md)
 - [JavaScript Releases: ES5, ES6+, and ESNext](./notes/EcamScript/JavaScript%20Versions%20Overview.md)
-  ==IN PROGRESS ....==
+- [Values and Variables](./notes/values%20and%20variables/Variables%20in%20JavaScript.md)
+- [Data Types](./notes/Data%20Types/Javascript%20Data%20Types.md)
 
-- [Values and Variables](./Values%20and%20Variables.md)
-- [Data Types](./Data%20Types.md)
+- ==IN PROGRESS ....==
 - [Type Conversion vs. Coercion](./Type%20Conversion%20vs%20Coercion.md)
 - [Operators](./Operators.md)
 - [Strings and Template Literals](./Strings%20and%20Template%20Literals.md)
