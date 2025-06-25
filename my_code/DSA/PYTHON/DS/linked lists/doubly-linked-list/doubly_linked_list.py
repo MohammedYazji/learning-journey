@@ -29,6 +29,33 @@ class DoublyLinkedList:
         self.length += 1
         return self
     
+    # remove the last node
+    def pop(self):
+        # if empty
+        if not self.head:
+            return None
+        
+        # store it to return it after removing
+        popped_node = self.tail
+
+        # if just one node => return to the initial point
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+
+        else:
+            # set the tail to be the previous node
+            self.tail = popped_node.prev
+            # set the new tail next to point into None
+            self.tail.next = None
+            # set the old tail next to point to None
+            # (Unlink)
+            popped_node.prev = None
+        # decrement the length
+        self.length -= 1
+        # return the popped node
+        return popped_node
+
     def __str__(self):
         res = ''
         current = self.head

@@ -13,6 +13,7 @@ class DoublyLinkedList {
     this.length = 0;
   }
 
+  // add a new node at the end of the dll
   push(val) {
     // make the new node
     let newNode = new Node(val);
@@ -35,6 +36,36 @@ class DoublyLinkedList {
     return this;
   }
 
+  //remove the last node
+  pop() {
+    // if empty
+    if (!this.head) {
+      return undefined;
+    }
+
+    // store it to return it after removing
+    let poppedNode = this.tail;
+    // if just one node => return to the initial point
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    }
+    //
+    else {
+      // set the tail to be the previous node
+      this.tail = poppedNode.prev;
+      // set the new tail next to point into null
+      this.tail.next = null;
+      // set the old tail next to point to null
+      // (UNLINK)
+      poppedNode.prev = null;
+    }
+    // decrement the length
+    this.length--;
+    // return the popped node
+    return poppedNode;
+  }
+
   // print
   print() {
     let res = "";
@@ -49,5 +80,6 @@ class DoublyLinkedList {
 
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
-
+list.print();
+console.log(list.pop().val);
 list.print();
