@@ -163,12 +163,17 @@ class DoublyLinkedList {
 
   // insert a new node based on index
   insert(index, val) {
+    // invalid index
     if (index < 0 || index > this.length) {
       return false;
-    } else if (index === 0) {
+    }
+    // if the first node => unshift
+    else if (index === 0) {
       this.unshift(val);
       return true;
-    } else if (index === this.length) {
+    }
+    // if the last node length => push
+    else if (index === this.length) {
       this.push(val);
       return true;
     } else {

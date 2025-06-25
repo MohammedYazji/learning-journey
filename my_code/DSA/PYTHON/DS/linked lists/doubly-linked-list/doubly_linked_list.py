@@ -144,10 +144,13 @@ class DoublyLinkedList:
 
     # insert a new node based on index
     def insert(self, index, val):
+        # invalid index
         if index < 0 or index > self.length:
             return False
+        # if the first node => unshift
         elif index == 0:
             self.unshift(val)
+        # if the last node length => push
         elif index == self.length:
             self.push(val)
         
