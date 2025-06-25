@@ -1,2 +1,7 @@
-# Modal_Window_Vanilla_JS
-display and hidden the modal by click either by mouse or by keyboard
+# Modal Window (Vanilla JS)
+
+This project implements a modal window using Vanilla JavaScript.
+
+## Tutorial
+
+This project was made while following Jonas Schmedtmann's 'The Complete JavaScript Course'.

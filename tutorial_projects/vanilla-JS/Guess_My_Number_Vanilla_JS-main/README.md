@@ -1,2 +1,7 @@
-# Guess_My_Number_Vanilla_JS
-guess a random number between 1 - 20 With Vanilla JS, HTML, And CSS
+# Guess My Number (Vanilla JS)
+
+This project is a simple game built with Vanilla JavaScript.
+
+## Tutorial
+
+This project was made while following Jonas Schmedtmann's 'The Complete JavaScript Course'.
