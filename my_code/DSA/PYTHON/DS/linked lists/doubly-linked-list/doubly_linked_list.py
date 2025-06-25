@@ -104,6 +104,31 @@ class DoublyLinkedList:
         # return the list
         return self
 
+    # get a node based on specific index
+    def get(self, index):
+        # invalid index
+        if index < 0 or index >= self.length:
+            return None
+        
+        # if closer to the head
+        # start from the head
+        if index <= self.length // 2:
+            current = self.head
+            counter = 0
+            while counter != index:
+                current = current.next
+                counter += 1
+            return current
+        # if closer to the tail
+        # start from the tail
+        else:
+            current = self.tail
+            counter = self.length - 1
+            while counter != index:
+                current = current.prev
+                counter -= 1
+            return current
+
 
     def __str__(self):
         res = ''
@@ -115,4 +140,5 @@ class DoublyLinkedList:
     
 l = DoublyLinkedList()
 l.push(10).push(20).push(30)
+print(l.get(1).val)
 print(l)

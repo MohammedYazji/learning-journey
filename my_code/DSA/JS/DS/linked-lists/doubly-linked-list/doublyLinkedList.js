@@ -114,6 +114,37 @@ class DoublyLinkedList {
     return this;
   }
 
+  // get a node based on specific index
+  get(index) {
+    // invalid index
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+
+    // if closer to the head
+    // start from the head
+    if (index <= this.length / 2) {
+      let current = this.head;
+      let counter = 0;
+      while (counter < index) {
+        current = current.next;
+        counter++;
+      }
+      return current;
+    }
+    // if closer to the tail
+    // start from the tail
+    else {
+      let current = this.tail;
+      let counter = this.length - 1;
+      while (current > index) {
+        current = current.prev;
+        counter--;
+      }
+      return current;
+    }
+  }
+
   // print
   print() {
     let res = "";
@@ -129,5 +160,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-list.unshift(5);
+console.log(list.get(1).val);
 list.print();
