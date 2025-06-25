@@ -121,11 +121,12 @@ class DoublyLinkedList {
       return null;
     }
 
+    let current, counter;
     // if closer to the head
     // start from the head
     if (index <= this.length / 2) {
-      let current = this.head;
-      let counter = 0;
+      current = this.head;
+      counter = 0;
       while (counter < index) {
         current = current.next;
         counter++;
@@ -135,8 +136,8 @@ class DoublyLinkedList {
     // if closer to the tail
     // start from the tail
     else {
-      let current = this.tail;
-      let counter = this.length - 1;
+      current = this.tail;
+      counter = this.length - 1;
       while (current > index) {
         current = current.prev;
         counter--;
@@ -160,5 +161,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-console.log(list.get(1).val);
+console.log(list.get(0).val);
 list.print();
