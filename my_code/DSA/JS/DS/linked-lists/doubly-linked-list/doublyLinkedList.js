@@ -199,6 +199,43 @@ class DoublyLinkedList {
     }
   }
 
+  // remove a node based on specific index
+  remove(index) {
+    // invalid index here also the length not valid
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    }
+    // remove from first
+    else if (index === 0) {
+      return this.shift();
+    }
+    // remove from last
+    else if (index === this.length - 1) {
+      return this.pop();
+    }
+    // remove from inside the list
+    else {
+      // get the node will remove
+      let foundNode = this.get(index);
+      // the one before it
+      let beforeNode = foundNode.prev;
+      // the one after it
+      let afterNode = foundNode.next;
+
+      // then make the before node jump and point on after node
+      beforeNode.next = afterNode;
+      // then make the after node jump and point back to before node
+      afterNode.prev = beforeNode;
+
+      // unlink the removed node
+      foundNode.next = null;
+      foundNode.prev = null;
+
+      this.length--;
+      return foundNode;
+    }
+  }
+
   // print
   print() {
     let res = "";
@@ -214,5 +251,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-list.insert(3, 25);
+list.remove(1).val;
 list.print();

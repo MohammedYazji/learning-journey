@@ -175,6 +175,37 @@ class DoublyLinkedList:
             return True
 
 
+    # remove a node based on the given index
+    def remove(self, index):
+        # invalid index here also the length not valid
+        if index < 0 or index >= self.length:
+            return None
+        #  remove from first
+        elif index == 0:
+            return self.shift()
+        #  remove from last
+        elif index == self.length - 1:
+            return self.pop()
+        # remove from inside the list
+        else:
+            # get the node will remove
+            removed_node = self.get(index)
+            # the one before it
+            before_node = removed_node.prev
+            #  the one after it
+            after_node = removed_node.next
+
+            #  then make the before node jump and point on after node
+            before_node.next = after_node
+            #  then make the after node jump and point back to before node
+            after_node.prev = before_node
+
+            #  unlink the removed node
+            removed_node.next = None
+            removed_node.prev = None
+
+            self.length -= 1
+            return removed_node
 
 
     def __str__(self):
@@ -188,5 +219,5 @@ class DoublyLinkedList:
 l = DoublyLinkedList()
 l.push(10).push(20).push(30)
 print(l)
-l.insert(1, 15)
+l.remove(2)
 print(l)
