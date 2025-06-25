@@ -146,6 +146,21 @@ class DoublyLinkedList {
     }
   }
 
+  // set a node value with a new one
+  set(index, val) {
+    // use the get method to get the node
+    const foundNode = this.get(index);
+
+    // if the node exist
+    if (foundNode) {
+      // set its value to be the new one
+      foundNode.val = val;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // print
   print() {
     let res = "";
@@ -161,5 +176,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-console.log(list.get(0).val);
+list.set(1, 21);
 list.print();

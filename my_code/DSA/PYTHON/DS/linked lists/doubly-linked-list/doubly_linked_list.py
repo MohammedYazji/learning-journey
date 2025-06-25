@@ -129,6 +129,18 @@ class DoublyLinkedList:
                 counter -= 1
             return current
 
+    # set a node with a new value
+    def set(self, index, value):
+        # use the get method to get the node
+        found_node = self.get(index)
+
+        # if the node exist
+        if found_node:
+            # set its value to be the new one
+            found_node.val = value
+            return True
+        else:
+            return False
 
     def __str__(self):
         res = ''
@@ -140,5 +152,5 @@ class DoublyLinkedList:
     
 l = DoublyLinkedList()
 l.push(10).push(20).push(30)
-print(l.get(1).val)
+l.set(1, 21)
 print(l)
