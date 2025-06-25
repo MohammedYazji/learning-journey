@@ -16,7 +16,7 @@ class DoublyLinkedList {
   // add a new node at the end of the dll
   push(val) {
     // make the new node
-    let newNode = new Node(val);
+    const newNode = new Node(val);
 
     if (!this.head) {
       // if empty => make the head and the tail to be the newNode
@@ -44,7 +44,7 @@ class DoublyLinkedList {
     }
 
     // store it to return it after removing
-    let poppedNode = this.tail;
+    const poppedNode = this.tail;
     // if just one node => return to the initial point
     if (this.length === 1) {
       this.head = null;
@@ -66,14 +66,14 @@ class DoublyLinkedList {
     return poppedNode;
   }
 
-  //
+  // remove the head
   shift() {
     if (!this.head) {
       return undefined;
     }
 
     // store the head to return it later
-    let oldHead = this.head;
+    const oldHead = this.head;
 
     // if just one node => return to the initial point
     if (this.length === 1) {
@@ -91,6 +91,29 @@ class DoublyLinkedList {
     return oldHead;
   }
 
+  // add a new node as head
+  unshift(val) {
+    // first create a new node to add it
+    const newNode = new Node(val);
+
+    // if empty make the head and tail to be the new node
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // set the new node next to point into the old head
+      newNode.next = this.head;
+      // then set the old head prev to point back into the new node
+      this.head.prev = newNode;
+      // then update the head to be the new node
+      this.head = newNode;
+    }
+    // increment the length
+    this.length++;
+    // then return the list
+    return this;
+  }
+
   // print
   print() {
     let res = "";
@@ -106,5 +129,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-console.log(list.shift().val);
+list.unshift(5);
 list.print();

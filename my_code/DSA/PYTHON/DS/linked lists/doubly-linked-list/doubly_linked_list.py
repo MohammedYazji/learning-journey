@@ -81,6 +81,30 @@ class DoublyLinkedList:
         self.length -= 1
         return old_head
 
+    # add a new node as head
+    def unshift(self, val):
+        # first create a new node to add it
+        new_node = Node(val)
+
+        # if empty make the head and tail to be the new node
+        if not self.head:
+            self.head = new_node
+            self.tail = new_node
+        
+
+        else:
+            # set the new node next to point into the old head
+            new_node.next = self.head
+            # then set the old head prev to point into the new node
+            self.head.prev = new_node
+            # then update the head to be the new node
+            self.head = new_node
+        # increment one to the length
+        self.length += 1
+        # return the list
+        return self
+
+
     def __str__(self):
         res = ''
         current = self.head
