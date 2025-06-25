@@ -1,20 +1,21 @@
-# Chat App MERN
+# Simple Product Store MERN
 
-This project is a chat application built using the MERN stack (MongoDB, Express.js, React, Node.js). This project was created by following a tutorial by Burak.
+This project is a simple product store application built using the MERN stack (MongoDB, Express.js, React, Node.js). This project was created by following a tutorial by Burak.
 
 ## Tutorial
 
-[YouTube Tutorial](https://www.youtube.com/watch?v=ntKkVrQqBYY)
+[YouTube Tutorial](https://www.youtube.com/watch?v=MDZC8VDZnV8&t=47s)
 
 ## Features
 
-- Real-time messaging
+- Product listing
+- Product details view
 - User authentication
 - User registration
 
 ## Demo
 
-[Live Demo](https://chat-app-mern-fb5w.onrender.com/login)
+[Live Demo](https://product-store-mern-ix50.onrender.com/)
 
 ## Installation
 
@@ -24,7 +25,7 @@ This project is a chat application built using the MERN stack (MongoDB, Express.
    ```
 2. Navigate to the project directory:
    ```bash
-   cd learning-journey/tutorial_projects/mern/Chat_App_MERN
+   cd learning-journey/tutorial_projects/mern/Simple_Product_Store_MERN
    ```
 3. Install backend dependencies:
    ```bash
@@ -56,7 +57,6 @@ This project is a chat application built using the MERN stack (MongoDB, Express.
 - Express.js
 - React.js
 - Node.js
-- Socket.IO (for real-time communication)
 
 ---
 
