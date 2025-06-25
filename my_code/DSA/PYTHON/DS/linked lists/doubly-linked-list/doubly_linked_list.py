@@ -142,6 +142,38 @@ class DoublyLinkedList:
         else:
             return False
 
+    # insert a new node based on index
+    def insert(self, index, val):
+        if index < 0 or index > self.length:
+            return False
+        elif index == 0:
+            self.unshift(val)
+        elif index == self.length:
+            self.push(val)
+        
+        else:
+            # create a new node
+            new_node = Node(val)
+            # get the node before index we want add
+            before_node = self.get(index - 1)
+            # get the node after (more readable)
+            after_node = before_node.next
+
+            # set the new node next to point into the after node
+            new_node.next = after_node
+            # and the after node prev to point back to the new node
+            after_node.prev = new_node
+            # set the before node next to point into new node
+            before_node.next = new_node
+            # and the new node prev to point back into the before node
+            new_node.prev = before_node
+
+            self.length += 1
+            return True
+
+
+
+
     def __str__(self):
         res = ''
         current = self.head
@@ -152,5 +184,6 @@ class DoublyLinkedList:
     
 l = DoublyLinkedList()
 l.push(10).push(20).push(30)
-l.set(1, 21)
+print(l)
+l.insert(1, 15)
 print(l)

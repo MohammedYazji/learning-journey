@@ -161,6 +161,39 @@ class DoublyLinkedList {
     }
   }
 
+  // insert a new node based on index
+  insert(index, val) {
+    if (index < 0 || index > this.length) {
+      return false;
+    } else if (index === 0) {
+      this.unshift(val);
+      return true;
+    } else if (index === this.length) {
+      this.push(val);
+      return true;
+    } else {
+      // create a new node
+      const newNode = new Node(val);
+
+      // get the node before index we want add
+      const beforeNode = this.get(index - 1);
+      // get the node after (more readable)
+      const afterNode = beforeNode.next;
+
+      //  set the new node next to point into the after node
+      newNode.next = afterNode;
+      //  and the after node prev to point back to the new node
+      afterNode.prev = newNode;
+      //  set the before node next to point into new node
+      beforeNode.next = newNode;
+      // and the new node prev to point back into the before node
+      newNode.prev = beforeNode;
+
+      this.length++;
+      return true;
+    }
+  }
+
   // print
   print() {
     let res = "";
@@ -176,5 +209,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-list.set(1, 21);
+list.insert(3, 25);
 list.print();
