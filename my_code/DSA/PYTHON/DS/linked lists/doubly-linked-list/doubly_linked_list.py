@@ -56,6 +56,31 @@ class DoublyLinkedList:
         # return the popped node
         return popped_node
 
+    # remove the head
+    def shift(self):
+        if not self.head:
+            return None
+        
+        # store the head to return it later
+        old_head = self.head
+
+        # if just one node => return to the initial point
+        if self.length == 1:
+            self.head = None
+            self.tail = None
+        
+        else:
+            # set the head to be the new one (second node)
+            self.head = old_head.next
+
+            # set the new head prev to point to None
+            self.head.prev = None
+
+            # set the old head next to point to None
+            old_head.next = None 
+        self.length -= 1
+        return old_head
+
     def __str__(self):
         res = ''
         current = self.head

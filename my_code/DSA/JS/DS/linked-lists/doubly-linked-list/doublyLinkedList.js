@@ -66,6 +66,31 @@ class DoublyLinkedList {
     return poppedNode;
   }
 
+  //
+  shift() {
+    if (!this.head) {
+      return undefined;
+    }
+
+    // store the head to return it later
+    let oldHead = this.head;
+
+    // if just one node => return to the initial point
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      // set the head to be the new one (second node)
+      this.head = oldHead.next;
+      // set the new head prev to point to None
+      this.head.prev = null;
+      // set the old head next to point to None
+      oldHead.next = null;
+    }
+    this.length--;
+    return oldHead;
+  }
+
   // print
   print() {
     let res = "";
@@ -81,5 +106,5 @@ class DoublyLinkedList {
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
 list.print();
-console.log(list.pop().val);
+console.log(list.shift().val);
 list.print();
