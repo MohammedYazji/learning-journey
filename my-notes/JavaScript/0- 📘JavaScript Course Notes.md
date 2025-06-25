@@ -18,9 +18,10 @@ Click on any topic below to jump to the notes:
 - [Strings and Template Literals](./notes/strings%20and%20template%20literals/Strings%20and%20Template%20Literals.md)
 - [Control Flow (Selection Statements)](<./notes/control%20flow/Control%20Flow%20(Selection%20Statements).md>)
 - [Statements and Expressions](./notes/statements%20and%20expressions/Statements%20and%20Expressions.md)
+- [Functions](./notes//functions/Functions%20in%20JavaScript.md)
 
 - ==IN PROGRESS ....==
-- [Functions](./Functions.md)
+
 - [Array](./Array.md)
 - [Objects](./Objects.md)
 - [Iteration (Loops)](./Iteration.md)
