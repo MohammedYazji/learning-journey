@@ -49,6 +49,7 @@ class Stack {
       this.first = null;
       this.last = null;
     } else {
+      // set the first to be the new first
       this.first = this.first.next;
     }
     this.size--;
