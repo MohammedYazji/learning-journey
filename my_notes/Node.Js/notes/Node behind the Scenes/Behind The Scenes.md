@@ -30,6 +30,13 @@
    - [⚠️ Why the Event Loop Must Stay Unblocked](#️-why-the-event-loop-must-stay-unblocked)
    - [✅ Best Practices to Avoid Blocking](#-best-practices-to-avoid-blocking)
    - [💡 Final Thoughts](#-final-thoughts)
+4. [Node.js Event-Driven Architecture](#-nodejs-event-driven-architecture)
+   - [🔁 What is an Event-Driven Architecture?](#-what-is-an-event-driven-architecture)
+   - [📡 How Does It Look in Practice?](#-how-does-it-look-in-practice)
+   - [🧱 Behind the Scenes](#-behind-the-scenes)
+   - [👀 Observer Pattern](#-observer-pattern)
+   - [💡 Benefits](#-benefits)
+   - [📌 Summary](#-summary)
 
 ---
 
@@ -153,6 +160,8 @@ Tasks that are **too expensive for the event loop** and get moved to the thread 
 
 ## The Node.JS Event Loop
 
+- [To Understand Event Loop better](https://dev.to/nodedoctors/an-animated-guide-to-nodejs-event-loop-3g62)
+
 ### ❤️ The Event Loop: Core of Node.js
 
 - The **event loop** is the **heart of Node.js** architecture.
@@ -269,5 +278,80 @@ To keep your app performant and avoid blocking:
   - **Manual offloading** to the thread pool
   - **Child processes**
   - **Worker threads**
+
+---
+
+## 📘 Node.js Event-Driven Architecture
+
+### 🔁 What is an Event-Driven Architecture?
+
+- **Core Concept**:  
+   Node.js is built around an **event-driven architecture**, especially in its core modules like:
+  - `http`
+  - `fs` (File System)
+  - `timers`
+- **How it works**:
+  - There are two key parts:
+    1. **Event Emitters**: Emit (or fire) named events when something happens.
+    2. **Event Listeners**: React to these events with callback functions.
+
+---
+
+### 📡 How Does It Look in Practice?
+
+- Imagine you run a Node.js **HTTP server**.
+- When a new **request** comes in:
+  - The server (which is an **event emitter**) emits a `"request"` event.
+  - A **listener** attached to that `"request"` event gets triggered.
+  - The listener runs a **callback** (usually to send a response).
+
+> ✅ You’ve already used this in practice:
+
+```js
+const server = http.createServer();
+server.on("request", (req, res) => {
+  res.end("Request received");
+});
+```
+
+---
+
+### 🧱 Behind the Scenes
+
+- That `server` object is actually an **instance of the `EventEmitter` class**.
+- That’s why it can use `.on()` to listen for events.
+- This is not just specific to HTTP — it applies to many parts of Node.js.
+
+---
+
+### 👀 Observer Pattern
+
+- This whole idea of emitters and listeners is based on the **Observer Pattern**:
+  - An **observer** (listener) watches a **subject** (emitter).
+  - When the subject emits an event, the observer reacts.
+- ✅ **Decoupling**:  
+   This pattern keeps code **modular and clean**:
+  - FS module doesn’t directly call HTTP logic.
+  - Instead, it emits an event, and whoever wants can listen and react.
+
+---
+
+### 💡 Benefits
+
+- **Loose coupling**: Modules don’t directly depend on each other.
+- **Multiple reactions**: One event can trigger multiple listeners.
+- **Cleaner async code**: Instead of deeply nested function calls, just react to events.
+
+---
+
+### 📌 Summary
+
+| Concept            | Description                                                           |
+| ------------------ | --------------------------------------------------------------------- |
+| Event Emitter      | Emits named events when something happens                             |
+| Event Listener     | Waits for a specific event, then runs a callback                      |
+| EventEmitter Class | Core Node class used behind the scenes in modules like HTTP, FS, etc. |
+| Observer Pattern   | Pattern where listeners observe emitters and react to changes         |
+| Benefit            | Code becomes modular, clean, decoupled, and easy to maintain          |
 
 ---
