@@ -28,8 +28,8 @@
    - [`package.json` Overview](#packagejson-example)
 
 8. [Types of Packages & Installation in NPM](#-types-of-packages--installation-in-npm)
-   - Types of Dependencies
-   - Types of Installation
+   - [Types of Dependencies](#-1-types-of-dependencies)
+   - [Types of Installation](#-2-types-of-installation)
 9. [🚀 Using `nodemon`](#-using-nodemon)
 10. [📦 Versioning in NPM](#-versioning-in-npm)
 11. [✨ Prettier Setup in VS Code](#-prettier-setup-in-vs-code)
