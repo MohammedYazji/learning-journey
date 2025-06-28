@@ -37,6 +37,15 @@
    - [👀 Observer Pattern](#-observer-pattern)
    - [💡 Benefits](#-benefits)
    - [📌 Summary](#-summary)
+5. [Streams in Node.js](#streams-in-nodejs)
+   - [🔄 What Are Streams?](#1--what-are-streams)
+   - [🛠️ Why Use Streams?](#2-️-why-use-streams)
+   - [🧱 Stream Types in Node.js](#3--stream-types-in-nodejs)
+   - [🧩 Common Use Cases](#4--common-use-cases)
+   - [🔔 Streams and Events](#5--streams-and-events)
+   - [🧪 Stream Functions](#6--stream-functions)
+   - [🏗️ Built-in Streams vs. Custom Streams](#7-️-built-in-streams-vs-custom-streams)
+   - [🧠 Summary](#8--summary)
 
 ---
 
@@ -353,5 +362,67 @@ server.on("request", (req, res) => {
 | EventEmitter Class | Core Node class used behind the scenes in modules like HTTP, FS, etc. |
 | Observer Pattern   | Pattern where listeners observe emitters and react to changes         |
 | Benefit            | Code becomes modular, clean, decoupled, and easy to maintain          |
+
+---
+
+## Streams in Node.JS
+
+### 1. 🔄 What Are Streams?
+
+- Definition and concept of streams
+- Processing data in chunks
+- Real-life analogy: YouTube and Netflix
+- Efficiency: memory and time
+
+### 2. 🛠️ Why Use Streams?
+
+- Handle large data volumes
+- Efficient memory usage
+- Process data as it arrives (no full-buffer wait)
+
+### 3. 🧱 Stream Types in Node.js
+
+- **Readable Streams**: data we can consume
+- **Writable Streams**: data we can write to
+- **Duplex Streams**: both readable and writable
+- **Transform Streams**: duplex streams that transform data
+
+### 4. 🧩 Common Use Cases
+
+- Reading large files from the file system
+- HTTP request body: readable stream
+- HTTP response: writable stream
+- Web sockets: duplex stream
+- zlib compression: transform stream
+
+### 5. 🔔 Streams and Events
+
+- Streams inherit from `EventEmitter`
+- **Readable stream events**:
+  - `data`: new chunk is ready
+  - `end`: no more data
+- **Writable stream events**:
+  - `drain`: buffer is ready for more data
+  - `finish`: writing is complete
+
+### 6. 🧪 Stream Functions
+
+- **Readable Streams**:
+  - `read()`
+  - `pipe()` – very important: connects streams together
+- **Writable Streams**:
+  - `write()`
+  - `end()`
+
+### 7. 🏗️ Built-in Streams vs. Custom Streams
+
+- Most apps: focus on **consuming** built-in streams (HTTP, fs, etc.)
+- Custom stream implementation: advanced topic (not required for most apps)
+
+### 8. 🧠 Summary
+
+- Streams are everywhere in Node.js core modules
+- Optimize for performance and memory
+- Events and methods provide a powerful interface for real-time processing
 
 ---
