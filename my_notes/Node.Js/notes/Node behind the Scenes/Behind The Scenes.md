@@ -46,6 +46,13 @@
    - [🧪 Stream Functions](#6--stream-functions)
    - [🏗️ Built-in Streams vs. Custom Streams](#7-️-built-in-streams-vs-custom-streams)
    - [🧠 Summary](#8--summary)
+6. [Node.js Modules Behind the Scenes](#nodejs-modules-behind-the-scenes)
+   - [🧩 Node.js Module System](#1--nodejs-module-system)
+   - [❓ Where Does require Come From?](#2--where-does-require-come-from)
+   - [⚙️ Steps Behind the require() Function](#3-️-steps-behind-the-require-function)
+   - [📤 Exporting from a Module](#4--exporting-from-a-module)
+   - [🧠 Why Wrapping Matters](#5--why-wrapping-matters)
+   - [💡 Summary](#6--summary)
 
 ---
 
@@ -426,3 +433,92 @@ server.on("request", (req, res) => {
 - Events and methods provide a powerful interface for real-time processing
 
 ---
+
+## Node.js Modules Behind the Scenes
+
+### 1. 🧩 Node.js Module System
+
+- Each file is treated as a separate module
+- CommonJS modules (`require`, `module.exports`)
+- ES Modules (`import`, `export`) — browser-focused
+- Node.js typically uses CommonJS (as of now)
+
+---
+
+### 2. ❓ Where Does `require` Come From?
+
+- `require` is **not** a native JavaScript function
+- Provided by Node.js behind the scenes
+- Each module gets access to:
+  - `require`
+  - `exports`
+  - `module`
+  - `__filename`
+  - `__dirname`
+
+---
+
+### 3. ⚙️ Steps Behind the `require()` Function
+
+1. **Resolve Path to Module**
+
+   - Core modules (e.g., `http`)
+   - Developer modules (relative paths: `./`, `../`)
+   - NPM packages (in `node_modules`)
+
+2. **Load File**
+
+   - Looks for the exact file
+   - Falls back to `index.js` if a folder is provided
+
+3. **Wrap Code**
+
+   - Node wraps module code in an IIFE:
+
+     ```js
+     (function (exports, require, module, __filename, __dirname) {
+       // Your module code
+     });
+
+     // require: function to require modules
+     // module: reference to the current module          // exports: a reference to module.exports,             used to export object from a module
+     //__filename: absolute path of the current            module's life
+     // __dirname: directory name of the current            module.
+     ```
+
+   - Allows scope isolation and access to Node helpers
+
+4. **Execute Code**
+
+   - Code inside the wrapper is executed
+
+5. **Export Values**
+
+   - Use `module.exports` or `exports` to define what gets returned by `require`
+
+6. **Cache Module**
+
+   - Modules are cached after first load
+   - Subsequent `require()` calls return the cached result
+
+---
+
+### 4. 📤 Exporting from a Module
+
+- `module.exports = value`: export a single value (function, class, object)
+- `exports.prop = value`: export multiple named properties
+
+---
+
+### 5. 🧠 Why Wrapping Matters
+
+- Scope isolation: avoids global variable collisions
+- Enables helpful tools (`require`, `__dirname`, etc.)
+
+---
+
+### 6. 💡 Summary
+
+- Modules in Node are isolated and cached
+- CommonJS is the de facto module system
+- Understanding the internals helps avoid confusion and bugs
