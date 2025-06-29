@@ -39,6 +39,10 @@ class SinglyLinkedList:
         # if the list is empty => return None
         if (not self.head): 
             return None
+        
+        # if (self.head == self.tail):
+        #     self.head = None
+        #     self.tail = None
 
         current = self.head
         new_tail = current
