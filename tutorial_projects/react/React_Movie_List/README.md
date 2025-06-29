@@ -14,7 +14,7 @@ This project is a movie list application built with React. This project was crea
 
 ## Demo
 
-[Live Demo](YOUR_DEMO_LINK_HERE)
+[Live Demo]()
 
 ## Installation
 
