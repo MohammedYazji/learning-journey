@@ -254,6 +254,21 @@ class DoublyLinkedList {
     }
   }
 
+  // to check if the linked list tail refer to the head
+  // without using tail (harder)
+  isPerfectlyCircular(self) {
+    if (!this.head) {
+      return false;
+    }
+
+    let current = this.head.next;
+    while (current && current != this.head) {
+      current = current.next;
+    }
+
+    return current == this.head;
+  }
+
   // print
   print() {
     let res = "";
@@ -275,3 +290,4 @@ list.push(10).push(20).push(30);
 list.print();
 list.remove(1);
 list.print();
+console.log(list.isPerfectlyCircular());

@@ -240,6 +240,21 @@ class SinglyLinkedList {
     return this;
   }
 
+  // to check if the linked list tail refer to the head
+  // without using tail (harder)
+  isPerfectlyCircular(self) {
+    if (!this.head) {
+      return false;
+    }
+
+    let current = this.head.next;
+    while (current && current != this.head) {
+      current = current.next;
+    }
+
+    return current == this.head;
+  }
+
   // print
   print() {
     let res = "";

@@ -227,6 +227,19 @@ class CircularSinglyLinkedList:
 
         return self
 
+    # to check if the linked list tail refer to the head
+    # without using tail (harder)
+    def is_perfectly_circular(self):
+        if not self.head:
+            return False
+        
+        current = self.head.next
+        while current and current != self.head:
+            current = current.next
+
+        if current == self.head:
+            return True
+
     # traversing
     def __str__(self):
         if not self.head:

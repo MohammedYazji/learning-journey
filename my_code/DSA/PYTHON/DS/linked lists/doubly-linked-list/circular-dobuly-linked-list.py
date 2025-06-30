@@ -223,6 +223,19 @@ class DoublyLinkedList:
             self.length -= 1
             return removed_node
 
+    # to check if the linked list tail refer to the head
+    # without using tail (harder)
+    def is_perfectly_circular(self):
+        if not self.head:
+            return False
+        
+        current = self.head.next
+        while current and current != self.head:
+            current = current.next
+
+        if current == self.head:
+            return True
+        
     # Traversing
     def __str__(self):
         if not self.head:
@@ -242,3 +255,4 @@ l.push(10).push(20).push(30)
 print(l)  # Output: 10 20 30 
 l.remove(2)
 print(l)  # Output: 10 20
+print(l.is_perfectly_circular())
