@@ -227,6 +227,7 @@ class CircularSinglyLinkedList:
 
         return self
 
+    # traversing
     def __str__(self):
         if not self.head:
             return ''

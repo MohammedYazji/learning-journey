@@ -223,6 +223,7 @@ class DoublyLinkedList:
             self.length -= 1
             return removed_node
 
+    # Traversing
     def __str__(self):
         if not self.head:
             return ''
