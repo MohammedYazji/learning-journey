@@ -6,7 +6,7 @@ class Node:
 # beginning => head
 # length
 # the tail of the list => None
-class SinglyLinkedList:
+class CircularSinglyLinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
@@ -19,16 +19,20 @@ class SinglyLinkedList:
 
         # if there's no head => empty list, length = 0
         # so set the head and tail to be the new Node
+        # and set the tail next to point to the head
         if(not self.head):
             self.head = new_node
             self.tail = new_node
+            self.tail.next = self.head
         
         # else if not empty
         # make the tail point on the new node {the previous tail}
         # then set the tail to be the new node
+        # and set the tail to point to the head
         else:
             self.tail.next = new_node
             self.tail = new_node
+            self.tail.next = self.head
         
         # then always increment the length by one
         self.length += 1
@@ -40,29 +44,31 @@ class SinglyLinkedList:
         if (not self.head): 
             return None
         
-        # if (self.head == self.tail):
-        #     self.head = None
-        #     self.tail = None
+        # if only one node
+        if self.head == self.tail:
+            # store it to return after removing
+            value = self.head.val
+            self.head = None
+            self.tail = None
+            self.length -= 1
+            return value
 
+        # more than one node
         current = self.head
         new_tail = current
         # else loop until reach the tail
-        while(current.next):
+        while current.next != self.head:
             new_tail = current
             current = current.next
 
+        value = current.val
         # and set the tail to be the second last node
         self.tail = new_tail
-        # then set the next of the second last node => None
-        self.tail.next = None
+        # then set the next of the second last node => head
+        self.tail.next = self.head
         self.length -= 1
 
-        # if the list is empty again => set the initial values
-        if self.length == 0:
-            self.head = None
-            self.tail = None
-
-        return current.val
+        return value
         
     # shifting => remove the head
     def shift(self):
@@ -72,15 +78,19 @@ class SinglyLinkedList:
         
         # else store the current head in a variable to return it
         current_head = self.head
-        # set the head to be the current head's next property
-        self.head = self.head.next
+
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+        
+        else:
+            # set the head to be the current head's next property
+            self.head = self.head.next
+            # Update tail.next to point to new head to maintain circularity
+            self.tail.next = self.head
+
         # decrement the length
         self.length -= 1
-
-        # check if its empty now so set the tail by None
-        if self.length == 0:
-            self.tail = None
-
         # return the head after remove it
         return current_head.val
 
@@ -89,17 +99,19 @@ class SinglyLinkedList:
         # make a new node
         new_node = Node(val)
 
-        # if it's empty create a node and set the head, tail to be this new node
-        if(not self.head):
+        if not self.head:
+            # List is empty — new node becomes head and tail
             self.head = new_node
             self.tail = self.head
+            self.tail.next = self.head
         
-        # just run it if it's not empty so put it in else to not run it always
+        # Insert at beginning and update circular link
         else:
             # set this new node next point to the old head
             new_node.next = self.head
             # then set the head to be this new node
             self.head = new_node
+            self.tail.next = self.head
 
         # Always Do THis
         # increment the length
@@ -187,17 +199,15 @@ class SinglyLinkedList:
 
     #  reverse a list
     def reverse(self):
-        #  set the current (as temp variable) to be the head
-        current = self.head
-        # set the head to be the tail
-        self.head = self.tail
-        # and set the tail to be the current (old_head)
-        self.tail = current
-        # previous as null to make the first node point to the None
-        # make it the last node
-        prev = None
 
-        while(current):
+        if not self.head or self.head.next == self.head:
+            return self
+
+        # Start from tail to make circular link work
+        prev = self.tail  
+        current = self.head
+
+        while True:
             # in each loop store the next node to not lost the rest of the list
             next_node = current.next
             # then set the current to point to the previous node
@@ -207,18 +217,31 @@ class SinglyLinkedList:
             # and move the current to the next node, which we stored it before
             # to process the next one
             current = next_node
+
+            # Once we loop back to the original head, we’re done
+            if current == self.head:
+                break
+
+        # swap head and tail
+        self.head, self.tail = self.tail, self.head
+
         return self
 
     def __str__(self):
+        if not self.head:
+            return ''
+
         res = ''
         current = self.head
-        while current:
+        while True:
             res += str(current.val) + ' '
             current = current.next
+            if current == self.head:
+                break
         return res
 
 
-linked_list = SinglyLinkedList()
+linked_list = CircularSinglyLinkedList()
 linked_list.push(10).push(20).push(30).push(40).push(50)
 print(linked_list)
 print('=' * 5)
