@@ -25,6 +25,26 @@ const writeFilePro = (file, data) => {
   });
 };
 
+const getDogPic = async () => {
+  try {
+    // we can await the promise until finish execution
+    const data = await readFilePro(`${__dirname}/dog.txt`);
+    console.log(`Breed: ${data}`);
+
+    const res = await superagent.get(
+      `https://dog.ceo/api/breed/${data}/images/random`
+    );
+    console.log(res.body.message);
+
+    await writeFilePro(`dog-img.txt`, res.body.message);
+    console.log('Random dog image saved to file!');
+  } catch (err) {
+    console.log(err);
+  }
+};
+getDogPic();
+
+/*
 // chaining functions return promises
 readFilePro(`${__dirname}/dog.txt`)
   .then((data) => {
@@ -43,3 +63,4 @@ readFilePro(`${__dirname}/dog.txt`)
     console.log('Random dog image saved to file!');
   })
   .catch((err) => console.log(err));
+*/
