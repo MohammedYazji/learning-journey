@@ -95,6 +95,22 @@ app.patch('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+// Delete a Tour
+app.delete('/api/v1/tours/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  // 204 for delete so item no longer exist
+  res.status(204).json({
+    status: 'success',
+    data: null, // no content
+  });
+});
+
 // running the server //
 // to start our server
 const port = 3000;
