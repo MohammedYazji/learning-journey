@@ -15,17 +15,15 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-// to get all tours
-app.get('/api/v1/tours', (req, res) => {
+const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     results: tours.length,
     data: { tours },
   });
-});
+};
 
-// to create a new tour
-app.post('/api/v1/tours', (req, res) => {
+const createTour = (req, res) => {
   // When the client sends a POST request, it includes data in the request body.
   // By default, Node.js does NOT parse incoming JSON data.
   // That's why we need a middleware (express.json()) to parse it and attach it to req.body.
@@ -52,10 +50,9 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
 
-// get a tour
-app.get('/api/v1/tours/:id', (req, res) => {
+const getTour = (req, res) => {
   // console.log(req.params);
   // type coercion 🩷 [must convert from string to a number]
   const id = req.params.id * 1;
@@ -75,11 +72,9 @@ app.get('/api/v1/tours/:id', (req, res) => {
       tour,
     },
   });
-});
+};
 
-// PUT => update the entire object, while
-// PATCH => update a property within the object
-app.patch('/api/v1/tours/:id', (req, res) => {
+const updateTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(500).json({
       status: 'fail',
@@ -93,10 +88,9 @@ app.patch('/api/v1/tours/:id', (req, res) => {
       tour: '<Updated tour here...>',
     },
   });
-});
+};
 
-// Delete a Tour
-app.delete('/api/v1/tours/:id', (req, res) => {
+const deleteTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(500).json({
       status: 'fail',
@@ -109,7 +103,22 @@ app.delete('/api/v1/tours/:id', (req, res) => {
     status: 'success',
     data: null, // no content
   });
-});
+};
+
+app.get('/api/v1/tours', getAllTours);
+app.post('/api/v1/tours', createTour);
+app.get('/api/v1/tours/:id', getTour);
+app.patch('/api/v1/tours/:id', updateTour);
+app.delete('/api/v1/tours/:id', deleteTour);
+
+// define the base route just once
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
+
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 // running the server //
 // to start our server
