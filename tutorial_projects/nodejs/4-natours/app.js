@@ -54,6 +54,29 @@ app.post('/api/v1/tours', (req, res) => {
   );
 });
 
+// get a tour
+app.get('/api/v1/tours/:id', (req, res) => {
+  // console.log(req.params);
+  // type coercion 🩷 [must convert from string to a number]
+  const id = req.params.id * 1;
+  const tour = tours.find((el) => el.id === id);
+
+  // if (id > tours.length) {
+  if (!tour) {
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
+});
+
 // running the server //
 // to start our server
 const port = 3000;
