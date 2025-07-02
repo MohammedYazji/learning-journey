@@ -8,6 +8,20 @@ const app = express();
 // we call it middleware because its between the req and the res
 app.use(express.json());
 
+// create our middleware
+// app.use => add the middleware to the middleware stack
+// this middleware run for each request came after this declaration because we didn't specify any route yet [order matter in nodejs]
+app.use((req, res, next) => {
+  console.log('Hello from the middleware 👋');
+  // must use next to not stuck in the request - response cycle
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 // read it sync because we need the data before continue the app
 // top level code just execute once when the app run
 // we use JSON.parse to convert json to normal JS
@@ -16,8 +30,10 @@ const tours = JSON.parse(
 );
 
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     results: tours.length,
     data: { tours },
   });
@@ -114,6 +130,7 @@ app.delete('/api/v1/tours/:id', deleteTour);
 // define the base route just once
 app.route('/api/v1/tours').get(getAllTours).post(createTour);
 
+// .route also is a middleware but for a specific route
 app
   .route('/api/v1/tours/:id')
   .get(getTour)
