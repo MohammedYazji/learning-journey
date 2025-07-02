@@ -1,8 +1,14 @@
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 
 // express is function so when call it will add many methods to app
 const app = express();
+
+// 1. Middlewares
+
+// use 3rd Party [logging to console the req information]
+app.use(morgan('dev'));
 
 // express.json is a middleware: function can modify the incoming request data
 // we call it middleware because its between the req and the res
@@ -29,6 +35,7 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
+// 2. Routes Handler
 const getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
@@ -38,7 +45,6 @@ const getAllTours = (req, res) => {
     data: { tours },
   });
 };
-
 const createTour = (req, res) => {
   // When the client sends a POST request, it includes data in the request body.
   // By default, Node.js does NOT parse incoming JSON data.
@@ -67,7 +73,6 @@ const createTour = (req, res) => {
     }
   );
 };
-
 const getTour = (req, res) => {
   // console.log(req.params);
   // type coercion 🩷 [must convert from string to a number]
@@ -89,7 +94,6 @@ const getTour = (req, res) => {
     },
   });
 };
-
 const updateTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(500).json({
@@ -105,7 +109,6 @@ const updateTour = (req, res) => {
     },
   });
 };
-
 const deleteTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(500).json({
@@ -121,15 +124,16 @@ const deleteTour = (req, res) => {
   });
 };
 
-app.get('/api/v1/tours', getAllTours);
-app.post('/api/v1/tours', createTour);
-app.get('/api/v1/tours/:id', getTour);
-app.patch('/api/v1/tours/:id', updateTour);
-app.delete('/api/v1/tours/:id', deleteTour);
+// app.get('/api/v1/tours', getAllTours);
+// app.post('/api/v1/tours', createTour);
+// app.get('/api/v1/tours/:id', getTour);
+// app.patch('/api/v1/tours/:id', updateTour);
+// app.delete('/api/v1/tours/:id', deleteTour);
+
+// 3. Routes
 
 // define the base route just once
 app.route('/api/v1/tours').get(getAllTours).post(createTour);
-
 // .route also is a middleware but for a specific route
 app
   .route('/api/v1/tours/:id')
@@ -137,8 +141,7 @@ app
   .patch(updateTour)
   .delete(deleteTour);
 
-// running the server //
-// to start our server
+// 4. Start our server
 const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
