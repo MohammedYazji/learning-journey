@@ -77,6 +77,24 @@ app.get('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+// PUT => update the entire object, while
+// PATCH => update a property within the object
+app.patch('/api/v1/tours/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated tour here...>',
+    },
+  });
+});
+
 // running the server //
 // to start our server
 const port = 3000;
