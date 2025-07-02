@@ -160,23 +160,20 @@ const deleteUser = (req, res) => {
 
 // 3. Routes
 
-// define the base route just once
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
-// .route also is a middleware but for a specific route
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
+// make router for each type instead the general router app
+const tourRouter = express.Router();
+const userRouter = express.Router();
 
-// users routes
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
+tourRouter.route('/').get(getAllTours).post(createTour);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
 
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+
+// mounting routes
+// here we specify tourRouter as middleware for this specific route only
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 // 4. Start our server
 const port = 3000;
