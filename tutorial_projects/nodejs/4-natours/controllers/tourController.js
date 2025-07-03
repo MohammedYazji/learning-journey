@@ -20,6 +20,17 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+// check body middleware [just for post method]
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Missing name or price',
+    });
+  }
+  next();
+};
+
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
@@ -39,7 +50,7 @@ exports.createTour = (req, res) => {
   tours.push(newTour);
   // because we are in a callback function use async methods
   fs.writeFile(
-    `${__dirname}/dev-data/data/tours-simple.json`,
+    `${__dirname}/../dev-data/data/tours-simple.json`,
     JSON.stringify(tours),
     (err) => {
       if (err) {

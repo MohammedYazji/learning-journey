@@ -1,6 +1,7 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
 const checkID = require('./../controllers/tourController');
+const checkBody = require('./../controllers/tourController');
 
 // this router is kind of sub-application for tours resource
 const router = express.Router();
@@ -13,7 +14,7 @@ router.param('id', tourController.checkID);
 router
   .route('/')
   .get(tourController.getAllTours)
-  .post(tourController.createTour);
+  .post(tourController.checkBody, tourController.createTour);
 
 router
   .route('/:id')
