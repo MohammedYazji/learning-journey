@@ -16,6 +16,10 @@ app.use(morgan('dev'));
 // we call it middleware because its between the req and the res
 app.use(express.json());
 
+// serving static files [just for knowing don't use it]
+// here we serve public folder
+app.use(express.static(`${__dirname}/public`));
+
 // create our middleware
 // app.use => add the middleware to the middleware stack
 // this middleware run for each request came after this declaration because we didn't specify any route yet [order matter in nodejs]
