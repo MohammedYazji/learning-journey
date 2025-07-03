@@ -7,9 +7,11 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start:prod": "set NODE_ENV=production && nodemon server.js"
   },
   "dependencies": {
+    "dotenv": "^17.0.1",
     "express": "^4.21.2",
     "morgan": "^1.10.0"
   }
