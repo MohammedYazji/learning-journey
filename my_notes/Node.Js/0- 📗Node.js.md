@@ -14,10 +14,10 @@ Click on any topic below to jump to the notes:
 - [Intro to Backend Web Development](./notes/Intro%20to%20Backend%20Web%20Development/Intro%20to%20backend.md)
 - [How Node.js Works Behind the Scenes](./notes/Node%20behind%20the%20Scenes/Behind%20The%20Scenes.md)
 - [Asynchronous JavaScript: Promises, async/await](./notes/async%20JS/async%20JS.md)
+- [Express.js Basics](./notes/express/express%20js.md)
 
   ==in progress==
 
-- [Express.js Basics]
 - [Intro to MongoDB]
 - [Using MongoDB with Mongoose]
 - [Modeling Data & Advanced Mongoose]
