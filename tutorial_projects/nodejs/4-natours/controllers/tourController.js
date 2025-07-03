@@ -4,7 +4,22 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
-// put all these methods in exports object
+// make param middleware function
+exports.checkID = (req, res, next, val) => {
+  if (val > tours.length) {
+    // must return to not send multiple response
+    // so if I make request in tours routes and have id param, so if the id invalid => not run next() and implement the other controllers and send another response
+    // for example I make request to getTour so if the id invalid so just send this response and not run next() to run the getTour controller function and send another one
+    // multiple responses ❌
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+  // will not run 👍
+  next();
+};
+
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
@@ -48,14 +63,6 @@ exports.getTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((el) => el.id === id);
 
-  // if (id > tours.length) {
-  if (!tour) {
-    return res.status(500).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -64,13 +71,6 @@ exports.getTour = (req, res) => {
   });
 };
 exports.updateTour = (req, res) => {
-  if (req.params.id * 1 > tours.length) {
-    return res.status(500).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -79,13 +79,6 @@ exports.updateTour = (req, res) => {
   });
 };
 exports.deleteTour = (req, res) => {
-  if (req.params.id * 1 > tours.length) {
-    return res.status(500).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
-
   // 204 for delete so item no longer exist
   res.status(204).json({
     status: 'success',
