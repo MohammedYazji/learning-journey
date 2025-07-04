@@ -1,10 +1,26 @@
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const app = require('./app');
+
 // we use config to declare where the config file that include all variables is
 // so this will read the variable from the file, then save them into nodejs environment variables
 dotenv.config({ path: './config.env' });
 
-// must require it after set the config not before, so in app.js when i use environment variables will be declared before
-const app = require('./app');
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD,
+);
+
+// this return a promise
+mongoose
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log('DB connection successful!');
+  });
 
 // to see all the environment variables
 // console.log(process.env);
