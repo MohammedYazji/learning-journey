@@ -13,6 +13,10 @@ class Stack {
     this.size = 0;
   }
 
+  peek() {
+    return this.first;
+  }
+
   // add to the first of the list
   // its unshift but I called it push
   // to be O(1), while real push take O(n)

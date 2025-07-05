@@ -8,6 +8,9 @@ class Stack:
         self.first = None
         self.last = None
         self.size = 0
+
+    def peek(self):
+        return self.first
     
     # add to the first of the list
     # its unshift but I called it push
