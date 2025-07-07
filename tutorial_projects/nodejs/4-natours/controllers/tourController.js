@@ -9,13 +9,29 @@ exports.getAllTours = (req, res) => {
     //   data: { tours },
   });
 };
-exports.createTour = (req, res) => {
-  res.status(201).json({
-    status: 'success',
-    // data: {
-    //   tour: newTour,
-    // },
-  });
+exports.createTour = async (req, res) => {
+  try {
+    // 1. First Way
+    // const newTour = new Tour({pass the new tour data here});
+    // newTour.save();
+
+    // 2. Another Way (create it and save it immediately)
+    // also return a promise
+    const newTour = await Tour.create(req.body);
+
+    res.status(201).json({
+      status: 'success',
+      data: {
+        tour: newTour,
+      },
+    });
+  } catch (err) {
+    // bad request
+    res.status(400).json({
+      status: 'fail',
+      message: 'Invalid data sent!',
+    });
+  }
 };
 exports.getTour = (req, res) => {
   // console.log(req.params);
