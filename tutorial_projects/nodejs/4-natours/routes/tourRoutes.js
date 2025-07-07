@@ -6,11 +6,6 @@ const checkBody = require('./../controllers/tourController');
 // this router is kind of sub-application for tours resource
 const router = express.Router();
 
-// param middleware
-// like app.use but here take another parameter value
-// and this middleware now only for tour routes because we use it with this router
-router.param('id', tourController.checkID);
-
 router
   .route('/')
   .get(tourController.getAllTours)
