@@ -3,7 +3,7 @@ const Tour = require('../models/tourModel');
 exports.getAllTours = async (req, res) => {
   try {
     console.log(req.query);
-    // A) BASIC FILTERING
+    // 1A) BASIC FILTERING
     // make a shallow copy as a new object
     const queryObj = { ...req.query };
     // make an array to remove all these from query if exist
@@ -12,7 +12,7 @@ exports.getAllTours = async (req, res) => {
 
     // console.log(req.query, queryObj);
 
-    // B) ADVANCED FILTERING
+    // 1B) ADVANCED FILTERING
     // What I did in mongo was
     // {difficulty: 'easy', {duration: {$gte: 5}}}
     // but the query in request will came as
@@ -25,21 +25,37 @@ exports.getAllTours = async (req, res) => {
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
     queryStr = JSON.parse(queryStr);
     console.log(queryStr);
+
+    // 3c. Or FIRST BUILD THE QUERY WITHOUT AWAIT
+    let query = Tour.find(queryStr);
+
+    // 2.) SORTING
+    // if there is sort property in the query
+    if (req.query.sort) {
+      // so to remove the , and replace it with a space so convert it to array then make it string again with ' '
+      const sortBy = req.query.sort.split(',').join(' ');
+      console.log(sortBy);
+      // here we must before build the query then execute it becaause we need to access the query methods like sort
+      query = query.sort(sortBy);
+      // add another creteria to sort if the price is the same in two document
+      // query.sort('price, ratingsAverage')
+    } else {
+      // default sorting if there is not sort query
+      query = query.sort('-createdAt');
+    }
+
+    // then EXECUTE THE QUERY TO GET THE DOCUMENTS
+    const tours = await query;
     ////////////////////////////////////////////
-    // 1. First Way
+    // 1c. First Way
     // const tours = await Tour.find(queryObj);
 
-    // 2. Another Way:
+    // 2c. Another Way:
     // const tours = await Tour.find()
     //   .where('duration')
     //   .equals(5)
     //   .where('difficulty')
     //   .equals('easy');
-
-    // 3. Or FIRST BUILD THE QUERY WITHOUT AWAIT
-    const query = Tour.find(queryStr);
-    // then EXECUTE THE QUERY TO GET THE DOCUMENTS
-    const tours = await query;
 
     // SEND A RESPONSE
     res.status(200).json({
