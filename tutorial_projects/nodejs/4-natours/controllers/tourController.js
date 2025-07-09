@@ -2,14 +2,30 @@ const Tour = require('../models/tourModel');
 
 exports.getAllTours = async (req, res) => {
   try {
+    console.log(req.query);
+    // A) BASIC FILTERING
     // make a shallow copy as a new object
     const queryObj = { ...req.query };
     // make an array to remove all these from query if exist
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
     excludeFields.forEach((el) => delete queryObj[el]);
 
-    console.log(req.query, queryObj);
+    // console.log(req.query, queryObj);
 
+    // B) ADVANCED FILTERING
+    // What I did in mongo was
+    // {difficulty: 'easy', {duration: {$gte: 5}}}
+    // but the query in request will came as
+    // {difficulty: 'easy', {duration: {gte: '5'}}}
+    // so we need to add the $, before gt, gte, lt, lte
+    let queryStr = JSON.stringify(queryObj);
+    // using regular expression
+    // \b to search exactly on these characters
+    // g flag to replace many of them is exist not just one
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    queryStr = JSON.parse(queryStr);
+    console.log(queryStr);
+    ////////////////////////////////////////////
     // 1. First Way
     // const tours = await Tour.find(queryObj);
 
@@ -21,10 +37,11 @@ exports.getAllTours = async (req, res) => {
     //   .equals('easy');
 
     // 3. Or FIRST BUILD THE QUERY WITHOUT AWAIT
-    const query = Tour.find(queryObj);
+    const query = Tour.find(queryStr);
     // then EXECUTE THE QUERY TO GET THE DOCUMENTS
     const tours = await query;
 
+    // SEND A RESPONSE
     res.status(200).json({
       status: 'success',
       results: tours.length,
