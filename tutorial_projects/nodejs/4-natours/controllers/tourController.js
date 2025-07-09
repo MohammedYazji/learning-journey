@@ -2,7 +2,28 @@ const Tour = require('../models/tourModel');
 
 exports.getAllTours = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    // make a shallow copy as a new object
+    const queryObj = { ...req.query };
+    // make an array to remove all these from query if exist
+    const excludeFields = ['page', 'sort', 'limit', 'fields'];
+    excludeFields.forEach((el) => delete queryObj[el]);
+
+    console.log(req.query, queryObj);
+
+    // 1. First Way
+    // const tours = await Tour.find(queryObj);
+
+    // 2. Another Way:
+    // const tours = await Tour.find()
+    //   .where('duration')
+    //   .equals(5)
+    //   .where('difficulty')
+    //   .equals('easy');
+
+    // 3. Or FIRST BUILD THE QUERY WITHOUT AWAIT
+    const query = Tour.find(queryObj);
+    // then EXECUTE THE QUERY TO GET THE DOCUMENTS
+    const tours = await query;
 
     res.status(200).json({
       status: 'success',
