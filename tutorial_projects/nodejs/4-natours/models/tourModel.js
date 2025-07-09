@@ -50,6 +50,7 @@ const tourSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
+    select: false, // if we dont to send it to the client like select(-createdAt)
   },
   startDates: [Date], // specify array of Dates
   // "2021-03-21" mongo will parse it as a date

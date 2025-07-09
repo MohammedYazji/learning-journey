@@ -26,7 +26,6 @@ exports.getAllTours = async (req, res) => {
     queryStr = JSON.parse(queryStr);
     console.log(queryStr);
 
-    // 3c. Or FIRST BUILD THE QUERY WITHOUT AWAIT
     let query = Tour.find(queryStr);
 
     // 2.) SORTING
@@ -42,6 +41,18 @@ exports.getAllTours = async (req, res) => {
     } else {
       // default sorting if there is not sort query
       query = query.sort('-createdAt');
+    }
+
+    // 3) FIELD LIMITING
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      // must change from , to ' ' to pass to select method
+      query = query.select(fields);
+      // query.select('name duration price')
+    } else {
+      // if there is no specific fields want to return
+      // remove __v from the documents by use - => exclude them
+      query = query.select('-__v');
     }
 
     // then EXECUTE THE QUERY TO GET THE DOCUMENTS
