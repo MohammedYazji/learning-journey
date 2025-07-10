@@ -295,7 +295,7 @@ console.log("10" - "4" - "3" - 2 + "5"); // 10 - 4 - 3 - 2 = 1 + '5' = '15'
 */
 ////////////////////////////////////
 // Truthy and Falsy Values //
-
+/*
 // 5 falsy values: 0, '', undefined, null, NaN
 console.log(Boolean(0)); // false
 console.log(Boolean(undefined)); // false
@@ -313,3 +313,35 @@ else console.log("You should get a job!");
 let height;
 if (height) console.log("YAY! Height is defined");
 console.log("Height is UNDEFINED");
+*/
+////////////////////////////////////
+// Equality Operators == Vs. === //
+
+const age = "18";
+// Compare both type and value
+// Best Practice 👍
+if (age === 18) console.log("You just became an adult :D (strict)");
+
+// Compare just the value, because it makes type coercion automatically. Don't use it ❌
+if (age == 18) console.log("You just became an adult :D (loose)");
+
+///////
+
+// prompt receive a string
+const favorite = Number(prompt("What's your favorite number?"));
+console.log(favorite);
+console.log(typeof favorite); // string
+
+// need to make type conversion before use strict equality
+if (favorite === 15) {
+  // 15 === '15' -> FALSE
+  console.log("Cool! 15 is an amzaing number!");
+} else if (favorite === 7) {
+  console.log("7 is also a cool number");
+} else if (favorite === 9) {
+  console.log("9 is also a cool number");
+} else {
+  console.log("Number is not 15 or 7 or 9");
+}
+
+if (favorite !== 15) console.log("Why not 15?");
