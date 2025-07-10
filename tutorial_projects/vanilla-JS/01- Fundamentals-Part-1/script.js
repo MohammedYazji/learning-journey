@@ -380,7 +380,7 @@ TEST DATA BONUS 2: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
 
 GOOD LUCK 😀
 */
-
+/*
 const scoreDolphins = (97 + 112 + 101) / 3;
 const scoreKoalas = (109 + 95 + 106) / 3;
 console.log(scoreDolphins, scoreKoalas);
@@ -396,4 +396,50 @@ if (scoreDolphins > scoreKoalas && scoreDolphins >= 100) {
   console.log("Both win the trophy!");
 } else {
   console.log("No one wins the trophy");
+}
+*/
+////////////////////////////////////
+// The switch Statement //
+
+const day = "monday";
+
+// perfect if we have multiple options for the same variable
+// Don't Forget break Statement
+switch (day) {
+  case "monday": // if (day === 'monday')
+    console.log("Plan course structure");
+    console.log("Go to coding meetup");
+    break;
+  case "tuesday": // else if (day === 'tuesday')
+    console.log("Prepare theory videos");
+    break;
+  case "wednesday": // else if (day === 'wednesday' || day === 'thursday' )
+  case "thursday":
+    console.log("Write code examples");
+    break;
+  case "friday":
+    console.log("Record videos");
+    break;
+  case "saturday":
+  case "sunday":
+    console.log("Enjoy the weekend :D");
+    break;
+  default: // else
+    // here we will not need the break because its the last one
+    console.log("Not a valid day!");
+}
+
+if (day === "monday") {
+  console.log("Plan course structure");
+  console.log("Go to coding meetup");
+} else if (day === "tuesday") {
+  console.log("Prepare theory videos");
+} else if (day === "wednesday" || day === "thursday") {
+  console.log("Write code examples");
+} else if (day === "friday") {
+  console.log("Record videos");
+} else if (day === "saturday" || day === "sunday") {
+  console.log("Enjoy the weekend :D");
+} else {
+  console.log("Not a valid day!");
 }
