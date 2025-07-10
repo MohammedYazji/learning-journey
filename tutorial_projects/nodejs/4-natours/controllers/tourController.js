@@ -1,4 +1,5 @@
 const Tour = require('../models/tourModel');
+const APIFeatures = require('../utils/apiFeatures');
 
 // middleware for '/top-5-cheap'
 // 5 best and cheapest tours
@@ -12,81 +13,16 @@ exports.aliasTopTours = (req, res, next) => {
 
 exports.getAllTours = async (req, res) => {
   try {
-    console.log(req.query);
-    // 1A) BASIC FILTERING
-    // make a shallow copy as a new object
-    const queryObj = { ...req.query };
-    // make an array to remove all these from query if exist
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach((el) => delete queryObj[el]);
-
-    // console.log(req.query, queryObj);
-
-    // 1B) ADVANCED FILTERING
-    // What I did in mongo was
-    // {difficulty: 'easy', {duration: {$gte: 5}}}
-    // but the query in request will came as
-    // {difficulty: 'easy', {duration: {gte: '5'}}}
-    // so we need to add the $, before gt, gte, lt, lte
-    let queryStr = JSON.stringify(queryObj);
-    // using regular expression
-    // \b to search exactly on these characters
-    // g flag to replace many of them is exist not just one
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    queryStr = JSON.parse(queryStr);
-    console.log(queryStr);
-
-    let query = Tour.find(queryStr);
-
-    // 2.) SORTING
-    // if there is sort property in the query
-    if (req.query.sort) {
-      // so to remove the , and replace it with a space so convert it to array then make it string again with ' '
-      const sortBy = req.query.sort.split(',').join(' ');
-      console.log(sortBy);
-      // here we must before build the query then execute it becaause we need to access the query methods like sort
-      query = query.sort(sortBy);
-      // add another creteria to sort if the price is the same in two document
-      // query.sort('price, ratingsAverage')
-    } else {
-      // default sorting if there is not sort query
-      query = query.sort('-createdAt');
-    }
-
-    // 3) FIELD LIMITING
-    if (req.query.fields) {
-      const fields = req.query.fields.split(',').join(' ');
-      // must change from , to ' ' to pass to select method
-      query = query.select(fields);
-      // query.select('name duration price')
-    } else {
-      // if there is no specific fields want to return
-      // remove __v from the documents by use - => exclude them
-      query = query.select('-__v');
-    }
-
-    // 4) Pagination
-
-    // take the page from client or if not exist by default 1
-    const page = req.query.page * 1 || 1;
-    // take the limit from client or if not exist by default 100
-    const limit = req.query.limit * 1 || 100;
-    // to skip all documents before this page
-    const skip = (page - 1) * limit;
-
-    // page=2&limit=10 => 1-10 page1, 11-20 page2, 21-30 page3 ...
-    // so we need to skip 10 [The First page] (2 - 1) * 10
-    // and put limit as 10 documents in the second page
-    query = query.skip(skip).limit(limit);
-
-    if (req.query.page) {
-      const numTours = await Tour.countDocuments();
-      // if the skip is larger than the number of documents so throw error to then catch the error and send response fail
-      if (skip >= numTours) throw new Error('This Page does not exist');
-    }
-
     // then EXECUTE THE QUERY TO GET THE DOCUMENTS
-    const tours = await query;
+    // build
+    const features = new APIFeatures(Tour.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    // execute
+    const tours = await features.query;
 
     // SEND A RESPONSE
     res.status(200).json({
