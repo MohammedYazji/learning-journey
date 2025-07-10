@@ -316,7 +316,7 @@ console.log("Height is UNDEFINED");
 */
 ////////////////////////////////////
 // Equality Operators == Vs. === //
-
+/*
 const age = "18";
 // Compare both type and value
 // Best Practice 👍
@@ -345,3 +345,20 @@ if (favorite === 15) {
 }
 
 if (favorite !== 15) console.log("Why not 15?");
+*/
+////////////////////////////////////
+// Logical Operators //
+
+const hasDriversLicense = true;
+const hasGoodVision = true;
+const isTired = false;
+
+console.log(hasDriversLicense && hasGoodVision); // the two parts must be true
+console.log(hasDriversLicense || hasGoodVision); // just one enough to be true
+console.log(!hasDriversLicense); // invert the value
+
+if (hasDriversLicense && hasGoodVision && !isTired) {
+  console.log("Sarah is able to drive!");
+} else {
+  console.log("Someone else should drive...");
+}
