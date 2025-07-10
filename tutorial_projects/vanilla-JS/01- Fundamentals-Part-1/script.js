@@ -88,7 +88,7 @@ job = "Dentist";
 */
 ////////////////////////////////////
 // Basic Operators //
-
+/*
 // Math operators
 const now = 2025;
 const mohAge = now - 2003;
@@ -121,3 +121,21 @@ console.log(mohAge > yosifAge); // >, <, >=, <=
 console.log(yosifAge >= 18);
 
 const isFullAge = mohAge >= 18;
+*/
+////////////////////////////////////
+// Operator Precedence //
+
+const now = 2025;
+const mohAge = now - 2003;
+const yosifAge = now - 2010;
+
+// so here the precedence of - is stronger than >
+console.log(now - 2003 > now - 2010);
+
+// execute from left to right
+let x, y;
+x = y = 25 - 10 - 5; // x = y = (25 - 10) - 5 => 15 - 5 = 10 => y = 10 => x = y = 10
+console.log(x, y);
+
+// here parentheses has the highest priority
+const averageAge = (mohAge + yosifAge) / 2;
