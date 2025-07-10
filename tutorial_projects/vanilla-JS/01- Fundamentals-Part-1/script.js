@@ -36,7 +36,7 @@ let myCurrentJob = "Dentist";
 */
 ////////////////////////////////////
 // DATA TYPES //
-
+/*
 let javascriptIsFun = true;
 console.log(javascriptIsFun);
 
@@ -60,3 +60,28 @@ console.log(typeof year);
 
 // BUG IN JavaScript 🐛
 console.log(typeof null); // Object 😅
+*/
+////////////////////////////////////
+// LET, CONST, VAR //
+
+// Best Practice to Use Const always, if you don't need to change the value after this
+// Just use let when you sure that will change in the future
+
+// Can Change it Later
+let age = 21;
+age = 22;
+
+// Can't Change it later
+const birthYear = 2003;
+// birthYear = 2004; // Type Error
+
+// Also can not let it empty when declare
+// const job // Syntax Error
+
+// DON't USE IT ❌
+var job = "Programmer";
+job = "Dentist";
+
+// also can declare without Keyword ❌
+// lastName = "Yazji";
+// console.log(lastName);
