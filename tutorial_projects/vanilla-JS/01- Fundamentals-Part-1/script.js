@@ -175,7 +175,7 @@ console.log(BMIMark, BMIJohn, markHigherBMI);
 */
 ////////////////////////////////////
 // STRINGS AND TEMPLATE LITERALS //
-
+/*
 const firstName = "Mohammed";
 const job = "student";
 const birthYear = 2003;
@@ -183,7 +183,7 @@ const year = 2025;
 
 // Before ES6
 const mohammed =
-  "I'm " + firstName + ", a " + (year - birthYear) + " years old " + job + "!";
+"I'm " + firstName + ", a " + (year - birthYear) + " years old " + job + "!";
 console.log(mohammed);
 
 // After ES6
@@ -194,13 +194,35 @@ console.log(mohammedNew);
 // can also make multiple lines easily
 // Before ES6
 console.log(
-  "String with \n\
-multiple \n\
-lines"
-);
-// After ES6
-console.log(
-  `String with
-multiple
-lines`
-);
+    "String with \n\
+    multiple \n\
+    lines"
+    );
+    // After ES6
+    console.log(
+        `String with
+        multiple
+        lines`
+        );
+        */
+
+////////////////////////////////////
+// Taking Decisions if  else Statements //
+
+const age = 19;
+const isOldEnough = age >= 18;
+
+// Control the flow based on boolean value isOldEnough
+if (isOldEnough) console.log(`Sarah can start driving license 🚗`);
+else {
+  const yearsLeft = 18 - age;
+  console.log(`Sarah is too young. Wait another ${yearsLeft} years :)`);
+}
+
+const birthYear = 2003;
+let century;
+
+if (birthYear <= 2000) century = 20;
+else century = 21;
+
+console.log(century);
