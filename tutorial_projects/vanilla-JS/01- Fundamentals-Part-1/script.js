@@ -63,7 +63,7 @@ console.log(typeof null); // Object 😅
 */
 ////////////////////////////////////
 // LET, CONST, VAR //
-
+/*
 // Best Practice to Use Const always, if you don't need to change the value after this
 // Just use let when you sure that will change in the future
 
@@ -85,3 +85,39 @@ job = "Dentist";
 // also can declare without Keyword ❌
 // lastName = "Yazji";
 // console.log(lastName);
+*/
+////////////////////////////////////
+// Basic Operators //
+
+// Math operators
+const now = 2025;
+const mohAge = now - 2003;
+const yosifAge = now - 2010;
+
+console.log(mohAge, yosifAge);
+
+console.log(mohAge * 2);
+console.log(mohAge / 10);
+console.log(2 ** 3); // means 2 to the power of 3 => 2 * 2 * 2
+
+const firstName = "Mohammed";
+const lastName = "Yazji";
+// we can use + operator to concat strings
+console.log(firstName + " " + lastName);
+
+// Assignment operators
+let x = 10 + 5; // 15
+x += 10; // x = x + 10 = 25
+x *= 4; // x = x * 4 = 100
+
+let y = 10;
+console.log(y++); // print y before increment one => 10
+// Now Y = 11
+console.log(--y); // print y after decrement one => 10
+y--;
+
+// Comparison operators
+console.log(mohAge > yosifAge); // >, <, >=, <=
+console.log(yosifAge >= 18);
+
+const isFullAge = mohAge >= 18;
