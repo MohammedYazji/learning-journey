@@ -8,7 +8,7 @@ console.log(40 + 10 - 12);
 */
 ////////////////////////////////////
 // VALUES AND VARIABLES //
-
+/*
 console.log("Mohammed");
 
 // Store the data inside a box then access it everywhere
@@ -33,6 +33,30 @@ let myCurrentJob = "Dentist";
 // Instead of this.. ❌
 // let job1 = "Programmer";
 // let job2 = "Dentist";
-
+*/
 ////////////////////////////////////
-//  //
+// DATA TYPES //
+
+let javascriptIsFun = true;
+console.log(javascriptIsFun);
+
+// We Use typeof or typeof() to know the type of this value
+console.log("true =>", typeof true);
+console.log(javascriptIsFun, " =>", typeof javascriptIsFun);
+console.log("22 =>", typeof 22);
+console.log("mohammed =>", typeof "Mohammed");
+
+// JavaScript is Dynamic So we can change the data type of the variables if we declare them using let
+javascriptIsFun = "Yes!"; // From boolean, to String
+console.log(typeof javascriptIsFun);
+
+// Also if we use let when declare the variable so we can keep it empty => undefined, then initialize it [make it a value]
+let year;
+console.log(year);
+console.log(typeof year);
+
+year = 2024;
+console.log(typeof year);
+
+// BUG IN JavaScript 🐛
+console.log(typeof null); // Object 😅
