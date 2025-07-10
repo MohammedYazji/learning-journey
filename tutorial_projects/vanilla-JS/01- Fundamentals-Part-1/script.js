@@ -239,7 +239,7 @@ HINT: Use an if/else statement 😉
 
 GOOD LUCK 😀
 */
-
+/*
 // TEST 1
 const massMark = 78;
 const heightMark = 1.69;
@@ -261,3 +261,34 @@ if (BMIMark > BMIJohn) {
 } else {
   console.log(`John's BMI (${BMIJohn}) is higher than Marks's (${BMIMark})!`);
 }
+*/
+////////////////////////////////////
+// Type Conversion And Coercion //
+
+// 1. type conversion [Manually convert from type to another one] [Explicitly]
+
+const inputYear = "2003";
+console.log(Number(inputYear), inputYear);
+console.log(Number(inputYear) + 18);
+
+console.log(Number("Mohammed")); // NAN Can't convert to number
+console.log(typeof NaN); // Number 😅
+
+// from number to String
+console.log(String(23), 23);
+
+// 2. type coercion [JS automatically convert types behind the scene] [Implicitly]
+
+// from number to string +
+console.log("I am " + 22 + " years old");
+// but the other operators from string to numbers
+console.log("23" - "10" - 3); // 23 - 10 - 3 = 10
+console.log("23" / "2"); // 23 / 2 = 11.5
+
+// Example:
+let n = "1" + 1; // '11'
+n = n - 1; // 10
+console.log(n);
+
+console.log(2 + 3 + 4 + "5"); // 9 + '5' = '95'
+console.log("10" - "4" - "3" - 2 + "5"); // 10 - 4 - 3 - 2 = 1 + '5' = '15'
