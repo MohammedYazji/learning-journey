@@ -446,7 +446,7 @@ if (day === "monday") {
 */
 ////////////////////////////////////
 // Statements and Expressions //
-
+/*
 // expression => produce a value
 4 + 10;
 2003;
@@ -463,3 +463,27 @@ if (23 > 10) {
 // here cl is a statement
 // but we can write any expression in the curly brackets
 console.log(`My name is ${mohammed}`);
+*/
+////////////////////////////////////
+// The Conditional (Ternary) Operator //
+
+const age = 22;
+
+// age >= 18
+//   ? console.log("I like to drink apple juice 🥤")
+//   : console.log("I like to drink water 💧");
+
+// because its an operator so its produce a value [expression], so we can store it in a variable
+const drink = age >= 18 ? "apple juice 🥤" : "water 💧";
+console.log(drink);
+// also we can write it inside the curly brackets, because its an expression
+console.log(`I like to drink ${age >= 18 ? "apple juice 🥤" : "water 💧"}`);
+
+// using normal if statement
+let drink2;
+if (age >= 18) {
+  drink2 = "apple juice 🥤";
+} else {
+  drink2 = "water 💧";
+}
+console.log(drink2);
