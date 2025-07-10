@@ -154,7 +154,7 @@ TEST DATA 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1
 
 GOOD LUCK 😀
 */
-
+/*
 // TEST DATA 1
 const massMark = 78;
 const heightMark = 1.69;
@@ -172,3 +172,35 @@ const BMIJohn = massJohn / (heightJohn * heightJohn);
 const markHigherBMI = BMIMark > BMIJohn;
 
 console.log(BMIMark, BMIJohn, markHigherBMI);
+*/
+////////////////////////////////////
+// STRINGS AND TEMPLATE LITERALS //
+
+const firstName = "Mohammed";
+const job = "student";
+const birthYear = 2003;
+const year = 2025;
+
+// Before ES6
+const mohammed =
+  "I'm " + firstName + ", a " + (year - birthYear) + " years old " + job + "!";
+console.log(mohammed);
+
+// After ES6
+// we can add any expression inside the curly braces
+const mohammedNew = `I'm ${firstName}, a ${year - birthYear} years old ${job}!`;
+console.log(mohammedNew);
+
+// can also make multiple lines easily
+// Before ES6
+console.log(
+  "String with \n\
+multiple \n\
+lines"
+);
+// After ES6
+console.log(
+  `String with
+multiple
+lines`
+);
