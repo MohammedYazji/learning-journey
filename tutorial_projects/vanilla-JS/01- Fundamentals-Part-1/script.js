@@ -400,7 +400,7 @@ if (scoreDolphins > scoreKoalas && scoreDolphins >= 100) {
 */
 ////////////////////////////////////
 // The switch Statement //
-
+/*
 const day = "monday";
 
 // perfect if we have multiple options for the same variable
@@ -443,3 +443,23 @@ if (day === "monday") {
 } else {
   console.log("Not a valid day!");
 }
+*/
+////////////////////////////////////
+// Statements and Expressions //
+
+// expression => produce a value
+4 + 10;
+2003;
+true & !false;
+
+// statement => actions that perform actions
+
+// if statement don't produce a value
+if (23 > 10) {
+  const str = "23 is bigger.."; // here the string itself is expression => produce a value
+  // but the whole line is a statement
+}
+
+// here cl is a statement
+// but we can write any expression in the curly brackets
+console.log(`My name is ${mohammed}`);
