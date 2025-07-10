@@ -55,18 +55,28 @@ exports.getAllTours = async (req, res) => {
       query = query.select('-__v');
     }
 
+    // 4) Pagination
+
+    // take the page from client or if not exist by default 1
+    const page = req.query.page * 1 || 1;
+    // take the limit from client or if not exist by default 100
+    const limit = req.query.limit * 1 || 100;
+    // to skip all documents before this page
+    const skip = (page - 1) * limit;
+
+    // page=2&limit=10 => 1-10 page1, 11-20 page2, 21-30 page3 ...
+    // so we need to skip 10 [The First page] (2 - 1) * 10
+    // and put limit as 10 documents in the second page
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      // if the skip is larger than the number of documents so throw error to then catch the error and send response fail
+      if (skip >= numTours) throw new Error('This Page does not exist');
+    }
+
     // then EXECUTE THE QUERY TO GET THE DOCUMENTS
     const tours = await query;
-    ////////////////////////////////////////////
-    // 1c. First Way
-    // const tours = await Tour.find(queryObj);
-
-    // 2c. Another Way:
-    // const tours = await Tour.find()
-    //   .where('duration')
-    //   .equals(5)
-    //   .where('difficulty')
-    //   .equals('easy');
 
     // SEND A RESPONSE
     res.status(200).json({
