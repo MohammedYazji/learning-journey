@@ -438,7 +438,7 @@ TEST DATA: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.9
 
 GOOD LUCK 😀
 */
-
+/*
 const mark = {
   fullName: "Mark Miller",
   mass: 78,
@@ -470,3 +470,17 @@ else if (john.bmi > mark.bmi)
   console.log(
     `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s BMI (${mark.bmi}).`
   );
+*/
+///////////////////////////////////////
+// Iteration: The for Loop //
+
+// instead of log this message 10 times
+console.log("Lifting weights repetition 1 🏋️");
+console.log("Lifting weights repetition 2 🏋️");
+console.log("Lifting weights repetition 3.. 🏋️");
+
+// we just use for loop to do it
+// The loop will keep running until rep reach the 10
+for (let rep = 1; rep <= 10; rep++) {
+  console.log(`Lifting weights repetition ${rep} 🏋️`);
+}
