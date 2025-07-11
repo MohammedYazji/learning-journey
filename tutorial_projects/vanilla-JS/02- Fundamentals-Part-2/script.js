@@ -301,7 +301,7 @@ console.log(bills, tips, totals);
 */
 ///////////////////////////////////////
 // Introduction to Object //
-
+/*
 const myArray = [
   "Mohammed",
   "Yazji",
@@ -321,3 +321,57 @@ const myObj = {
   job: "Engineer",
   friends: ["Ali", "Ahmad", "Abood"],
 };
+*/
+///////////////////////////////////////
+// Dot vs. Bracket Notation //
+
+// order doesn't matter here we access the property value using the property [key] name itself
+const myObj = {
+  firstName: "Mohammed",
+  lastName: "Yazji",
+  age: 2025 - 2003,
+  job: "Engineer",
+  friends: ["Ali", "Ahmad", "Abood"],
+};
+console.log(myObj);
+
+// 1. Dot Notation
+console.log(myObj.lastName); // return the value of lastName Property: Yazji
+
+// 2. Bracket Notation
+// we use it usually if we need to pass the property name as expression after some operations [Dynamically]
+console.log(myObj["lastName"]);
+// like this
+const nameKey = "Name";
+console.log(myObj["first" + nameKey]);
+console.log(myObj["last" + nameKey]);
+
+// We can't do this with Dot Notation ❌
+// console.log(myObj.'last' + nameKey)
+
+///////
+// Another example of Bracket Notation Usage
+const interestedIn = prompt(
+  "What do you want to know about Mohammed? Choose between firstName, lastName, age, job, and friends"
+);
+
+// if the property name exist in my Obj 👍
+if (myObj[interestedIn]) {
+  console.log(myObj[interestedIn]);
+} else {
+  // else if the property name doesn't exist in myObj as a key
+  console.log(
+    "Wrong request! Choose between firstName, lastName, age, job, and friends"
+  );
+}
+
+// Also we can use These Notations to add a new property to my Object, either using Dot, or Bracket Notation
+myObj.location = "Palestine";
+myObj["linkedIn"] = "@mohammedyazji";
+console.log(myObj);
+
+// Challenge
+// "Mohammed has 3 friends, and his best friend is called Ali"
+console.log(
+  `${myObj.firstName} has ${myObj.friends.length} friends, and his best friend is called ${myObj.friends[0]}`
+);
