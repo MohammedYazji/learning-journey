@@ -19,11 +19,9 @@ Click on any topic below to jump to the notes:
 - [Control Flow (Selection Statements)](<./notes/control%20flow/Control%20Flow%20(Selection%20Statements).md>)
 - [Statements and Expressions](./notes/statements%20and%20expressions/Statements%20and%20Expressions.md)
 - [Functions](./notes//functions/Functions%20in%20JavaScript.md)
+- [Data Structures in JS: Arrays, Objects, Sets, maps](./notes/Data%20Structures%20in%20JS/0-%20Built-in%20Data%20Structures%20in%20JS.md)
 
 - ==IN PROGRESS ....==
-
-- [Array](./Array.md)
-- [Objects](./Objects.md)
 - [Iteration (Loops)](./Iteration.md)
 - [DOM and DOM Manipulation](./DOM%20and%20DOM%20Manipulation.md)
 - [JavaScript Scoping](./JavaScript%20Scoping.md)
@@ -32,9 +30,6 @@ Click on any topic below to jump to the notes:
 - [Regular Functions vs. Arrow Functions](./Arrow%20vs%20Regular%20Functions.md)
 - [Destructuring](./Destructuring.md)
 - [Optional Chaining `?.` & Nullish Coalescing](./Optional%20Chaining%20and%20Nullish.md)
-- [Sets](./Sets.md)
-- [Maps](./Maps.md)
-- [Data Structures: Arrays, Se]()
 
 ## 📌 About This Repository
 
