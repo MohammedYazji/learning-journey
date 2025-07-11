@@ -23,9 +23,9 @@ Click on any topic below to jump to the notes:
 - [Iteration (for, while Loops)](./notes/Iteration/for,%20while%20loops.md)
 - [DOM and DOM Manipulation](./notes/DOM/DOM.md)
 - [JavaScript Scoping](./notes/JS%20Scoping/Scoping.md)
+- [Variable Environment, Hoisting, and the TDZ](../JavaScript/notes/hoisting/Variable%20Environment%20Hoisting%20and%20The%20TDZ.md)
 
 - ==IN PROGRESS ....==
-- [Variable Environment, Hoisting, and the TDZ](./Hoisting%20and%20TDZ.md)
 - [JavaScript `this` Keyword](./this%20Keyword.md)
 - [Regular Functions vs. Arrow Functions](./Arrow%20vs%20Regular%20Functions.md)
 - [Destructuring](./Destructuring.md)
