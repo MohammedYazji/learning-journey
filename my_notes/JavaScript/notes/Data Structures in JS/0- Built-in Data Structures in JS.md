@@ -6,7 +6,7 @@
 - [🌐 What is a Web API?](./What%20is%20a%20Web%20API.md)
 - [📦 How Do We Store Collections of Data?](./How%20Do%20We%20Store%20Collections%20of%20Data.md)
   - [Arrays](./Arrays%20in%20JavaScript.md)
-  - [Objects] == in progress ==
+  - [Objects](./Objects%20in%20JavaScript.md)
   - [Sets]() == in progress ==
   - [Maps]() == in progress ==
 - [🔑 What’s the Difference?](./What's%20the%20Difference.md)
