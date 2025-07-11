@@ -324,7 +324,7 @@ const myObj = {
 */
 ///////////////////////////////////////
 // Dot vs. Bracket Notation //
-
+/*
 // order doesn't matter here we access the property value using the property [key] name itself
 const myObj = {
   firstName: "Mohammed",
@@ -375,3 +375,52 @@ console.log(myObj);
 console.log(
   `${myObj.firstName} has ${myObj.friends.length} friends, and his best friend is called ${myObj.friends[0]}`
 );
+*/
+///////////////////////////////////////
+// Object Methods //
+
+// because the functions is expressions, so we can create functions inside the object and assign them to the property, and these functions called 'methods'
+const myObj = {
+  firstName: "Mohammed",
+  lastName: "Yazji",
+  birthYear: 2003,
+  job: "Student",
+  friends: ["Ali", "Ahmad", "Abood"],
+  hasDriversLicense: false,
+
+  // object method [We can't use Function Declaration]
+  // 1. Accept an argument When call it
+  // calcAge: function (birthYear) {
+  //   return 2025 - birthYear;
+  // },
+
+  // 2. Or just use the object properties, such as birthYear [DRY]
+  // and we access the object property inside it's method using this keyword
+  // this point into the object itself so => [this is myObj]
+  // calcAge: function () {
+  //   return 2025 - this.birthYear;
+  // },
+
+  // 3. Also we can save the result as a new object property
+  calcAge: function () {
+    this.age = 2025 - this.birthYear;
+    return this.age;
+  },
+
+  // Challenge
+  // Mohammed is a 22-year old Student.
+  getSummary: function () {
+    return `${this.firstName} is a ${this.age}-year old ${this.job} and he has${
+      this.hasDriversLicense ? "" : "n't"
+    } a driver's license.`;
+  },
+};
+
+// Access the Object Method using Dot, Bracket Notation
+console.log(myObj.calcAge());
+console.log(myObj["calcAge"]());
+
+// to use the new property without recalculate the age each time
+console.log(myObj.age);
+
+console.log(myObj.getSummary());
