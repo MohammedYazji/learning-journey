@@ -182,7 +182,7 @@ checkWinner(scoreDolphins, scoreKoalas);
 */
 ///////////////////////////////////////
 // Introduction to Arrays //
-
+/*
 // instead of declare separate variable for each value
 const friend1 = "Ali";
 const friend2 = "Ahmad";
@@ -230,3 +230,37 @@ const ages = [
   calcAge(years2[years2.length - 1]),
 ];
 console.log(ages);
+*/
+///////////////////////////////////////
+// Basic Array Operations (Methods) //
+
+const friends = ["Ali", "Ahmad", "Abood"];
+
+// Add elements, and return the new length
+console.log(friends.push("Malek")); // to the end
+console.log(friends.unshift("Mahmoud")); // at first
+
+console.log(friends);
+
+// Remove elements, then return the removed values
+console.log(friends.pop()); // remove the last element and return it
+console.log(friends.shift()); // remove the first, and return it
+
+console.log(friends);
+
+// indexOf: to know the index of a specific item
+// return -1 if not exist
+console.log(friends.indexOf("Ali"));
+console.log(friends.indexOf("Abood"));
+console.log(friends.indexOf("BlaBlaBla..."));
+
+// includes: return boolean [true, false] value to check the element in the array
+// check it using strict equality ===
+friends.push("23");
+console.log(friends.includes("Ahmad"));
+console.log(friends.includes("Yosif"));
+console.log(friends.includes(23)); // false 23 !== '23'
+
+if (friends.includes("Ali")) {
+  console.log("You have a friend called Ali");
+}
