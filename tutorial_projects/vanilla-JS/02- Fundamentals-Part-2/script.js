@@ -68,7 +68,7 @@ console.log(age1, age2);
 */
 ///////////////////////////////////////
 // Arrow functions //
-
+/*
 // function expression
 const calcAge2 = function (birthYeah) {
   return 2025 - birthYeah;
@@ -89,3 +89,24 @@ const yearsUntilRetirement = (birthYeah, firstName) => {
 
 console.log(yearsUntilRetirement(2003, "Mohammed"));
 console.log(yearsUntilRetirement(2010, "Yosif"));
+*/
+///////////////////////////////////////
+// Functions Calling Other Functions //
+
+// 3. then call this function and return to the previous one
+function cutFruitPieces(fruit) {
+  return fruit * 4;
+}
+
+// 2. call this function
+function fruitProcessor(apples, oranges) {
+  // calling cutFruitPieces here
+  const applePieces = cutFruitPieces(apples);
+  const orangePieces = cutFruitPieces(oranges);
+
+  const juice = `Juice with ${applePieces} piece of apple and ${orangePieces} pieces of orange.`;
+  return juice;
+}
+
+// 1. Start from here
+console.log(fruitProcessor(2, 3));
