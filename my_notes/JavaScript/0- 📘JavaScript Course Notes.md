@@ -21,9 +21,9 @@ Click on any topic below to jump to the notes:
 - [Functions](./notes//functions/Functions%20in%20JavaScript.md)
 - [Data Structures in JS: Arrays, Objects, Sets, maps](./notes/Data%20Structures%20in%20JS/0-%20Built-in%20Data%20Structures%20in%20JS.md)
 - [Iteration (for, while Loops)](./notes/Iteration/for,%20while%20loops.md)
+- [DOM and DOM Manipulation](./notes/DOM/DOM.md)
 
 - ==IN PROGRESS ....==
-- [DOM and DOM Manipulation](./DOM%20and%20DOM%20Manipulation.md)
 - [JavaScript Scoping](./JavaScript%20Scoping.md)
 - [Variable Environment, Hoisting, and the TDZ](./Hoisting%20and%20TDZ.md)
 - [JavaScript `this` Keyword](./this%20Keyword.md)
