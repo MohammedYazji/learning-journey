@@ -473,7 +473,7 @@ else if (john.bmi > mark.bmi)
 */
 ///////////////////////////////////////
 // Iteration: The for Loop //
-
+/*
 // instead of log this message 10 times
 console.log("Lifting weights repetition 1 🏋️");
 console.log("Lifting weights repetition 2 🏋️");
@@ -483,4 +483,59 @@ console.log("Lifting weights repetition 3.. 🏋️");
 // The loop will keep running until rep reach the 10
 for (let rep = 1; rep <= 10; rep++) {
   console.log(`Lifting weights repetition ${rep} 🏋️`);
+  }
+*/
+///////////////////////////////////////
+// Looping Arrays, Breaking and Continuing //
+
+const myArray = [
+  "Mohammed",
+  "Yazji",
+  2025 - 2003,
+  "Student",
+  ["Ali", "Ahmad", "Abood"],
+];
+
+const types = [];
+
+for (let i = 0; i < myArray.length; i++) {
+  // Read values from my Array
+  console.log(myArray[i], typeof myArray[i]);
+
+  // Then create a new array with these values types
+  types.push(typeof myArray[i]);
+}
+console.log(types);
+
+//////////
+// make a new array based on another one
+const years = [1991, 2006, 2003, 2010];
+const ages = [];
+
+for (let i = 0; i < years.length; i++) {
+  ages.push(2025 - years[i]);
+}
+console.log(ages);
+
+///////////
+// continue and break
+
+// 1. Continue [Jump / Ignore]
+console.log("==== ONLY STRINGS ====");
+for (let i = 0; i < myArray.length; i++) {
+  // if the item type isn't string so ignore it and don't print it
+  if (typeof myArray[i] !== "string") continue;
+
+  // else print it
+  console.log(myArray[i], typeof myArray[i]);
+}
+
+// 2. Break [Stop the loop]
+console.log("==== BREAK WITH NUMBER ====");
+for (let i = 0; i < myArray.length; i++) {
+  // if we reach a number then break the loop and exit it
+  if (typeof myArray[i] === "number") break;
+
+  // else if we don't reach a number keep printing the items
+  console.log(myArray[i], typeof myArray[i]);
 }
