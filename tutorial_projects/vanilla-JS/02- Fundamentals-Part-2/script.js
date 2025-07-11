@@ -541,8 +541,8 @@ for (let i = 0; i < myArray.length; i++) {
 }
 */
 ///////////////////////////////////////
-//  Looping Backwards and Loops in Loops //
-
+//  Looping Backwards and Nested Loops //
+/*
 const myArray = [
   "Mohammed",
   "Yazji",
@@ -566,4 +566,36 @@ for (let exercise = 1; exercise < 4; exercise++) {
   for (let rep = 1; rep < 6; rep++) {
     console.log(`Exercise ${exercise}: Lifting weight repetition ${rep} 🏋️`);
   }
+}
+*/
+///////////////////////////////////////
+//  The While Loop //
+
+// we can do it using while loop instead of for loop
+// for (let rep = 1; rep <= 10; rep++) {
+//   console.log(`Lifting weights repetition ${rep} 🏋️`);
+// }
+
+// declare the counter before start iteration
+let rep = 1;
+// will keep running while the condition is true
+while (rep <= 10) {
+  console.log(`Lifting weights repetition ${rep} 🏋️`);
+
+  // increment the counter manually
+  rep++;
+}
+
+// We use While loop when we don't know when the counter will stop so we will keep running the iteration while a certain condition is true
+let dice = Math.trunc(Math.random() * 6) + 1;
+console.log(dice);
+
+// while the dice is not equal 6 keep rolling the dice
+while (dice !== 6) {
+  console.log(`You rolled a ${dice}`);
+  // then roll the dice again
+  dice = Math.trunc(Math.random() * 6) + 1;
+
+  // check again to warning the user
+  if (dice === 6) console.log("Loop is about to end...");
 }
