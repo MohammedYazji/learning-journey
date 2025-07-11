@@ -487,7 +487,7 @@ for (let rep = 1; rep <= 10; rep++) {
 */
 ///////////////////////////////////////
 // Looping Arrays, Breaking and Continuing //
-
+/*
 const myArray = [
   "Mohammed",
   "Yazji",
@@ -538,4 +538,32 @@ for (let i = 0; i < myArray.length; i++) {
 
   // else if we don't reach a number keep printing the items
   console.log(myArray[i], typeof myArray[i]);
+}
+*/
+///////////////////////////////////////
+//  Looping Backwards and Loops in Loops //
+
+const myArray = [
+  "Mohammed",
+  "Yazji",
+  2025 - 2003,
+  "Student",
+  ["Ali", "Ahmad", "Abood"],
+];
+
+// 1. Looping Backwards
+// 0, 1, 2, 3, ..., myArray.length - 1
+// myArray.length - 1 , myArray.length - 2, ...., 1, 0
+for (let i = myArray.length - 1; i >= 0; i--) {
+  console.log(i, myArray[i]);
+}
+
+// 2. Nested Loops
+// 3 exercises, and do each exercise 5 times
+for (let exercise = 1; exercise < 4; exercise++) {
+  console.log(`==== Starting exercise ${exercise} ====`);
+
+  for (let rep = 1; rep < 6; rep++) {
+    console.log(`Exercise ${exercise}: Lifting weight repetition ${rep} 🏋️`);
+  }
 }
