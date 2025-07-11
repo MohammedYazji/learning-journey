@@ -47,7 +47,7 @@ const num = Number("15");
 */
 ///////////////////////////////////////
 // Function Declarations vs. Expressions //
-
+/*
 // Function declaration
 
 // we can access the function declaration before initialization [Hoisting]
@@ -65,3 +65,27 @@ const calcAge2 = function (birthYeah) {
 const age2 = calcAge2(2003);
 
 console.log(age1, age2);
+*/
+///////////////////////////////////////
+// Arrow functions //
+
+// function expression
+const calcAge2 = function (birthYeah) {
+  return 2025 - birthYeah;
+};
+
+// this also is a function expression so we can assign it to a variable
+// without curly brackets because just return one line
+const calcAge3 = (birthYeah) => 2025 - birthYeah;
+const age3 = calcAge3(2003);
+console.log(age3);
+
+const yearsUntilRetirement = (birthYeah, firstName) => {
+  const age = 2025 - birthYeah;
+  const retirement = 65 - age;
+
+  return `${firstName} retires in ${retirement} years`;
+};
+
+console.log(yearsUntilRetirement(2003, "Mohammed"));
+console.log(yearsUntilRetirement(2010, "Yosif"));
