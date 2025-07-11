@@ -157,9 +157,7 @@ HINT: To check if number A is at least double number B, check for A >= 2 * B. Ap
 
 GOOD LUCK 😀
 */
-
-const calcAverage = (n1, n2, n3) => (n1 + n2 + n3) / 3;
-
+/*
 // Test 1
 // const scoreDolphins = calcAverage(44, 23, 71);
 // const scoreKoalas = calcAverage(65, 54, 49);
@@ -167,6 +165,8 @@ const calcAverage = (n1, n2, n3) => (n1 + n2 + n3) / 3;
 // Test 2
 const scoreDolphins = calcAverage(85, 54, 41);
 const scoreKoalas = calcAverage(23, 34, 27);
+
+const calcAverage = (n1, n2, n3) => (n1 + n2 + n3) / 3;
 
 const checkWinner = function (avgDolphins, avgKoalas) {
   if (avgDolphins >= 2 * avgKoalas) {
@@ -179,3 +179,54 @@ const checkWinner = function (avgDolphins, avgKoalas) {
 };
 console.log(scoreDolphins, scoreKoalas);
 checkWinner(scoreDolphins, scoreKoalas);
+*/
+///////////////////////////////////////
+// Introduction to Arrays //
+
+// instead of declare separate variable for each value
+const friend1 = "Ali";
+const friend2 = "Ahmad";
+const friend3 = "Abood";
+
+// declare a big container to store all these data
+const friends = ["Ali", "Ahmad", "Abood"];
+console.log(friends);
+
+// Another way to declare an array
+// Using Array Constructor
+const years = new Array(1991, 2000, 2003, 2020);
+console.log(years);
+
+// array is a zero-based data-structure
+console.log(friends[0]); // Ali
+console.log(friends[friends.length - 1]); // access the last element // Abood
+
+// we can mutate the elements values of the array
+// either we use const, or let => because we don't change the pointer which point on the address but we mutate the original array in the head memory
+friends[2] = "Mohammed";
+console.log(friends);
+
+// we can store different data types
+const firstName = "Mohammed";
+const mohammed = [firstName, "Yazji", 2025 - 2003, "Engineer", friends];
+console.log(mohammed);
+console.log(mohammed.length); // to get the array length
+
+// Exercise:
+const calcAge = function (birthYear) {
+  return 2025 - birthYear;
+};
+const years2 = [1991, 2000, 2003, 2018, 2020];
+
+const age1 = calcAge(years2[0]);
+const age2 = calcAge(years2[1]);
+const age3 = calcAge(years2[years2.length - 1]);
+console.log(age1, age2, age3);
+
+// any position in the array stores expression
+const ages = [
+  calcAge(years2[0]),
+  calcAge(years2[1]),
+  calcAge(years2[years2.length - 1]),
+];
+console.log(ages);
