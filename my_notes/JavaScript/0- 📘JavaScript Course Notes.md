@@ -24,11 +24,12 @@ Click on any topic below to jump to the notes:
 - [DOM and DOM Manipulation](./notes/DOM/DOM.md)
 - [JavaScript Scoping](./notes/JS%20Scoping/Scoping.md)
 - [Variable Environment, Hoisting, and the TDZ](../JavaScript/notes/hoisting/Variable%20Environment%20Hoisting%20and%20The%20TDZ.md)
+- [JavaScript `this` Keyword](./notes/this%20keyword/this%20Keyword.md)
+- [Destructuring](./notes/destructuring/destructuring%20arrays,%20objects.md)
 
 - ==IN PROGRESS ....==
-- [JavaScript `this` Keyword](./this%20Keyword.md)
+
 - [Regular Functions vs. Arrow Functions](./Arrow%20vs%20Regular%20Functions.md)
-- [Destructuring](./Destructuring.md)
 - [Optional Chaining `?.` & Nullish Coalescing](./Optional%20Chaining%20and%20Nullish.md)
 
 ## 📌 About This Repository
