@@ -53,7 +53,7 @@ calcAge(1992);
 */
 ///////////////////////////////////////
 // Hoisting and TDZ Practice //
-
+/*
 // VARIABLES
 
 console.log(me); // var hoisted as undefined
@@ -108,3 +108,49 @@ const z = 3;
 console.log(x === window.x); // true
 console.log(y === window.y); // false
 console.log(z === window.z); // false
+*/
+///////////////////////////////////////
+// The this Keyword in Practice //
+
+// this keyword in thr global scope is => the window object
+console.log(this);
+
+const calcAge = function (birthYear) {
+  console.log(2025 - birthYear);
+  // in Strict mode: the this keyword inside the regular function will be undefined
+  // but without the strict mode: will be also the window object
+  console.log(this); // undefined
+};
+calcAge(2003);
+
+const calcAgeArrow = birthYear => {
+  console.log(2025 - birthYear);
+  // arrow function has not this keyword so it take the this keyword of his parent scope so in this case the global-scope => window object
+  console.log(this); // window object
+};
+calcAgeArrow(2003);
+
+const mohammed = {
+  year: 2003,
+  calcAge: function () {
+    // here in the object this keyword refer to the object itself => mohammed
+    console.log(this); // mohammed object
+    console.log(2025 - this.year); // we can use the property of the object and access them using this keyword
+  },
+};
+// this here refer to mohammed because we call the function using mohammed object
+mohammed.calcAge();
+
+const yosif = {
+  year: 2010,
+};
+// we borrow mohammed calcAge function into yosif object
+yosif.calcAge = mohammed.calcAge;
+
+// this here refer to yosif because we call the function using yosif object [right the calcAge is inside mohammed object, but I call it using yosif so this is yosif]
+yosif.calcAge();
+
+//////
+// if we do this so this will be undefined because by this it become a regular function call
+const f = mohammed.calcAge;
+// f(); // this here undefined [regular function call]
