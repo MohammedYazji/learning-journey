@@ -84,28 +84,41 @@
 
   - Wrap the assignment in parentheses `()` when updating existing variables.
 
-````js
+    ```js
     let a = 1;
     let b = 2;
     const obj = { a: 23, b: 7, c: 14 };
     ({ a, b } = obj);
     ```
 
-- **Nested Objects**
-     - Destructure nested objects by specifying the inner structure.
+  ```
 
-    ```js
-    const { fri: { open: o, close: c } } = openingHours;
-    ```
+  ```
+
+- **Nested Objects**
+
+  - Destructure nested objects by specifying the inner structure.
+
+  ```js
+  const {
+    fri: { open: o, close: c },
+  } = openingHours;
+  ```
 
 - **Using Destructuring in Functions**
-    - Destructure parameters in functions for better readability, especially when dealing with many parameters.
 
-    ```js
-    function orderDelivery({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
-      console.log(`Order received! Delivery to ${address} at ${time}`);
-    }
-    ```
+  - Destructure parameters in functions for better readability, especially when dealing with many parameters.
+
+  ```js
+  function orderDelivery({
+    starterIndex = 1,
+    mainIndex = 0,
+    time = "20:00",
+    address,
+  }) {
+    console.log(`Order received! Delivery to ${address} at ${time}`);
+  }
+  ```
 
 ---
 
@@ -117,12 +130,11 @@
 
 - It is used:
 
-    - Inside **array literals**
+  - Inside **array literals**
 
-    - When **passing function arguments**
+  - When **passing function arguments**
 
-    - In **object literals** (ES2018+)
-
+  - In **object literals** (ES2018+)
 
 ---
 
@@ -133,7 +145,7 @@
 ```js
 const arr = [7, 8, 9];
 const newArr = [1, 2, ...arr]; // [1, 2, 7, 8, 9]
-````
+```
 
 - Expands the `arr` values into individual elements inside the new array.
 
