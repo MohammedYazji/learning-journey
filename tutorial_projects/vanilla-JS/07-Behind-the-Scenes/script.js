@@ -2,7 +2,7 @@
 
 ///////////////////////////////////////
 // Scoping in Practice //
-
+/*
 function calcAge(birthYear) {
   // local scope
   const age = 2025 - birthYear;
@@ -50,3 +50,61 @@ calcAge(1992);
 // console.log(age); // we can't access out of his scope [calcAge function]
 
 // printAge() // we cant access this function and call it here because it declared inside the calcAge scope so we just can call it there
+*/
+///////////////////////////////////////
+// Hoisting and TDZ Practice //
+
+// VARIABLES
+
+console.log(me); // var hoisted as undefined
+
+// not hoisted [Can't Access them before initialization]
+// Still in the TDZ
+// console.log(job);
+// console.log(year);
+
+var me = 'mohammed';
+let job = 'Student';
+const year = 2003;
+
+// FUNCTIONS
+
+console.log(addDecl(2, 3)); // function declaration hoisted [We can access it before declaration process]
+
+// but function expression, arrow function not hoisted [Can't Access them before initialization]
+// if we declare them using var so => will shown that is not a function because will hoisted as undefined [undefined(2, 3)]
+// console.log(addExpr(2, 3));
+// console.log(addArrow(2, 3));
+
+function addDecl(a, b) {
+  return a + b;
+}
+
+const addExpr = function (a, b) {
+  return a + b;
+};
+
+var addArrow = (a, b) => a + b;
+
+////////
+// EXAMPLE
+
+// right we can access function declaration before initialization, but the problem that when numProducts hoisted because we use var => so will hoisted as undefined so we always will call the function
+// DON'T USE VAR, AND ALWAYS CALL FUNCTIONS AFTER DECLARE THEM ❌
+if (!numProducts) deleteShoppingCart();
+
+var numProducts = 10;
+
+function deleteShoppingCart() {
+  console.log('All Products Deleted!');
+}
+
+////
+var x = 1;
+let y = 2;
+const z = 3;
+
+// var will add as window object property
+console.log(x === window.x); // true
+console.log(y === window.y); // false
+console.log(z === window.z); // false
