@@ -267,14 +267,30 @@ restaurantCopy.name = "Ristorante Roma";
 | Example  | `add(...[1,2,3])`                | `function add(...nums)`          |     |
 
 - **Rest in Array Destructuring**
+
   ```js
   const [a, b, ...others] = [1, 2, 3, 4, 5];
   ```
-- **Rest in Object Destructuring**
+
+  - **Used on the left** of the assignment.
+  - Collects the remaining array elements into a new array.
+  - **It must be the last element** in destructuring.
+  - Skipped elements are not included.
+
+- **Rest in Object Destructuring**.
+
+  - Collects remaining properties into a **new object**.
+  - Useful for separating specific keys.
+
   ```js
   const { sat, ...weekdays } = openingHours;
   ```
+
 - **Rest Parameters in Functions**
+
+  - Allows functions to accept **any number of arguments**.
+  - `...numbers` collect all arguments into an array
+
   ```js
   function add(...numbers) {
     let sum = 0;
@@ -284,15 +300,27 @@ restaurantCopy.name = "Ristorante Roma";
     console.log(sum);
   }
   ```
+
 - **Spread + Rest Together**
+
+  - **Spread**: unpack x values into individual arguments.
+  - **Rest**: collects them into a single parameter inside the function.
+
   ```js
   const x = [23, 5, 7];
-  add(...x);
+  add(...x); // Spread when calling, rest inside the function
   ```
+
 - **Real-World Example: Pizza Order**
+
+  - Great for optional arguments.
+  - The first argument is required, and the rest are optional
+
   ```js
   orderPizza = function (mainIngredient, ...otherIngredients) {
     console.log(mainIngredient);
     console.log(otherIngredients);
   };
+  orderPizza("Mushrooms", "Onion", "Olives", "Spinach");
+  // "Mushrooms", ["Onion", "Olives", "Spinach"]
   ```
