@@ -157,7 +157,7 @@ const f = mohammed.calcAge;
 */
 ///////////////////////////////////////
 // Regular Functions vs. Arrow Functions //
-
+/*
 // ❌ Don't Use var
 // var firstName = 'Yosif'; // this will add to window object as a property so we can access it in this of the arrow function
 
@@ -215,3 +215,51 @@ var addArrow = (a, b) => {
   return a + b;
 };
 addArrow(2, 5, 8);
+*/
+///////////////////////////////////////
+// Primitives Vs. Objects (Shallow vs. Deep Copies) //
+
+// PRIMITIVES TYPES
+let lastName = 'Yazji';
+let oldLastName = lastName;
+lastName = 'Alyazji';
+console.log(lastName, oldLastName);
+
+// REFERENCE TYPES
+const sara = {
+  firstName: 'Sara',
+  lastName: 'williams',
+  age: 25,
+};
+
+//////
+// here we make the marriedSara to point at the same address
+const marriedSara = sara;
+marriedSara.lastName = 'Davis';
+// in the two cases will print davis as last name because we mutate the original object in the heap
+console.log('Before Marriage:', sara);
+console.log('After Marriage:', marriedSara);
+
+// we can do this now because we use const when give it a value of address in the stack
+// marriedSara = {};
+//////
+
+// COPYING OBJECTS [object.assign]
+const sara2 = {
+  firstName: 'Sara',
+  lastName: 'williams',
+  age: 25,
+  family: ['Alice', 'Bob'], //object.assign will not make deep copy this family prop will still point in the original array in the original object
+};
+
+// merge two objects and make a new one [SALLOW COPY]
+const saraCopy = Object.assign({}, sara2);
+saraCopy.lastName = 'Davis';
+
+saraCopy.family.push('Mary');
+saraCopy.family.push('John');
+
+console.log('Before Marriage:', sara2);
+// so here saraCopy is a new object in the heap
+// just make a shallow copy so will not copy the deep items
+console.log('After Marriage:', saraCopy);
