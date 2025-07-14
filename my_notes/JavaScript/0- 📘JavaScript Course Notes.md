@@ -28,10 +28,11 @@ Click on any topic below to jump to the notes:
 - [Variable Environment, Hoisting, and the TDZ](../JavaScript/notes/hoisting/Variable%20Environment%20Hoisting%20and%20The%20TDZ.md)
 - [JavaScript `this` Keyword](./this%20Keyword.md)
 - [Destructuring](./Destructuring.md)
+- [Optional Chaining `?.` & Nullish Coalescing](./notes/Optional%20Chaining%20and%20Nullish%20Coalescing/Optional%20Chaining%20and%20Nullish%20Coalescing.md)
 
 - ==IN PROGRESS ....==
-
-- [Optional Chaining `?.` & Nullish Coalescing](./Optional%20Chaining%20and%20Nullish.md)
+- OOP
+- and many more!
 
 ## 📌 About This Repository
 
