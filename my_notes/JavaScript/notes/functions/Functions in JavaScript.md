@@ -15,6 +15,7 @@
   - [Complex Arrow Functions](#-complex-arrow-functions)
   - [Handling Multiple Parameters](#-handling-multiple-parameters)
 - [Functions Calling Other Functions](#-functions-calling-other-functions)
+- [Regular Functions vs. Arrow Functions](#-regular-functions-vs-arrow-functions)
 - [Revision Function](#-revision-function)
 
 ---
@@ -204,6 +205,119 @@ Breaking your code into smaller functions helps:
 - Avoid code repetition
 - Improve readability and debugging
 - Allow reusability in other parts
+
+---
+
+## 🔥 **Regular Functions vs. Arrow Functions**
+
+### ✅ `this` Keyword Behavior
+
+| Feature             | Regular Function                    | Arrow Function                                          |
+| ------------------- | ----------------------------------- | ------------------------------------------------------- |
+| Has its own `this`  | ✅ Yes – depends on how it's called | ❌ No – inherits from parent (lexical `this`)           |
+| Common use case     | Object methods, complex behaviors   | Callbacks, preserving `this` in nested functions        |
+| Behavior in objects | `this` refers to the object         | `this` refers to the surrounding scope (not the object) |
+
+- **Arrow functions** do **not** have their own `this`.  
+   → They **inherit `this`** from their **lexical (parent) scope**.
+- **Regular functions** get their **own `this`**, determined by how they're **invoked**.
+
+---
+
+### 💥 Common Pitfall: `this` in Nested Functions
+
+#### ❌ Problem: Regular Inner Function
+
+- `this` inside a **regular nested function** is `undefined` (in strict mode):
+
+```js
+const person = {
+  year: 1991,
+  checkAge: function () {
+    const isMillennial = function () {
+      console.log(this.year >= 1981 && this.year <= 1996); // ❌ Error: this is undefined
+    };
+    isMillennial();
+  },
+};
+
+person.checkAge();
+```
+
+---
+
+### ✅ Solution 1: Use `self = this` (Pre-ES6)
+
+```js
+const mohammed = {
+  firstName: "Mohammed",
+  year: 1991,
+  calcAge: function () {
+    console.log(2025 - this.year);
+
+    const self = this; // store this context
+    const isMillennial = function () {
+      console.log(self.year >= 1981 && self.year <= 1996);
+    };
+    isMillennial();
+  },
+};
+```
+
+> ✅ `self` captures the correct `this` from the parent scope.
+
+---
+
+### ✅ Solution 2: Use Arrow Function (Modern)
+
+```js
+const mohammed = {
+  firstName: "Mohammed",
+  year: 1991,
+  calcAge: function () {
+    console.log(2025 - this.year);
+
+    const isMillennial = () => {
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillennial();
+  },
+};
+```
+
+> ✅ Arrow function inherits `this` from its parent (`calcAge`), so it works correctly.
+
+---
+
+### 📦 `arguments` Keyword
+
+| Feature         | Regular Function     | Arrow Function   |
+| --------------- | -------------------- | ---------------- |
+| `arguments`     | ✅ Available         | ❌ Not available |
+| Modern solution | Use `...args` (Rest) | Use `...args`    |
+
+```js
+const addExpr = function (a, b) {
+  console.log(arguments); // ✅ works: [Arguments] { '0': 2, '1': 5 }
+  return a + b;
+};
+
+const addArrow = (a, b) => {
+  console.log(arguments); // ❌ ReferenceError: arguments is not defined
+  return a + b;
+};
+```
+
+---
+
+### 🧭 Final Recommendations
+
+| Use Case                            | Recommended Function Type |
+| ----------------------------------- | ------------------------- |
+| Object methods                      | ✅ Regular function       |
+| When you need `this` or `arguments` | ✅ Regular function       |
+| Callbacks (e.g., `map`, `filter`)   | ✅ Arrow function         |
+| Preserving `this` in nested scope   | ✅ Arrow function         |
 
 ---
 
