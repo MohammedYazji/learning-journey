@@ -1,6 +1,9 @@
 # 📘JavaScript Course Notes
 
-Welcome to my JavaScript course notes! These notes were taken while following **The Complete JavaScript Course 2025** by **Jonas Schmedtmann**, and are meant to help me (and maybe you!) revise core concepts, techniques, and language features.
+Welcome to my JavaScript course notes!
+These notes were taken while following The Complete JavaScript Course 2025 by Jonas Schmedtmann, and they’re meant to help me (and maybe you!) revise the core concepts, techniques, and language features of JavaScript.
+
+🧠 I didn’t just take notes while watching Jonas’s course — I also spent a lot of time and effort collecting extra information from multiple resources and did my best to organize everything as clearly and perfectly as possible.
 
 ---
 
@@ -8,7 +11,6 @@ Welcome to my JavaScript course notes! These notes were taken while following **
 
 Click on any topic below to jump to the notes:
 
-- ==DONE==
 - [What is JavaScript](./notes/Intro/What%20is%20JavaScript.md)
 - [JavaScript Releases: ES5, ES6+, and ESNext](./notes/EcamScript/JavaScript%20Versions%20Overview.md)
 - [Values and Variables](./notes/values%20and%20variables/Variables%20in%20JavaScript.md)
@@ -33,6 +35,6 @@ Click on any topic below to jump to the notes:
 
 ## 📌 About This Repository
 
-This repo is part of my learning journey. I’m documenting everything I learn in JavaScript to deepen my understanding and to have a resource I can always refer back to.
+This repo is part of my learning journey as a developer. I'm documenting everything I learn in JavaScript — not only to deepen my own understanding, but also to build a reference I can always return to.
 
 Feel free to explore, fork, or suggest improvements!
