@@ -111,7 +111,7 @@ console.log(z === window.z); // false
 */
 ///////////////////////////////////////
 // The this Keyword in Practice //
-
+/*
 // this keyword in thr global scope is => the window object
 console.log(this);
 
@@ -154,3 +154,64 @@ yosif.calcAge();
 // if we do this so this will be undefined because by this it become a regular function call
 const f = mohammed.calcAge;
 // f(); // this here undefined [regular function call]
+*/
+///////////////////////////////////////
+// Regular Functions vs. Arrow Functions //
+
+// ❌ Don't Use var
+// var firstName = 'Yosif'; // this will add to window object as a property so we can access it in this of the arrow function
+
+const mohammed = {
+  firstName: 'Mohammed',
+  year: 2003,
+  calcAge: function () {
+    // console.log(this);
+    console.log(2025 - this.year);
+
+    // SOLUTION 1 self, that
+    // const self = this; // self or that
+    // const isMillenial = function () {
+    //   console.log(self);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+
+    // Solution 2 arrow function [use this keyword of parent scope]
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+
+    // WRONG ❌ SOLUTION 3
+    //  if we call it here as a regular function so this is undefined
+    // const isMillenial = function () {
+    //   console.log(this);
+    //   console.log(this.year >= 1981 && this.year <= 1996);
+    // };
+    isMillenial();
+  },
+
+  // Arrow function doesn't has its own this keyword
+  // so will has the same this keyword of the global scope, because the object literal is not a block scope
+  greet: () => {
+    console.log(this); // window object has firstName, because we used var
+    console.log(`Hey ${this.firstName}`);
+  },
+};
+
+mohammed.greet(); // Hey undefined
+mohammed.calcAge();
+
+////////////
+// arguments keyword
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
+
+var addArrow = (a, b) => {
+  console.log(arguments); // doesn't has arguments keyword
+  return a + b;
+};
+addArrow(2, 5, 8);
