@@ -1,3 +1,5 @@
+// linked list implementation [top, bottom]
+
 class Node {
   constructor(val) {
     this.val = val;
@@ -5,56 +7,74 @@ class Node {
   }
 }
 
-// like linked list but with first, last, size
+// like linked list but with top, bottom, size
 class Stack {
   constructor() {
-    this.first = null;
-    this.last = null;
+    this.top = null;
+    this.bottom = null;
     this.size = 0;
   }
 
   peek() {
-    return this.first;
+    if (!this.top) {
+      return null;
+    } else {
+      return this.top.val;
+    }
   }
 
-  // add to the first of the list
+  isEmpty() {
+    if (!this.top) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  clear() {
+    // remove the access (pointer which catch the list)
+    this.top = null;
+    this.bottom = null;
+  }
+
+  // add to the top of the list
   // its unshift but I called it push
   // to be O(1), while real push take O(n)
   push(val) {
     // create a new node to add it
     const newNode = new Node(val);
 
-    // if empty list set first, last to be the new node
-    if (!this.first) {
-      this.first = newNode;
-      this.last = newNode;
+    // if empty list set top, bottom to be the new node
+    if (!this.top) {
+      this.top = newNode;
+      this.bottom = newNode;
     } else {
       // set the newNode next to point to the previous start
-      newNode.next = this.first;
+      newNode.next = this.top;
       //   set the start to be the new node
-      this.first = newNode;
+      this.top = newNode;
     }
     // increment the size of the stack, and return it
     return ++this.size;
   }
 
-  // remove the first node of the list
+  // remove the top node of the list
   // its shift but I called it push
   // to be O(1), while real pop take O(n)
   pop() {
-    if (!this.first) {
+    if (!this.top) {
       return null;
     }
-    // store the last in (first node) to return after removing
-    const poppedNode = this.first;
+    // store the bottom in (top node) to return after removing
+    const poppedNode = this.top;
     // if the size is one just one node
-    if (this.first === this.last) {
+    if (this.top === this.bottom) {
       // reset the initial values
-      this.first = null;
-      this.last = null;
+      this.top = null;
+      this.bottom = null;
     } else {
-      // set the first to be the new first
-      this.first = this.first.next;
+      // set the top to be the new top
+      this.top = this.top.next;
     }
     this.size--;
     return poppedNode.val;
