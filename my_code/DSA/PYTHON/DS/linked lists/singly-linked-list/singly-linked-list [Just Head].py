@@ -167,6 +167,16 @@ class SinglyLinkedList:
         self.head = prev  
         return self
     
+    # method to return the list length
+    def length(self):
+        counter = 0
+        current = self.head
+
+        while current:
+            counter += 1
+            current = current.next
+        return counter
+
     def __str__(self):
         res = ''
         current = self.head

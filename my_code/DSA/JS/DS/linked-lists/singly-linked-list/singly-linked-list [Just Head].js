@@ -171,6 +171,18 @@ class SinglyLinkedList {
     return this;
   }
 
+  // method to return the length of the list
+  length() {
+    let counter = 0;
+    let current = this.head;
+
+    while (current) {
+      counter += 1;
+      current = current.next;
+    }
+    return counter;
+  }
+
   // print
   print() {
     let res = "";
@@ -187,4 +199,5 @@ class SinglyLinkedList {
 let list = new SinglyLinkedList();
 list.push(10).push(20).push(30).push(40).push(50);
 console.log(list.remove(1));
+console.log(list.length());
 list.print();
