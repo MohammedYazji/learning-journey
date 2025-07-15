@@ -198,7 +198,7 @@ class SinglyLinkedList {
       // or
       // prev.next = prev.next.next;
       this.length--;
-      return removed;
+      return removed.val;
     }
   }
 

@@ -12,7 +12,7 @@ class SinglyLinkedList:
         self.tail = None
         self.length = 0
 
-    # pushing to the end of the list
+    # pushing to the end of the list O(1)
     def push(self,val):
         #  Receive a value and make a new node
         new_node = Node(val)
@@ -37,7 +37,7 @@ class SinglyLinkedList:
     # remove from the end of the list
     def pop(self):
         # if the list is empty => return None
-        if (not self.head): 
+        if not self.head: 
             return None
         
         # if (self.head == self.tail):
