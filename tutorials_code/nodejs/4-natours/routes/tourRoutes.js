@@ -12,6 +12,9 @@ router
 
 // make route for the aggregation pipeline to calc the stats of certain documents
 router.route('/tour-stats').get(tourController.getTourStats);
+// another route for the aggregation pipeline to calculate the busiest month
+// we receive the year as a parameter
+router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 
 router
   .route('/')
