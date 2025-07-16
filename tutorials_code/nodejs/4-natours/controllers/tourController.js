@@ -132,8 +132,9 @@ exports.getTourStats = async (req, res) => {
       {
         // so here we calculate the average rating using group
         $group: {
-          // because I just want one group, and calc the averageRating for all documents once
-          _id: null,
+          // group the documents based on the difficulty
+          _id: { $toUpper: '$difficulty' }, // to make uppercase
+          // _id: '$difficulty',
 
           // accumulators
 
@@ -150,6 +151,14 @@ exports.getTourStats = async (req, res) => {
           maxPrice: { $max: '$price' },
         },
       },
+      {
+        // sort baed on the new names which is in my groups
+        $sort: { avgPrice: 1 }, // 1 => ascending
+      },
+      // we can repeat stages, but now match will filter the group documents not all documents, so also we will use group new properties to filter based on them
+      // {
+      //   $match: { _id: { $ne: 'EASY' } },
+      // },
     ]);
 
     res.status(200).json({
