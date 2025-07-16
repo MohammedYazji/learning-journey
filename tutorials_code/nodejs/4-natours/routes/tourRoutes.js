@@ -10,6 +10,9 @@ router
   .route('/top-5-cheap')
   .get(tourController.aliasTopTours, tourController.getAllTours);
 
+// make route for the aggregation pipeline to calc the stats of certain documents
+router.route('/tour-stats').get(tourController.getTourStats);
+
 router
   .route('/')
   .get(tourController.getAllTours)
