@@ -58,6 +58,10 @@ const tourSchema = new mongoose.Schema(
     },
     startDates: [Date], // specify array of Dates
     // "2021-03-21" mongo will parse it as a date
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     // second object for Schema Options
@@ -99,6 +103,24 @@ tourSchema.pre('save', function (next) {
 //   next(); // right there's no next after this middleware in thestack but it's best practice to put it
 // });
 ///////
+// QUERY MIDDLEWARE
+
+// for example we need when using the queries later to make queries just for the not secret tours
+// so if we use get all tours and use the api features and implement the next queries in the stack will not found the the secret tours there
+tourSchema.pre('/^find/', function (next) {
+  // tourSchema.pre('find', function (next) {
+  this.find({ secretTour: { $ne: true } }); // this now is a query object
+
+  this.start = Date.now();
+  next();
+});
+
+// this will execute after we await the query and will put the returned documents in docs
+tourSchema.post('/^find/', function (docs, next) {
+  console.log(`Query took ${Date.now() - this.start} milliseconds`);
+  console.log(docs);
+  next();
+});
 
 // creating a model from this schema
 const Tour = mongoose.model('Tour', tourSchema);
