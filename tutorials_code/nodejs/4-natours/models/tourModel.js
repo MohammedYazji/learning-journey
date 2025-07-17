@@ -118,10 +118,21 @@ tourSchema.pre('/^find/', function (next) {
 // this will execute after we await the query and will put the returned documents in docs
 tourSchema.post('/^find/', function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds`);
-  console.log(docs);
+  // console.log(docs);
   next();
 });
+///////
+// AGGREGATION MIDDLEWARE
 
+// because we remove the secret tours from the queries so we need to remove it from aggregation stats also
+// we dont need to implement that in each match stage in aggregation so we make it once here
+tourSchema.pre('aggregation', function (next) {
+  console.log(this.pipeline()); // here will point to the aggregation  obj
+  // so we need to add another match stage to the pipeline array
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  next();
+});
+///////
 // creating a model from this schema
 const Tour = mongoose.model('Tour', tourSchema);
 
