@@ -86,17 +86,18 @@ tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-tourSchema.pre('save', function (next) {
-  console.log('Will save document...');
-  next();
-});
+
+// tourSchema.pre('save', function (next) {
+//   console.log('Will save document...');
+//   next();
+// });
 
 // middleware after the process of saving
 // receive doc argument which the document which we have saved
-tourSchema.post('save', function (doc, next) {
-  console.log(doc);
-  next(); // right there's no next after this middleware in thestack but it's best practice to put it
-});
+// tourSchema.post('save', function (doc, next) {
+//   console.log(doc);
+//   next(); // right there's no next after this middleware in thestack but it's best practice to put it
+// });
 ///////
 
 // creating a model from this schema
