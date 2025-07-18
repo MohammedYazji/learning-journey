@@ -23,15 +23,6 @@ app.use(express.json());
 // here we serve public folder
 // app.use(express.static(`${__dirname}/public`));
 
-// create our middleware
-// app.use => add the middleware to the middleware stack
-// this middleware run for each request came after this declaration because we didn't specify any route yet [order matter in nodejs]
-app.use((req, res, next) => {
-  console.log('Hello from the middleware 👋');
-  // must use next to not stuck in the request - response cycle
-  next();
-});
-
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
@@ -44,5 +35,16 @@ app.use((req, res, next) => {
 app.use('/api/v1/tours', tourRouter);
 // this userRouter Middleware will apply just on this route
 app.use('/api/v1/users', userRouter);
+
+// run for all http requests that not same as my tours and users routes
+// handle unhandled routes * => everything
+// it's a regular middleware function
+// if it was a correct routes will not reach until here
+app.all('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
 
 module.exports = app;
