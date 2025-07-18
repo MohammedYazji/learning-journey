@@ -41,9 +41,32 @@ app.use('/api/v1/users', userRouter);
 // it's a regular middleware function
 // if it was a correct routes will not reach until here
 app.all('*', (req, res, next) => {
-  res.status(404).json({
-    status: 'fail',
-    message: `Can't find ${req.originalUrl} on this server!`,
+  // res.status(404).json({
+  //   status: 'fail',
+  //   message: `Can't find ${req.originalUrl} on this server!`,
+  // });
+
+  // CREATE AN ERROR USING THE GLOBAL MIDDLEWARE TO SEND HANDLE ERRORS
+  const err = new Error(`Can't find ${req.originalUrl} on this server!`);
+  err.status = 'fail';
+  err.statusCode = 404;
+  // THEN PASS IT TO THE ERROR HANDLER FUNCTION
+  next(err); // pass the error to the next function in the stack
+  // this will pass all middlewares and go ahead the global error handler middleware
+});
+
+// make a central [global middleware] to handle all errors in the same place
+// like the normal middlewares but also nas err argument
+app.use((err, req, res, next) => {
+  // will define it in other places not here
+  // make the default t =o be 500
+  err.statusCode = err.statusCode || 500;
+
+  err.status = err.status || 'error';
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
   });
 });
 
