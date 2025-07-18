@@ -1,3 +1,32 @@
+const sendErrorDev = (err, res) => {
+  res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message,
+    stack: err.stack,
+  });
+};
+
+const sendErrorProd = (err, res) => {
+  if (err.isOperational) {
+    // in production just send a simple response
+    res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
+    });
+  } // make generic message for example when forget await in async [programming error not operational]
+  // so we don't need to send the details of the error to the client
+  else {
+    // 1) log error
+    console.error('Error 💥', err);
+    // 2) send generic message
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went very wrong!!',
+    });
+  }
+};
+
 module.exports = (err, req, res, next) => {
   //   console.log(err.stack); // show where the error happened
 
@@ -7,8 +36,9 @@ module.exports = (err, req, res, next) => {
 
   err.status = err.status || 'error';
 
-  res.status(err.statusCode).json({
-    status: err.status,
-    message: err.message,
-  });
+  if (process.env.NODE_ENV === 'development') {
+    sendErrorDev(err, res);
+  } else if (process.env.NODE_ENV === 'production') {
+    sendErrorProd(err, res);
+  }
 };
