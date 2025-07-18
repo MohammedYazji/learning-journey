@@ -1,6 +1,7 @@
 const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 // middleware for '/top-5-cheap'
 // 5 best and cheapest tours
@@ -47,6 +48,13 @@ exports.getTour = catchAsync(async (req, res, next) => {
   // Tour.findOne({_id: req.params.id}) // IN MONGODB
   const tour = await Tour.findById(req.params.id);
 
+  // if the response is null so there's no document to display 404 not found
+  if (!tour) {
+    // jump to the global error handler middleware
+    // we use return to stop the function and not send two responses one from here and another from the error controller
+    return next(new AppError('No tour found with that ID', 404));
+  }
+
   res.status(200).json({
     status: 'success',
     data: {
@@ -59,6 +67,13 @@ exports.updateTour = catchAsync(async (req, res, next) => {
     new: true, // to return thew new document
     runValidators: true, // to run the validation process when update data 👍
   });
+
+  if (!tour) {
+    // jump to the global error handler middleware
+    // we use return to stop the function and not send two responses one from here and another from the error controller
+    return next(new AppError('No tour found with that ID', 404));
+  }
+
   res.status(200).json({
     status: 'success',
     data: {
@@ -68,7 +83,14 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteTour = catchAsync(async (req, res, next) => {
-  await Tour.findByIdAndDelete(req.params.id);
+  const tour = await Tour.findByIdAndDelete(req.params.id);
+
+  if (!tour) {
+    // jump to the global error handler middleware
+    // we use return to stop the function and not send two responses one from here and another from the error controller
+    return next(new AppError('No tour found with that ID', 404));
+  }
+
   // 204 for delete so item no longer exist
   res.status(204).json({
     status: 'success',
