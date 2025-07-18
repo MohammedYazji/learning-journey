@@ -17,6 +17,7 @@ exports.getAllTours = async (req, res) => {
     const features = new APIFeatures(Tour.find(), req.query)
       .filter()
       .sort()
+      // add break point here to find the bug
       .limitFields()
       .paginate();
 
