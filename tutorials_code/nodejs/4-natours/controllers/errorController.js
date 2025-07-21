@@ -5,6 +5,14 @@ const handleCastErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
+const handleDuplicateFieldsDB = (err) => {
+  // Example: err.keyValue = { name: 'test-tour' }
+  const value = Object.values(err.keyValue)[0];
+
+  const message = `Duplicate field value: ${value}. Please use another value!`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -51,6 +59,9 @@ module.exports = (err, req, res, next) => {
 
     if (error.name === 'CastError') {
       error = handleCastErrorDB(error); // this function will return AppError
+    }
+    if (error.code === 11000) {
+      error = handleDuplicateFieldsDB(error);
     }
 
     sendErrorProd(error, res);
