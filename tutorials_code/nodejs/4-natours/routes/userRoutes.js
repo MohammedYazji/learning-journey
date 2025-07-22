@@ -1,7 +1,12 @@
 const express = require('express');
 const userController = require('./../controllers/userController');
+const authController = require('./../controllers/authController');
 
 const router = express.Router();
+
+// this route for dealing immediately with the user
+// route just for post data to signup
+router.post('/signup', authController.signup);
 
 router
   .route('/')
