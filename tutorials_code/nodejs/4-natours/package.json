@@ -12,6 +12,7 @@
     "debug": "ndb server.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "dotenv": "^17.0.1",
     "express": "^4.21.2",
     "mongoose": "^5.13.23",

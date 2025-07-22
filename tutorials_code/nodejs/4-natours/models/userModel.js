@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 // creating a schema for users
 const userSchema = new mongoose.Schema({
@@ -24,11 +25,36 @@ const userSchema = new mongoose.Schema({
   passwordConfirm: {
     type: String,
     required: [true, 'Please confirm your password'],
+    validate: {
+      // THIS ONLY WORKS ON CREATE AND SAVE
+      // here we need regular function to use this
+      validator: function (el) {
+        // el is the passConfirm
+        return el === this.password;
+      },
+      message: 'Passwords are not the same!',
+    },
   },
 });
 
-// creating a model from this schema
-const User = mongoose.model('User', userSchema);
+// use document middleware
+// we need to encrypt the password before save it in the DB
+userSchema.pre('save', async function (next) {
+  // this refer to the user document
+  // so if the password is not have been modified so return and jump to the next middleware
+  if (!this.isModified('password')) return next();
 
-// export it to use out (for example in userController)
+  // else we need to hash the password [add random string to the password] before save it
+  // hash => async to not block the rest of code
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // also we need to delete the confirm password we don't need to save it to the DB
+  // we used it in the auth controller  so we no longer need it
+  this.passwordConfirm = undefined;
+
+  // then call the next middleware in the stack
+  next();
+});
+
+const User = mongoose.model('User', userSchema);
 module.exports = User;
