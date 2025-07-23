@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a password'],
     minlength: 8,
+    select: false,
   },
   passwordConfirm: {
     type: String,
@@ -55,6 +56,18 @@ userSchema.pre('save', async function (next) {
   // then call the next middleware in the stack
   next();
 });
+
+// function to unhash the password
+// make an instance method [available for each documents in this model]
+// we do it here because its related to the data of user itself
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword,
+) {
+  // because i set the password to be false => so its will not be available here using this keyword
+  // so we will receive it using the candidatePassword
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
