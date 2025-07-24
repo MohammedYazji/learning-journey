@@ -36,6 +36,7 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same!',
     },
   },
+  passwordChangedAt: Date,
 });
 
 // use document middleware
@@ -67,6 +68,26 @@ userSchema.methods.correctPassword = async function (
   // because i set the password to be false => so its will not be available here using this keyword
   // so we will receive it using the candidatePassword
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+// another instance method
+// to check if the user change the password after login and the token is valid
+userSchema.methods.changedPasswordAfter = async function (JWTTimestamp) {
+  // console.log(this.passwordChangedAt, JWTTimestamp);
+
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10,
+    );
+    // console.log(changedTimestamp, JWTTimestamp);
+    // if we change the password after we make the token
+    // so return true
+    return JWTTimestamp < changedTimestamp; // 100 < 200
+  }
+
+  // false means not changes
+  return false;
 };
 
 const User = mongoose.model('User', userSchema);

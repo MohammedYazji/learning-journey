@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
@@ -68,4 +69,54 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'success',
     token,
   });
+});
+
+// create a middleware to protect routes from unutilized users
+exports.protect = catchAsync(async (req, res, next) => {
+  // 1) Getting Token and check if it's there
+  console.log(req);
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  if (!token) {
+    return next(
+      new AppError('You are not logged in! Please log on to get access.', 401),
+    );
+  }
+
+  // 2) Verification token
+
+  // The function promisify is used to convert a callback-based function into a promise-based one, so that you can use async/await syntax with it.
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  // 3) check if user still exists [not deleted user], for example we login then delete the account so the auth will not complete and the token not there
+  const freshUser = await User.findById(decoded.id);
+
+  if (!freshUser) {
+    return next(
+      new AppError(
+        'The user belonging to this token does no longer exist.',
+        401,
+      ),
+    );
+  }
+
+  // 4) check if user changed password after thw token was issued
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError('User recently changed password! Please log in again.', 401),
+    );
+  }
+
+  // if we pass all these steps so call the next middleware in the stack
+  // GRANT ACCESS TO PROTECTED ROUTE
+
+  // here we make a new property in this request to can access this authorized user information in the next middlewares
+  req.user = freshUser;
+  next();
 });

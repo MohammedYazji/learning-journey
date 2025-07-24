@@ -28,6 +28,8 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
+  // each request has headers
+  console.log(req.headers);
   next();
 });
 
