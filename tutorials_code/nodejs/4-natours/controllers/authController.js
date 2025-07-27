@@ -17,6 +17,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    role: req.body.role,
   });
 
   // create our token
@@ -120,3 +121,23 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = freshUser;
   next();
 });
+
+// restrict specific routes
+// specific user-roles can deal with this routes
+// for example after login just admin or lead-guide can delete a user
+exports.restrictTo = (...roles) => {
+  // here the inner function will access the roles array [closure]
+  return (req, res, next) => {
+    // roles ['admin', 'lead-guide']
+    // here i will access the current login user information and properties because we put the user document in the req.user in the previous middleware [protect]
+    // console.log(req.user.role);
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403),
+      );
+    }
+
+    // otherwise we can move to the next middleware and implement it because the current user has the permission to do this task
+    next();
+  };
+};
