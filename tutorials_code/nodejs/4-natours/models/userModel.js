@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
@@ -42,6 +43,8 @@ const userSchema = new mongoose.Schema({
     },
   },
   passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 });
 
 // use document middleware
@@ -93,6 +96,27 @@ userSchema.methods.changedPasswordAfter = async function (JWTTimestamp) {
 
   // false means not changes
   return false;
+};
+
+// I made it here because it belongs to the user data
+userSchema.methods.createPasswordResetToken = function () {
+  // we create a token to make a session to reset the password,
+  // and we don't store it in the DB
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  // so we store it after hashing it
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  console.log({ resetToken }, this.passwordResetToken);
+
+  // expires after 10 minutes
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  // we return the token itself without hashing it send via email
+  return resetToken;
 };
 
 const User = mongoose.model('User', userSchema);
