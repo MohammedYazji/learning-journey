@@ -11,6 +11,7 @@ Welcome to my personal collection of DSA notes. This repo is designed for easy s
 ### 🔰 Introduction
 
 - [Asymptotic Analysis](./notes/Intro/1-Asymptotic%20Analysis.md)
+- [Introducing Big O](./notes/Intro/2-Introducing%20Big%20O.md)
 
 ### 🏗️ Data Structures
 

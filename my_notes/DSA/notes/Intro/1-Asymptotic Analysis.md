@@ -105,10 +105,9 @@ Instead of counting seconds, let’s **count the number of operations** a comput
 
 ### Example 1: Constant Time
 
-```js
-function add(a, b) {
-  return a + b;
-}
+```python
+def add(a, b):
+  return a + b
 ```
 
 - Just 3 operations regardless of input size.
@@ -119,14 +118,12 @@ function add(a, b) {
 
 ### Example 2: Linear Time
 
-```js
-function sum(arr) {
-  let total = 0;
-  for (let i = 0; i < arr.length; i++) {
-    total += arr[i];
-  }
-  return total;
-}
+```python
+def sum_array(arr):
+    total = 0
+    for i in range(len(arr)):
+        total += arr[i]
+    return total
 ```
 
 - 5n + 2 operations
