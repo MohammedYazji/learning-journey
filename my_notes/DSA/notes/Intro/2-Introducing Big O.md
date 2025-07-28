@@ -74,6 +74,15 @@ def add_up_to(n):
     return (n * (n + 1)) // 2
 ```
 
+- This uses a **mathematical formula** to directly calculate the sum.
+- No matter what `n` is (small or huge), it always does **exactly 3 operations**:
+  - Multiply `n * (n + 1)`,
+  - Divide by 2,
+  - Return the result.
+- That’s why its **Big O notation** is **O(1)** ➔ it takes **constant time**.
+
+  (It doesn't grow with `n`.)
+
 - **O(n)** – Using a loop:
 
 ```python
@@ -83,6 +92,13 @@ def add_up_to_loop(n):
         total += i
     return total
 ```
+
+- This **loops** from 1 to `n`, adding each number to `total`.
+- The bigger `n` gets, the **more times** it loops.
+- If `n = 10`, it loops 10 times.
+- If `n = 1,000,000`, it loops 1,000,000 times!
+- So the number of operations **depends on `n`**, and grows linearly.
+- That's why its **Big O notation** is **O(n)** ➔ it takes **linear time**.
 
 ---
 
@@ -112,6 +128,10 @@ def count_up_and_down(n):
 ➡️ Total: **O(n + n + 1)** → Drop constants → **O(n)**
 
 **✅ Final Big O:** O(n)
+
+Even though there are **two loops**, each looping **n** times,
+
+**we don't say O(2n), we just say O(n)** because Big O ignores constants.
 
 ---
 
