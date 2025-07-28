@@ -34,8 +34,6 @@ class Stack:
         return self.items.pop()
 ```
 
-```
-
 > Think of a data structure as a custom tool with specific rules for how data is handled.
 
 ---
@@ -77,4 +75,3 @@ Each DS shines in a different scenario.
 - **Ordered list with fast inserts/removals at beginning/end** → Use a **Linked List**
 - **Web scraping nested HTML structure** → Use a **Tree**
 - **Task scheduling system** → Use a **Binary Heap**
-```
