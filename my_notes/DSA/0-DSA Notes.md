@@ -17,7 +17,7 @@ Welcome to my personal collection of DSA notes. This repo is designed for easy s
 
 ### 🏗️ Data Structures
 
-- 📌 Coming Soon
+- [Introduction to Data Structures](./notes/DS/1-Intro%20to%20DS.md)
 
 ### ⚙️ Algorithms
 
