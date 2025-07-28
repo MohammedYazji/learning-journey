@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [What is a Data Structure?](#what-is-a-data-structure)
+- [How is Data Stored in Memory?](#how-is-data-stored-in-memory)
 - [Why So Many Data Structures?](#why-so-many-data-structures)
 - [Which One is the Best?](#which-one-is-the-best)
 - [Example Use Cases](#example-use-cases)
@@ -35,6 +36,49 @@ class Stack:
 ```
 
 > Think of a data structure as a custom tool with specific rules for how data is handled.
+
+---
+
+## How is Data Stored in Memory?
+
+- Computers store data in **RAM (Random Access Memory)** in **binary format (0s and 1s)**.
+- Memory is divided into **addresses** (like apartment numbers).
+- Each variable or data item occupies one or more addresses based on its type and size.
+
+### 🔹 Primitive Types
+
+- Stored in **contiguous memory blocks**.
+- For example, integers and floats are stored directly in memory slots.
+
+### 🔹 Arrays / Lists
+
+- Stored in **sequential memory locations**.
+- Index-based access is fast because the address of any element can be calculated:
+
+  ```
+  address = base_address + (index * size_of_element)
+  ```
+
+### 🔹 Linked Lists
+
+- Each node contains:
+
+  - The **data**.
+  - A **reference (pointer)** to the next node.
+
+- Nodes can be scattered in memory. they’re **connected via pointers**.
+
+### 🔹 Trees and Graphs
+
+- Like linked lists, they rely on **references/pointers** to link nodes.
+- Layout in memory depends on how the structure is implemented (e.g. object references in Python).
+
+### 🔹 Hash Tables (Dictionaries)
+
+- Use a **hash function** to convert a key into a memory index.
+- Data is stored in a **bucket** or slot based on that hash.
+
+📌 Efficient memory layout = faster access + less overhead.
 
 ---
 
