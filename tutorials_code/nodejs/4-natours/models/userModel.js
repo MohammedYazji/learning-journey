@@ -66,6 +66,14 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre('save', function (next) {
+  // make middleware to update the time of change password auto when save, if the pass changed
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000; // but it one second in past to not has conflict with generate a token
+  next();
+});
+
 // function to unhash the password
 // make an instance method [available for each documents in this model]
 // we do it here because its related to the data of user itself
