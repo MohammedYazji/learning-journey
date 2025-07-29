@@ -236,6 +236,19 @@ class DoublyLinkedList {
     }
   }
 
+  // reverse a doubly linked list
+  reverse() {
+    let current = this.head;
+    while (current) {
+      // Swap next and prev for current node
+      [current.prev, current.next] = [current.next, current.prev];
+      // Move to the next node in original order (which is prev now)
+      current = current.prev;
+    }
+    // Swap head and tail pointers
+    [this.head, this.tail] = [this.tail, this.head];
+  }
+
   // print
   print() {
     let res = "";
@@ -250,6 +263,8 @@ class DoublyLinkedList {
 
 list = new DoublyLinkedList();
 list.push(10).push(20).push(30);
+console.log("After Reverse:");
 list.print();
-list.remove(1).val;
+list.reverse();
+console.log("After Reverse:");
 list.print();

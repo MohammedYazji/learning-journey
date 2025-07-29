@@ -207,6 +207,17 @@ class DoublyLinkedList:
             self.length -= 1
             return removed_node
 
+    def reverse(self):
+        current = self.head
+        while current:
+            # Swap next and prev for current node
+            current.prev, current.next = current.next, current.prev
+            # Move to the next node in original order (which is prev now)
+            current = current.prev
+
+        # Swap head and tail pointers
+        self.head, self.tail = self.tail, self.head
+
 
     def __str__(self):
         res = ''
@@ -218,6 +229,7 @@ class DoublyLinkedList:
     
 l = DoublyLinkedList()
 l.push(10).push(20).push(30)
-print(l)
-l.remove(2)
-print(l)
+print('Before:', l)
+l.reverse()
+print('After Reverse:', l)
+
