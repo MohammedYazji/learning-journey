@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -9,7 +10,7 @@ const userRouter = require('./routes/userRoutes');
 // express is function so when call it will add many methods to app
 const app = express();
 
-// 1. Middlewares
+// 1. GLOBAL Middlewares
 // general middlewares for all requests and routes
 
 // only use morgan in the development environment
@@ -17,6 +18,15 @@ if (process.env.NODE_ENV === 'development') {
   // use 3rd Party [logging to console the req information]
   app.use(morgan('dev'));
 }
+
+// we need to secure our api by limit the rating of request of the same ip address
+const limiter = rateLimit({
+  max: 100, // number of requests
+  windowMs: 60 * 60 * 1000, // window time => here one hour
+  message: 'Too many requests from this IP, please try again in an hour!',
+});
+// we will implement this middleware for all routes have /api
+app.use('/api', limiter);
 
 // express.json is a middleware: function can modify the incoming request data
 // we call it middleware because its between the req and the res
