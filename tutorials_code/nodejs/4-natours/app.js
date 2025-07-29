@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const hpp = require('hpp');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -51,6 +52,23 @@ app.use(mongoSanitize());
 // DATA SANITIZATION AGAINST XSS
 // prevent enter js code as a dangour code as an input for my app
 app.use(xss());
+
+// PREVENT POPULATION OF PARAMETER //
+// for example when we in the request put two sorting queries but we just need one in the apiFeatures
+// just take the last one: sort+duration&sort+price => price
+app.use(
+  hpp({
+    // list of parameter that allow repetition
+    whitelist: [
+      'duration',
+      'ratingsQuantity',
+      'ratingsAverage',
+      'maxGroupSize',
+      'difficulty',
+      'price',
+    ],
+  }),
+);
 
 // serving static files [just for knowing don't use it] //
 // here we serve public folder
