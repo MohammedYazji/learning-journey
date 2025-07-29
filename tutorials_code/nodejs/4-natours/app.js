@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -38,6 +40,17 @@ app.use('/api', limiter);
 // express.json is a middleware: function can modify the incoming request data
 // we call it middleware because its between the req and the res
 app.use(express.json({ limit: '10kb' }));
+
+// clean all data to come into the application to sure its safe data //
+// DATA SANITIZATION AGAINST NOSQL QUERY INJECTION
+
+// so for example prevernt enter queiries as email
+//  this package handle dots and other characters
+app.use(mongoSanitize());
+
+// DATA SANITIZATION AGAINST XSS
+// prevent enter js code as a dangour code as an input for my app
+app.use(xss());
 
 // serving static files [just for knowing don't use it] //
 // here we serve public folder
