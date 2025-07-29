@@ -45,6 +45,7 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: { type: Boolean, default: true, select: false },
 });
 
 // use document middleware
@@ -71,6 +72,16 @@ userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000; // but it one second in past to not has conflict with generate a token
+  next();
+});
+
+// this middleware execute before the find query
+// to test if the user is inactive
+userSchema.pre(/^find/, function (next) {
+  // this now point to the current query this == query itself
+  // so before any find query sent will remove all users is inactive
+  this.find({ active: { $ne: false } });
+
   next();
 });
 

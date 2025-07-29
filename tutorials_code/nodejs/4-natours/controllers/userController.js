@@ -15,6 +15,7 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
+  // so now before this query the query pre middle will run
   const users = await User.find();
 
   res.status(200).json({
@@ -54,12 +55,23 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  // set active to false
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    message: null,
+  });
+});
+
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
     message: 'This route is not yet defined!',
   });
 };
+
 exports.getUser = (req, res) => {
   res.status(500).json({
     status: 'error',
