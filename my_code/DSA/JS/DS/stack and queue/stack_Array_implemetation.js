@@ -53,13 +53,14 @@ class ArrayStack {
   }
 }
 
-const myStack = new ArrayStack(5);
-myStack.push(1);
-myStack.push(2);
-myStack.push(3);
-myStack.push(4);
+// Comment For testing
+// const myStack = new ArrayStack(5);
+// myStack.push(1);
+// myStack.push(2);
+// myStack.push(3);
+// myStack.push(4);
 
-console.log(myStack.pop());
-console.log(myStack.pop());
-console.log(myStack.pop());
-console.log(myStack.pop());
+// console.log(myStack.pop());
+// console.log(myStack.pop());
+// console.log(myStack.pop());
+// console.log(myStack.pop());
