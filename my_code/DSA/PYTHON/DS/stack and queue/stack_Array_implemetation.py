@@ -44,12 +44,13 @@ class ArrayStack:
         return self.stack[self.n]
         
     
-my_stack = ArrayStack(5)
-my_stack.push(1)
-my_stack.push(2)
-my_stack.push(3)
-my_stack.push(4)
-print(my_stack.pop())
-print(my_stack.pop())
-print(my_stack.pop())
-print(my_stack.pop())
+# Comment for Testing
+# my_stack = ArrayStack(5)
+# my_stack.push(1)
+# my_stack.push(2)
+# my_stack.push(3)
+# my_stack.push(4)
+# print(my_stack.pop())
+# print(my_stack.pop())
+# print(my_stack.pop())
+# print(my_stack.pop())
