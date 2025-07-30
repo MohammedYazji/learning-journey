@@ -64,3 +64,5 @@ class ArrayStack {
 // console.log(myStack.pop());
 // console.log(myStack.pop());
 // console.log(myStack.pop());
+
+module.exports = ArrayStack;
