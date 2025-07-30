@@ -51,13 +51,13 @@ class ArrayQueue:
 
     
 
+# Comment for Testing
+# my_queue = ArrayQueue(5)
+# my_queue.enqueue(1)
+# my_queue.enqueue(2)
+# my_queue.enqueue(3)
 
-my_queue = ArrayQueue(5)
-my_queue.enqueue(1)
-my_queue.enqueue(2)
-my_queue.enqueue(3)
-
-print(my_queue.dequeue())
-print(my_queue.dequeue())
-print(my_queue.dequeue())
+# print(my_queue.dequeue())
+# print(my_queue.dequeue())
+# print(my_queue.dequeue())
 
