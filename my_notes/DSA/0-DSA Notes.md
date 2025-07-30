@@ -21,7 +21,7 @@ Welcome to my personal collection of DSA notes. This repo is designed for easy s
 
 ### ⚙️ Algorithms
 
-- 📌 Coming Soon
+- [Recursion](./notes/Algo/recursion/recursion.md)
 
 ---
 
