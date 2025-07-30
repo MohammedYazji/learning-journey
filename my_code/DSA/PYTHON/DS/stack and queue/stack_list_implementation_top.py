@@ -54,12 +54,13 @@ class Stack:
         return popped_node.val
     
 
-stack = Stack()
-stack.push(32)
-stack.push(12)
-stack.push(65)
-stack.push(10)
-print(stack.pop())
-print(stack.pop())
-print(stack.pop())
-print(stack.pop())
+# Commenting for Testing
+# stack = Stack()
+# stack.push(32)
+# stack.push(12)
+# stack.push(65)
+# stack.push(10)
+# print(stack.pop())
+# print(stack.pop())
+# print(stack.pop())
+# print(stack.pop())
