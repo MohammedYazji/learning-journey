@@ -64,11 +64,14 @@ class ArrayQueue {
   }
 }
 
-const myQueue = new ArrayQueue(5);
-myQueue.enqueue(1);
-myQueue.enqueue(2);
-myQueue.enqueue(3);
+// Comment For Testing
+// const myQueue = new ArrayQueue(5);
+// myQueue.enqueue(1);
+// myQueue.enqueue(2);
+// myQueue.enqueue(3);
 
-console.log(myQueue.dequeue());
-console.log(myQueue.dequeue());
-console.log(myQueue.dequeue());
+// console.log(myQueue.dequeue());
+// console.log(myQueue.dequeue());
+// console.log(myQueue.dequeue());
+
+Module.exports = ArrayQueue;
