@@ -18,6 +18,7 @@ Welcome to my personal collection of DSA notes. This repo is designed for easy s
 ### 🏗️ Data Structures
 
 - [Introduction to Data Structures](./notes/DS/1-Intro%20to%20DS.md)
+- [Linked List](./notes/DS/2-linked_list.md)
 
 ### ⚙️ Algorithms
 
