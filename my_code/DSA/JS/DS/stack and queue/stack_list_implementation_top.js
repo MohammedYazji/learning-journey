@@ -76,3 +76,5 @@ class Stack {
 // console.log(stack.pop());
 // console.log(stack.pop());
 // console.log(stack.pop());
+
+module.exports = Stack;
