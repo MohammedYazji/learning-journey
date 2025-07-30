@@ -74,4 +74,4 @@ class ArrayQueue {
 // console.log(myQueue.dequeue());
 // console.log(myQueue.dequeue());
 
-Module.exports = ArrayQueue;
+module.exports = ArrayQueue;
