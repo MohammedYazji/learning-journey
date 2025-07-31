@@ -153,25 +153,13 @@ tourSchema.pre('save', function (next) {
 
 //   next();
 // });
-// 2. EMBEDDING [Not Recommended]
 
-// tourSchema.pre('save', function (next) {
-//   console.log('Will save document...');
-//   next();
-// });
-
-// middleware after the process of saving
-// receive doc argument which the document which we have saved
-// tourSchema.post('save', function (doc, next) {
-//   console.log(doc);
-//   next(); // right there's no next after this middleware in thestack but it's best practice to put it
-// });
 ///////
 // QUERY MIDDLEWARE
 
 // for example we need when using the queries later to make queries just for the not secret tours
 // so if we use get all tours and use the api features and implement the next queries in the stack will not found the the secret tours there
-tourSchema.pre('/^find/', function (next) {
+tourSchema.pre(/^find/, function (next) {
   // tourSchema.pre('find', function (next) {
   this.find({ secretTour: { $ne: true } }); // this now is a query object
 
@@ -179,12 +167,26 @@ tourSchema.pre('/^find/', function (next) {
   next();
 });
 
+// make middleware to replace the id of guides with the real data of them when send response from getTour, getAllTours
+tourSchema.pre(/^find/, function (next) {
+  // this is the query
+
+  // Because we store the id in the DB as reference, so we use populate method on the find query to put the actual data of guides in the response when we get the tour
+  // also we can except some values from the guide info by use the '-'
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
+  next();
+});
+
 // this will execute after we await the query and will put the returned documents in docs
-tourSchema.post('/^find/', function (docs, next) {
+tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds`);
   // console.log(docs);
   next();
 });
+
 ///////
 // AGGREGATION MIDDLEWARE
 

@@ -46,6 +46,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
 
 exports.getTour = catchAsync(async (req, res, next) => {
   // Tour.findOne({_id: req.params.id}) // IN MONGODB
+
   const tour = await Tour.findById(req.params.id);
 
   // if the response is null so there's no document to display 404 not found
