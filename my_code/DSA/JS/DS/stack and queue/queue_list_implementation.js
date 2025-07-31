@@ -75,11 +75,11 @@ class Queue {
   }
 }
 
-my_queue = new Queue();
-my_queue.enqueue(1);
-my_queue.enqueue(2);
-my_queue.enqueue(3);
+// my_queue = new Queue();
+// my_queue.enqueue(1);
+// my_queue.enqueue(2);
+// my_queue.enqueue(3);
 
-console.log(my_queue.dequeue());
-console.log(my_queue.dequeue());
-console.log(my_queue.dequeue());
+// console.log(my_queue.dequeue());
+// console.log(my_queue.dequeue());
+// console.log(my_queue.dequeue());

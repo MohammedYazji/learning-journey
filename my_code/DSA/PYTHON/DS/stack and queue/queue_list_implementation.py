@@ -67,11 +67,11 @@ class Queue:
     def clear(self):
         self.front = self.rear = None
 
-my_queue = Queue()
-my_queue.enqueue(1)
-my_queue.enqueue(2)
-my_queue.enqueue(3)
+# my_queue = Queue()
+# my_queue.enqueue(1)
+# my_queue.enqueue(2)
+# my_queue.enqueue(3)
 
-print(my_queue.dequeue())
-print(my_queue.dequeue())
-print(my_queue.dequeue())
+# print(my_queue.dequeue())
+# print(my_queue.dequeue())
+# print(my_queue.dequeue())
