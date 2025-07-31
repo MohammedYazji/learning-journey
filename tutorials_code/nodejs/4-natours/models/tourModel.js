@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 // use a validator library
 const validator = require('validator');
-const User = require('./userModel');
+// const User = require('./userModel');
 
 // creating a schema for tours
 const tourSchema = new mongoose.Schema(
@@ -110,7 +110,7 @@ const tourSchema = new mongoose.Schema(
         day: Number,
       },
     ],
-    guides: Array,
+    guides: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
   },
   {
     // second object for Schema Options
@@ -140,17 +140,20 @@ tourSchema.pre('save', function (next) {
   next();
 });
 
-tourSchema.pre('save', async function (next) {
-  // this here is the document itself
+// TWO WAYS TWO LINK COLLECTIONS
+// 1. EMBEDDING [Not Recommended]
+// tourSchema.pre('save', async function (next) {
+//   // this here is the document itself
 
-  // so here is an array of promises because return a promise in each loop
-  const guidesPromises = this.guides.map(async (id) => await User.findById(id));
+//   // so here is an array of promises because return a promise in each loop
+//   const guidesPromises = this.guides.map(async (id) => await User.findById(id));
 
-  // convert array of promises to normal id's, then storee them back as guides not id's
-  this.guides = await Promise.all(guidesPromises);
+//   // convert array of promises to normal id's, then storee them back as guides not id's
+//   this.guides = await Promise.all(guidesPromises);
 
-  next();
-});
+//   next();
+// });
+// 2. EMBEDDING [Not Recommended]
 
 // tourSchema.pre('save', function (next) {
 //   console.log('Will save document...');
