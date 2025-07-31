@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 // use a validator library
 const validator = require('validator');
+const User = require('./userModel');
 
 // creating a schema for tours
 const tourSchema = new mongoose.Schema(
@@ -109,6 +110,7 @@ const tourSchema = new mongoose.Schema(
         day: Number,
       },
     ],
+    guides: Array,
   },
   {
     // second object for Schema Options
@@ -135,6 +137,18 @@ tourSchema.pre('save', function (next) {
   // console.log(this);
   // add new property for this called slug and put inside it the name and store the slug with the document in the DB
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+tourSchema.pre('save', async function (next) {
+  // this here is the document itself
+
+  // so here is an array of promises because return a promise in each loop
+  const guidesPromises = this.guides.map(async (id) => await User.findById(id));
+
+  // convert array of promises to normal id's, then storee them back as guides not id's
+  this.guides = await Promise.all(guidesPromises);
+
   next();
 });
 
