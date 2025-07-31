@@ -8,21 +8,30 @@ class BinaryTree:
     def __init__(self):
         self.root = None
 
-    def insert(self, value):
-        new_node = Node(value)
+    def insert(self, data):
 
-        if self.root is None:
+        # make the new node to push it
+        new_node = Node(data)
+
+        # if the tree is empty yet => make the root the new node
+        if not self.root:
             self.root = new_node
+        # else we will pass the root with the data to add
         else:
-            self._insert(self.root, value)
+            self._insert(self.root, data)
 
-    def _insert(self, node, value):
-        if node.left is None:
-            node.left = Node(value)
-        elif node.right is None:
-            node.right = Node(value)
+    def _insert(self, node, data):
+        new_node = Node(data)
+        # if the left pointer of the node is empty add it there
+        if not node.left:
+            node.left = new_node
+
+        # if the right pointer of the node is empty add it there
+        elif not node.right:
+            node.right = new_node
+        # else so the node is full has two children so call the function again with the left child
         else:
-            self._insert(node.left, value)
+            self._insert(node.left, data)
 
     def search(self, node, target):
         if node is None:
@@ -81,3 +90,12 @@ class BinaryTree:
             self.postorder(node.left)
             self.postorder(node.right)
             print(node.value, end=' ')
+
+    def get_height(self, node):
+        # Base Case: stop when reach leaf
+        if node is None:
+            return 0
+        # loop over the all nodes using recursion
+        # and get the max between height of children + 1
+        # why +1 because we start 0 height on leaf, then we increment one each level toward the root
+        return 1 + max(self.get_height(node.left), self.get_height(node.right))
