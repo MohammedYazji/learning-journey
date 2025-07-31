@@ -10,6 +10,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 // express is function so when call it will add many methods to app
 const app = express();
@@ -89,6 +90,8 @@ app.use((req, res, next) => {
 app.use('/api/v1/tours', tourRouter);
 // this userRouter Middleware will apply just on this route
 app.use('/api/v1/users', userRouter);
+// this reviewRouter Middleware will apply just on this route
+app.use('/api/v1/reviews', reviewRouter);
 
 // run for all http requests that not same as my tours and users routes
 // handle unhandled routes * => everything
