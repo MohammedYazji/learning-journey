@@ -129,6 +129,14 @@ tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
+// not will save to the DB just virtual populated
+// so we need to populate the review data and display them
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour', // specific the name of property which link the review with tour
+  localField: '_id', // this id what we link it there in the review model
+});
+
 ///////
 // DOCUMENT MIDDLEWARE
 // define a middleware on the tour schema that will execute before certain event in this case[ the save event .save() and .create()]

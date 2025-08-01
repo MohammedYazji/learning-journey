@@ -40,10 +40,16 @@ const reviewSchema = new mongoose.Schema(
 
 // 1. use populate to replace the id with the actual data of the tour and user how made the review
 reviewSchema.pre(/^find/, function (next) {
+  // this.populate({
+  //   path: 'tour', // path to reference
+  //   select: 'name', // just select the name
+  // }).populate({
+  //   path: 'user', // path to reference
+  //   select: 'name photo', // just select the name
+  // });
+
+  // get rid of the first one because when i make virtual populating in tour I don't need the tours again inside tour
   this.populate({
-    path: 'tour', // path to reference
-    select: 'name', // just select the name
-  }).populate({
     path: 'user', // path to reference
     select: 'name photo', // just select the name
   });
