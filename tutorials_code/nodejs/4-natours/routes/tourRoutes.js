@@ -1,6 +1,7 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
 const authController = require('../controllers/authController');
+const reviewController = require('../controllers/reviewController');
 
 // this router is kind of sub-application for tours resource
 const router = express.Router();
@@ -31,5 +32,15 @@ router
     authController.restrictTo('admin', 'lead-guide'),
     tourController.deleteTour,
   );
+
+// POST tour/id_tour12313/reviews
+// GET tour/id_tour12313/reviews
+// GET tour/id_tour12313/reviews/review_idee3e21
+
+router.route('/:tourId/reviews').post(
+  authController.protect, // we need to take the user id from here
+  authController.restrictTo('user'),
+  reviewController.createReview,
+);
 
 module.exports = router;
