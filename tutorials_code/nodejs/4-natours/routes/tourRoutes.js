@@ -1,10 +1,19 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
 const authController = require('../controllers/authController');
-const reviewController = require('../controllers/reviewController');
+// const reviewController = require('../controllers/reviewController');
+const reviewRouter = require('../routes/reviewRoutes');
 
 // this router is kind of sub-application for tours resource
 const router = express.Router();
+
+// POST tour/id_tour12313/reviews
+// GET tour/id_tour12313/reviews
+// GET tour/id_tour12313/reviews/review_idee3e21
+
+// in the tour router just for this route use the review router as a middleware
+// so its by tour then redirected to the review router
+router.use('/:tourId/reviews', reviewRouter);
 
 // so we need to make a middleware just for this unique route to manipulate req before move to getAllTours
 // 127.0.0.1:3000/api/v1/tours?limit=5&sort=-ratingsAverage,price
@@ -32,15 +41,5 @@ router
     authController.restrictTo('admin', 'lead-guide'),
     tourController.deleteTour,
   );
-
-// POST tour/id_tour12313/reviews
-// GET tour/id_tour12313/reviews
-// GET tour/id_tour12313/reviews/review_idee3e21
-
-router.route('/:tourId/reviews').post(
-  authController.protect, // we need to take the user id from here
-  authController.restrictTo('user'),
-  reviewController.createReview,
-);
 
 module.exports = router;
