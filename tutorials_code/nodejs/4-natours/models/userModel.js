@@ -48,33 +48,32 @@ const userSchema = new mongoose.Schema({
   active: { type: Boolean, default: true, select: false },
 });
 
-// TURN OF TO IMPORT THE DATA WITHOUT ENCRYPTED PASSWORDS AGAIN
 // use document middleware
 // we need to encrypt the password before save it in the DB
-// userSchema.pre('save', async function (next) {
-//   // this refer to the user document
-//   // so if the password is not have been modified so return and jump to the next middleware
-//   if (!this.isModified('password')) return next();
+userSchema.pre('save', async function (next) {
+  // this refer to the user document
+  // so if the password is not have been modified so return and jump to the next middleware
+  if (!this.isModified('password')) return next();
 
-//   // else we need to hash the password [add random string to the password] before save it
-//   // hash => async to not block the rest of code
-//   this.password = await bcrypt.hash(this.password, 12);
+  // else we need to hash the password [add random string to the password] before save it
+  // hash => async to not block the rest of code
+  this.password = await bcrypt.hash(this.password, 12);
 
-//   // also we need to delete the confirm password we don't need to save it to the DB
-//   // we used it in the auth controller  so we no longer need it
-//   this.passwordConfirm = undefined;
+  // also we need to delete the confirm password we don't need to save it to the DB
+  // we used it in the auth controller  so we no longer need it
+  this.passwordConfirm = undefined;
 
-//   // then call the next middleware in the stack
-//   next();
-// });
+  // then call the next middleware in the stack
+  next();
+});
 
-// userSchema.pre('save', function (next) {
-//   // make middleware to update the time of change password auto when save, if the pass changed
-//   if (!this.isModified('password') || this.isNew) return next();
+userSchema.pre('save', function (next) {
+  // make middleware to update the time of change password auto when save, if the pass changed
+  if (!this.isModified('password') || this.isNew) return next();
 
-//   this.passwordChangedAt = Date.now() - 1000; // but it one second in past to not has conflict with generate a token
-//   next();
-// });
+  this.passwordChangedAt = Date.now() - 1000; // but it one second in past to not has conflict with generate a token
+  next();
+});
 
 // this middleware execute before the find query
 // to test if the user is inactive

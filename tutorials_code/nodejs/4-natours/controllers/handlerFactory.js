@@ -94,6 +94,8 @@ exports.getAll = (Model) =>
       .paginate();
 
     // execute
+    // explain show some info about the result for example the total documents and the search result count
+    // const doc = await features.query.explain();
     const doc = await features.query;
 
     // SEND A RESPONSE
