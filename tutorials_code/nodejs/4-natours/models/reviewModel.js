@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Tour = require('./tourModel');
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -55,6 +56,36 @@ reviewSchema.pre(/^find/, function (next) {
   });
 
   next();
+});
+
+// static method not for instance but access it using the model itself
+// we need to calc the avgRatings whenever we create a new review or update an existence one
+reviewSchema.statics.calcAverageRatings = async function (tourId) {
+  const stats = await this.aggregate([
+    {
+      // 1) select all reviews for this document
+      $match: { tour: tourId },
+    },
+    {
+      // 2) calc the statistics
+      $group: {
+        _id: '$tour', //group result by tour [result for one tour based on id]
+        nRating: { $sum: 1 }, // for each review plus the number of rating by one
+        avgRating: { $avg: '$rating' }, // calc the average of all reviews in this tour
+      },
+    },
+  ]);
+  // console.log(stats);
+
+  await Tour.findByIdAndUpdate(tourId, {
+    ratingsQuantity: stats[0].nRating,
+    ratingsAverage: stats[0].avgRating,
+  });
+};
+
+reviewSchema.post('save', function () {
+  // this point to the current review
+  this.constructor.calcAverageRatings(this.tour);
 });
 
 const Review = mongoose.model('Review', reviewSchema);
