@@ -2,6 +2,7 @@ const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const factory = require('./handlerFactory');
 
 // middleware for '/top-5-cheap'
 // 5 best and cheapest tours
@@ -83,21 +84,23 @@ exports.updateTour = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findByIdAndDelete(req.params.id);
+// Simply 😅
+exports.deleteTour = factory.deleteOne(Tour);
+// exports.deleteTour = catchAsync(async (req, res, next) => {
+//   const tour = await Tour.findByIdAndDelete(req.params.id);
 
-  if (!tour) {
-    // jump to the global error handler middleware
-    // we use return to stop the function and not send two responses one from here and another from the error controller
-    return next(new AppError('No tour found with that ID', 404));
-  }
+//   if (!tour) {
+//     // jump to the global error handler middleware
+//     // we use return to stop the function and not send two responses one from here and another from the error controller
+//     return next(new AppError('No tour found with that ID', 404));
+//   }
 
-  // 204 for delete so item no longer exist
-  res.status(204).json({
-    status: 'success',
-    data: null, // no content
-  });
-});
+//   // 204 for delete so item no longer exist
+//   res.status(204).json({
+//     status: 'success',
+//     data: null, // no content
+//   });
+// });
 
 // aggregation
 // Here I will implement a function to calc a statistics of tours

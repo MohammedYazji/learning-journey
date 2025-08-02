@@ -18,4 +18,6 @@ router
     reviewController.createReview,
   ); // we just need auth user to post reviews, and only regular user not admin or something else
 
+router.route('/:id').delete(reviewController.deleteReview);
+
 module.exports = router;

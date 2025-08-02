@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const factory = require('./handlerFactory');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -55,6 +56,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
+// user can delete his account by inactive it
 exports.deleteMe = catchAsync(async (req, res, next) => {
   // set active to false
   await User.findByIdAndUpdate(req.user.id, { active: false });
@@ -84,9 +86,6 @@ exports.updateUser = (req, res) => {
     message: 'This route is not yet defined!',
   });
 };
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
+
+// only admin should delete user
+exports.deleteUser = factory.deleteOne(User);
