@@ -1,8 +1,8 @@
 const express = require('express');
-const tourController = require('./../controllers/tourController');
+const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
 // const reviewController = require('../controllers/reviewController');
-const reviewRouter = require('../routes/reviewRoutes');
+const reviewRouter = require('./reviewRoutes');
 
 // this router is kind of sub-application for tours resource
 const router = express.Router();
@@ -25,17 +25,28 @@ router
 router.route('/tour-stats').get(tourController.getTourStats);
 // another route for the aggregation pipeline to calculate the busiest month
 // we receive the year as a parameter
-router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
-
 router
-  .route('/')
-  .get(authController.protect, tourController.getAllTours) // protect this route
-  .post(tourController.createTour);
+  .route('/monthly-plan/:year')
+  .get(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide', 'guide'),
+    tourController.getMonthlyPlan,
+  );
+
+router.route('/').get(tourController.getAllTours).post(
+  authController.protect,
+  authController.restrictTo('admin', 'lead-guide'),
+  tourController.createTour, // just admin and lead-guide can create a tour after login
+);
 
 router
   .route('/:id')
-  .get(tourController.getTour)
-  .patch(tourController.updateTour)
+  .get(tourController.getTour) // free for everyone
+  .patch(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    tourController.updateTour,
+  )
   .delete(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),

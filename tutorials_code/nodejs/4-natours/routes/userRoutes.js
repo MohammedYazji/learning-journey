@@ -1,34 +1,30 @@
 const express = require('express');
-const userController = require('./../controllers/userController');
-const authController = require('./../controllers/authController');
+const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-// this route for dealing immediately with the user
-// route just for post data to signup
 router.post('/signup', authController.signup);
-
 router.post('/login', authController.login);
-
-// this route for reset password
 router.post('/forgotPassword', authController.forgotPassword);
-
 router.patch('/resetPassword/:token', authController.resetPassword);
 
-router.patch(
-  '/updateMyPassword',
-  authController.protect,
-  authController.updatePassword,
-);
+// PROTECT ALL ROUTES AFTER THIS MIDDLEWARE //
+// all the coming routes we need protect middleware, so instead of writing it inside each route I will use it in the router itself because its a middleware too
+// so any route after this statement will has the protect middleware automatically in it's stack
+router.use(authController.protect);
+
+router.patch('/updateMyPassword', authController.updatePassword);
 
 // must be authenticated before get his info
 // and we make getMe middleware to fake that the id came from url but its from protect auth controller
-router
-  .route('/me')
-  .get(authController.protect, userController.getMe, userController.getUser);
+router.route('/me').get(userController.getMe, userController.getUser);
 
-router.patch('/updateMe', authController.protect, userController.updateMe);
-router.delete('/deleteMe', authController.protect, userController.deleteMe);
+router.patch('/updateMe', userController.updateMe);
+router.delete('/deleteMe', userController.deleteMe);
+
+// RESTRICT ALL ROUTES AFTER THIS MIDDLEWARE JUST FOR ADMIN //
+router.use(authController.restrictTo('admin'));
 
 router
   .route('/')
