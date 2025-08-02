@@ -1,6 +1,7 @@
 // in this file we will factor all controller methods into this file as a template
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const APIFeatures = require('../utils/apiFeatures');
 
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -49,5 +50,56 @@ exports.createOne = (Model) =>
       data: {
         data: doc,
       },
+    });
+  });
+
+exports.getOne = (Model, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    // so we did this logic because in tour we have populate the query so if pop exist populate the query finally await it to get the data
+    let query = Model.findById(req.params.id);
+    if (popOptions) query = query.populate(popOptions);
+
+    const doc = await query;
+
+    // if the response is null so there's no document to display 404 not found
+    if (!doc) {
+      // jump to the global error handler middleware
+      // we use return to stop the function and not send two responses one from here and another from the error controller
+      return next(new AppError('No document found with that ID', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: doc,
+      },
+    });
+  });
+
+exports.getAll = (Model) =>
+  catchAsync(async (req, res, next) => {
+    // To allow for nested GET reviews on tour
+    // just make the searching on these tours of this review [if Review controller call this]
+    // if I use /:tourId/reviews [get review of one tour]
+    let filter = {};
+    if (req.params.tourId) filter = { tour: req.params.tourId };
+
+    // then EXECUTE THE QUERY TO GET THE DOCUMENTS
+    // build
+    const features = new APIFeatures(Model.find(filter), req.query)
+      .filter()
+      .sort()
+      // add break point here to find the bug
+      .limitFields()
+      .paginate();
+
+    // execute
+    const doc = await features.query;
+
+    // SEND A RESPONSE
+    res.status(200).json({
+      status: 'success',
+      results: doc.length,
+      data: { doc },
     });
   });

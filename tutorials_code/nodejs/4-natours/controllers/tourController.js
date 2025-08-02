@@ -1,7 +1,5 @@
 const Tour = require('../models/tourModel');
-const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
 
 // middleware for '/top-5-cheap'
@@ -13,47 +11,8 @@ exports.aliasTopTours = (req, res, next) => {
   next(); // to implement getAllTours after this
 };
 
-exports.getAllTours = catchAsync(async (req, res, next) => {
-  // then EXECUTE THE QUERY TO GET THE DOCUMENTS
-  // build
-  const features = new APIFeatures(Tour.find(), req.query)
-    .filter()
-    .sort()
-    // add break point here to find the bug
-    .limitFields()
-    .paginate();
-
-  // execute
-  const tours = await features.query;
-
-  // SEND A RESPONSE
-  res.status(200).json({
-    status: 'success',
-    results: tours.length,
-    data: { tours },
-  });
-});
-
-exports.getTour = catchAsync(async (req, res, next) => {
-  // Tour.findOne({_id: req.params.id}) // IN MONGODB
-
-  const tour = await Tour.findById(req.params.id).populate('reviews');
-
-  // if the response is null so there's no document to display 404 not found
-  if (!tour) {
-    // jump to the global error handler middleware
-    // we use return to stop the function and not send two responses one from here and another from the error controller
-    return next(new AppError('No tour found with that ID', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour,
-    },
-  });
-});
-
+exports.getAllTours = factory.getAll(Tour);
+exports.getTour = factory.getOne(Tour, { path: 'reviews' });
 exports.createTour = factory.createOne(Tour);
 exports.updateTour = factory.updateOne(Tour);
 exports.deleteTour = factory.deleteOne(Tour);
