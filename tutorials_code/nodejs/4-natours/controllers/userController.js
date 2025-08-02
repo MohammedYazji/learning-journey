@@ -15,6 +15,13 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
+exports.getMe = (req, res, next) => {
+  // change the id from URL to be the one from the protect middleware
+  req.params.id = req.user.id;
+
+  next(); // to let the getOne execute
+};
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1) if user POST password data create error
   if (req.body.password || req.body.passwordConfirm) {

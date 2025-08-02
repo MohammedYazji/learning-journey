@@ -21,6 +21,12 @@ router.patch(
   authController.updatePassword,
 );
 
+// must be authenticated before get his info
+// and we make getMe middleware to fake that the id came from url but its from protect auth controller
+router
+  .route('/me')
+  .get(authController.protect, userController.getMe, userController.getUser);
+
 router.patch('/updateMe', authController.protect, userController.updateMe);
 router.delete('/deleteMe', authController.protect, userController.deleteMe);
 
