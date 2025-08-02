@@ -37,6 +37,11 @@ const reviewSchema = new mongoose.Schema(
   },
 );
 
+// Preventing multiple reviews
+// so user can review the tour just once, so we need to make the review to contain unique user_id and unique tour_id [together] => So will use compounding index again here
+// so this will consider both ids as unique together [so we can't repeat them ]
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 // QUERY MIDDLEWARE
 
 // 1. use populate to replace the id with the actual data of the tour and user how made the review
