@@ -33,6 +33,12 @@ router
     tourController.getMonthlyPlan,
   );
 
+router
+  .route('/tours-within/:distance/center/:latlng/unit/:unit')
+  .get(tourController.getToursWithin);
+//tours-within?distance=233&center=-40&unit=mi [using query]
+//tours-within/233/center/-40,45/unit/mi [using this route]
+
 router.route('/').get(tourController.getAllTours).post(
   authController.protect,
   authController.restrictTo('admin', 'lead-guide'),

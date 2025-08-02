@@ -128,6 +128,7 @@ const tourSchema = new mongoose.Schema(
 // same for ratingsAverage we use it a lot so make index for it so instead of scan the 9 doc, we just scan the doc which has this index
 tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
+tourSchema.index({ startLocation: '2dsphere' }); // tell mongoDB that startLocation should index to 2dsphere [where all data are located]
 
 // here I use regular function because it has his own this keyword [so this here will point into the current document], because we call it using virtual
 // virtual will not save in the DB but just will send as response as json
