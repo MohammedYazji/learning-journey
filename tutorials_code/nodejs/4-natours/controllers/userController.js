@@ -80,12 +80,7 @@ exports.getUser = (req, res) => {
     message: 'This route is not yet defined!',
   });
 };
-exports.updateUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
-  });
-};
 
-// only admin should delete user
+// only for admin
+exports.updateUser = factory.updateOne(User); // will not update password
 exports.deleteUser = factory.deleteOne(User);

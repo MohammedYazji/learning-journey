@@ -34,17 +34,6 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createTour = catchAsync(async (req, res, next) => {
-  const newTour = await Tour.create(req.body);
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      tour: newTour,
-    },
-  });
-});
-
 exports.getTour = catchAsync(async (req, res, next) => {
   // Tour.findOne({_id: req.params.id}) // IN MONGODB
 
@@ -64,43 +53,10 @@ exports.getTour = catchAsync(async (req, res, next) => {
     },
   });
 });
-exports.updateTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-    new: true, // to return thew new document
-    runValidators: true, // to run the validation process when update data 👍
-  });
 
-  if (!tour) {
-    // jump to the global error handler middleware
-    // we use return to stop the function and not send two responses one from here and another from the error controller
-    return next(new AppError('No tour found with that ID', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour,
-    },
-  });
-});
-
-// Simply 😅
+exports.createTour = factory.createOne(Tour);
+exports.updateTour = factory.updateOne(Tour);
 exports.deleteTour = factory.deleteOne(Tour);
-// exports.deleteTour = catchAsync(async (req, res, next) => {
-//   const tour = await Tour.findByIdAndDelete(req.params.id);
-
-//   if (!tour) {
-//     // jump to the global error handler middleware
-//     // we use return to stop the function and not send two responses one from here and another from the error controller
-//     return next(new AppError('No tour found with that ID', 404));
-//   }
-
-//   // 204 for delete so item no longer exist
-//   res.status(204).json({
-//     status: 'success',
-//     data: null, // no content
-//   });
-// });
 
 // aggregation
 // Here I will implement a function to calc a statistics of tours
