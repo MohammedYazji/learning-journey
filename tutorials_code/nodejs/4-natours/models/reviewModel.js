@@ -77,15 +77,42 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
   ]);
   // console.log(stats);
 
-  await Tour.findByIdAndUpdate(tourId, {
-    ratingsQuantity: stats[0].nRating,
-    ratingsAverage: stats[0].avgRating,
-  });
+  // we make if statement to handle if the stats undefined
+  if (stats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsQuantity: stats[0].nRating,
+      ratingsAverage: stats[0].avgRating,
+    });
+  } else {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsQuantity: 0,
+      ratingsAverage: 4.5,
+    });
+  }
 };
 
+// so we calc the stats after save the document in the DB
+// ON CREATE A REVIEW //
 reviewSchema.post('save', function () {
   // this point to the current review
   this.constructor.calcAverageRatings(this.tour);
+});
+
+// ON UPDATE, DELETE A REVIEW //
+// findByIdAndUpdate
+// findByIdAndDelete
+// HERE WE NEED To Access the Query so we use pre
+reviewSchema.pre(/^findOneAnd/, async function (next) {
+  // when delete or update need to access the current review document id
+  // so now r will be the current review doc
+  this.r = await this.findOne(); // to pass the data from pre to post middleware
+  // console.log(this.r);
+  next();
+});
+// so here after the doc saved we will cal the function
+reviewSchema.post(/^findOneAnd/, async function () {
+  // await this.findOne(); does NOT work here, query has already executed
+  await this.r.constructor.calcAverageRatings(this.r.tour);
 });
 
 const Review = mongoose.model('Review', reviewSchema);
