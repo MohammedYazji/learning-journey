@@ -1,4 +1,19 @@
-h1 The Bark Camper 
+doctype html
+html 
+    head 
+        title Natours | #{tour}
+        link(rel="stylesheet", href="/css/style.css")
+        link(rel="shortcut icon", type='image/png', href="/img/favicon.png")
+
+    body 
+        h1= tour
+        h2= user.toUpperCase()
+        //- h1 The Bark Camper 
+
+        - const x = 9
+        h2= 2 * x 
+
+        p This is some Text
 
 //- make us write html in very simple way
 //- Instead of <h1>The Bark Camper</h1>

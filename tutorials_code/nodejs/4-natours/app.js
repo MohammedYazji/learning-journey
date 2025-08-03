@@ -80,7 +80,7 @@ app.use(
 // serving static files [just for knowing don't use it] //
 // here we serve public folder
 // app.use(express.static(`${__dirname}/public`));
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // TEST MIDDLEWARE //
 app.use((req, res, next) => {
@@ -93,7 +93,10 @@ app.use((req, res, next) => {
 // 3. Routes
 // specific Middlewares
 app.get('/', (req, res) => {
-  res.status(200).render('base');
+  res.status(200).render('base', {
+    tour: 'The Forest Hiker',
+    user: 'Mohammed',
+  });
 });
 
 // this tourRouter Middleware will apply just on this route
