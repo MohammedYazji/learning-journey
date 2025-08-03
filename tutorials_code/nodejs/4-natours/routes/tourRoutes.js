@@ -45,6 +45,8 @@ router.route('/').get(tourController.getAllTours).post(
   tourController.createTour, // just admin and lead-guide can create a tour after login
 );
 
+router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
+
 router
   .route('/:id')
   .get(tourController.getTour) // free for everyone
