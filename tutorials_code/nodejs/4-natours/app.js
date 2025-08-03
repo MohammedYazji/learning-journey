@@ -99,6 +99,18 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/overview', (req, res) => {
+  res.status(200).render('overview', {
+    title: 'All tours',
+  });
+});
+
+app.get('/tour', (req, res) => {
+  res.status(200).render('tour', {
+    title: 'The Forest Hiker Tour',
+  });
+});
+
 // this tourRouter Middleware will apply just on this route
 app.use('/api/v1/tours', tourRouter);
 // this userRouter Middleware will apply just on this route
