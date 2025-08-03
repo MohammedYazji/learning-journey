@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -14,6 +15,11 @@ const reviewRouter = require('./routes/reviewRoutes');
 
 // express is function so when call it will add many methods to app
 const app = express();
+
+// use the template engine called pug to make server rendering [not like react client rendering]
+app.set('view engine', 'pug');
+// specify the folder to take the templates from
+app.set('views', path.join(__dirname, 'views')); // use path.join to not be worry about slashes
 
 // 1. GLOBAL Middlewares
 // general middlewares for all requests and routes
@@ -74,6 +80,7 @@ app.use(
 // serving static files [just for knowing don't use it] //
 // here we serve public folder
 // app.use(express.static(`${__dirname}/public`));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // TEST MIDDLEWARE //
 app.use((req, res, next) => {
@@ -85,6 +92,9 @@ app.use((req, res, next) => {
 
 // 3. Routes
 // specific Middlewares
+app.get('/', (req, res) => {
+  res.status(200).render('base');
+});
 
 // this tourRouter Middleware will apply just on this route
 app.use('/api/v1/tours', tourRouter);
