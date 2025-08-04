@@ -137,6 +137,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   // here we make a new property in this request to can access this authorized user information in the next middlewares
   req.user = freshUser;
+  res.locals.user = freshUser; // to use user data in templates
   next();
 });
 
