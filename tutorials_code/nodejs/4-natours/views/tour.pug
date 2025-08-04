@@ -11,8 +11,8 @@ mixin overviewBox(label, text, icon)
         span.overview-box__text= text
 
 block append head 
-    //- script(src='/js/mapbox.js')
-
+  link(href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet")
+  script(src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js")
 
 block content 
     section.section-header
