@@ -20,7 +20,8 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
-    httpOnly: true,
+    httpOnly: true, // we can not access the token anywhere
+    // so we will send a new cookie with no token [overwrite it]
   };
 
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
@@ -78,6 +79,15 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', '', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    status: 'success',
+  });
+};
 // create a middleware to protect routes from unutilized users
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting Token and check if it's there
@@ -131,36 +141,40 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 // only for rendered pages, no errors
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
+exports.isLoggedIn = async (req, res, next) => {
   if (req.cookies.jwt) {
-    // 1) verify token
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET,
-    );
+    try {
+      // 1) verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET,
+      );
 
-    // 2) check if user still exists
-    const freshUser = await User.findById(decoded.id);
-    if (!freshUser) {
+      // 2) check if user still exists
+      const freshUser = await User.findById(decoded.id);
+      if (!freshUser) {
+        return next();
+      }
+
+      // 3) check if user changed password after thw token was issued
+      if (await freshUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+      }
+
+      // if we pass all these steps so call the next middleware in the stack
+      // GRANT ACCESS TO PROTECTED ROUTE
+
+      // here we make a new property in this request to can access this authorized user information in the next middlewares
+
+      // There is a logged in user
+      res.locals.user = freshUser; // put the user info in the local to make the templates access it
+      return next();
+    } catch (err) {
       return next();
     }
-
-    // 3) check if user changed password after thw token was issued
-    if (await freshUser.changedPasswordAfter(decoded.iat)) {
-      return next();
-    }
-
-    // if we pass all these steps so call the next middleware in the stack
-    // GRANT ACCESS TO PROTECTED ROUTE
-
-    // here we make a new property in this request to can access this authorized user information in the next middlewares
-
-    // There is a logged in user
-    res.locals.user = freshUser; // put the user info in the local to make the templates access it
-    return next();
   }
   next();
-});
+};
 
 // restrict specific routes
 // specific user-roles can deal with this routes

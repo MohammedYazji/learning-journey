@@ -25,3 +25,18 @@ export const login = async (email, password) => {
     showAlert('error', err.response.data.message);
   }
 };
+
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: 'http://localhost:3000/api/v1/users/logout',
+    });
+
+    // implement that when i make the logout request and the response get with status success so now we have not token so reload the page and redirect to login page
+    // reload => reload the server not the cache
+    if (res.data.status === 'success') location.reload(true);
+  } catch (err) {
+    showAlert('error', 'Error logging out! Try again.');
+  }
+};
