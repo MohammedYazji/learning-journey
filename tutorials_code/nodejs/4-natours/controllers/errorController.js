@@ -24,35 +24,64 @@ const handleJWTError = () =>
   new AppError('Invalid Token. Please log in again!', 401);
 
 const handleJWTExpiredError = () =>
-  new AppError('Your token has expired! Please log in again, 401', 401);
+  new AppError('Your token has expired! Please log in again!', 401);
 
-const sendErrorDev = (err, res) => {
-  res.status(err.statusCode).json({
-    status: err.status,
-    error: err,
-    message: err.message,
-    stack: err.stack,
+const sendErrorDev = (err, req, res) => {
+  // A) if it's api
+  if (req.originalUrl.startsWith('/api')) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      error: err,
+      message: err.message,
+      stack: err.stack,
+    });
+  }
+  // B) render the error page
+  console.error('Error 💥', err);
+  return res.status(err.statusCode).render('error', {
+    title: 'Something went wrong!',
+    msg: err.message,
   });
 };
 
-const sendErrorProd = (err, res) => {
-  if (err.isOperational) {
-    // in production just send a simple response
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
-  } // make generic message for example when forget await in async [programming error not operational]
-  // so we don't need to send the details of the error to the client
-  else {
+const sendErrorProd = (err, req, res) => {
+  // A) API
+  if (req.originalUrl.startsWith('/api')) {
+    // A) Operational, trusted error: send message to client
+    if (err.isOperational) {
+      return res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+      });
+    }
+    // B) Programming or other unknown error: don't leak error details
     // 1) log error
     console.error('Error 💥', err);
+
     // 2) send generic message
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       message: 'Something went very wrong!!',
     });
   }
+  // B) render the error page
+  // A) Operational, trusted error: send message to client
+  if (err.isOperational) {
+    // in production just send a simple response
+    return res.status(err.statusCode).render('error', {
+      title: 'Something went wrong!',
+      msg: err.message,
+    });
+  }
+  // B) Programming or other unknown error: don't leak error details
+  // 1) log error
+  console.error('Error 💥', err);
+
+  // 2) send generic message
+  return res.status(500).render('error', {
+    title: 'Something went wrong!',
+    msg: 'Please try again later.',
+  });
 };
 
 module.exports = (err, req, res, next) => {
@@ -65,10 +94,11 @@ module.exports = (err, req, res, next) => {
   err.status = err.status || 'error';
 
   if (process.env.NODE_ENV === 'development') {
-    sendErrorDev(err, res);
+    sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
     // its not best practice to mutate the original error object so we copy it before
-    let error = Object.create(err);
+    let error = { ...err };
+    error.message = err.message;
 
     if (error.name === 'CastError') error = handleCastErrorDB(error); // this function will return AppError
 
@@ -81,6 +111,6 @@ module.exports = (err, req, res, next) => {
 
     if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
 
-    sendErrorProd(error, res);
+    sendErrorProd(error, req, res);
   }
 };
