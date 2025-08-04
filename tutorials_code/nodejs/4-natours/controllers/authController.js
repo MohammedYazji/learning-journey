@@ -130,6 +130,38 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+// only for rendered pages, no errors
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  if (req.cookies.jwt) {
+    // 1) verify token
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET,
+    );
+
+    // 2) check if user still exists
+    const freshUser = await User.findById(decoded.id);
+    if (!freshUser) {
+      return next();
+    }
+
+    // 3) check if user changed password after thw token was issued
+    if (await freshUser.changedPasswordAfter(decoded.iat)) {
+      return next();
+    }
+
+    // if we pass all these steps so call the next middleware in the stack
+    // GRANT ACCESS TO PROTECTED ROUTE
+
+    // here we make a new property in this request to can access this authorized user information in the next middlewares
+
+    // There is a logged in user
+    res.locals.user = freshUser; // put the user info in the local to make the templates access it
+    return next();
+  }
+  next();
+});
+
 // restrict specific routes
 // specific user-roles can deal with this routes
 // for example after login just admin or lead-guide can delete a user
