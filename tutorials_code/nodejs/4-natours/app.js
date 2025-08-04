@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -81,7 +82,8 @@ app.use('/api', limiter);
 // BODY PARSER, READING DATA FROM BODY INTO req.body //
 // express.json is a middleware: function can modify the incoming request data
 // we call it middleware because its between the req and the res
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: '10kb' })); // parse data from body
+app.use(cookieParser()); // parse data from cookie
 
 // clean all data to come into the application to sure its safe data //
 // DATA SANITIZATION AGAINST NOSQL QUERY INJECTION
@@ -121,6 +123,7 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   // each request has headers
   // console.log(req.headers);
+  console.log(req.cookies);
   next();
 });
 
