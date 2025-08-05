@@ -55,8 +55,8 @@ exports.getMe = (req, res, next) => {
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   // multer will store the file in req.file because we put it in the middleware stack before this middleware
-  console.log(req.file);
-  console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.body);
 
   // 1) if user POST password data create error
   if (req.body.password || req.body.passwordConfirm) {
@@ -70,6 +70,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   // 2) Filtered out unwanted fields names that are not allowed to be updated
   // we need to be sure that just the user can implement the email and password
   const filteredBody = filterObj(req.body, 'name', 'email');
+  // if there is photo
+  // update the photo name
+  if (req.file) filteredBody.photo = req.file.filename;
 
   // 3) update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
