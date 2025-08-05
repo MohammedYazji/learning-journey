@@ -83,6 +83,7 @@ app.use('/api', limiter);
 // express.json is a middleware: function can modify the incoming request data
 // we call it middleware because its between the req and the res
 app.use(express.json({ limit: '10kb' })); // parse data from body
+app.use(express.urlencoded({ extended: true, limit: '10kb' })); // to parse data from body when it is url encoded like from form
 app.use(cookieParser()); // parse data from cookie
 
 // clean all data to come into the application to sure its safe data //

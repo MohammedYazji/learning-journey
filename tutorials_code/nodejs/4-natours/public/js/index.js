@@ -7,7 +7,7 @@ import { login, logout } from './login';
 document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements
   const mapBox = document.getElementById('map');
-  const loginForm = document.querySelector('.form');
+  const loginForm = document.querySelector('.form--login');
   const logOutBtn = document.querySelector('.nav__el--logout');
 
   // DELEGATION
