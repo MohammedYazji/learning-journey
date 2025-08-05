@@ -12,11 +12,4 @@ router.get('/tour/:slug', authController.isLoggedIn, viewController.getTour);
 router.get('/login', authController.isLoggedIn, viewController.getLoginForm);
 router.get('/me', authController.protect, viewController.getAccount);
 
-// I dont need this because I use the API instead of the form
-// router.post(
-//   '/submit-user-data',
-//   authController.protect,
-//   viewController.updateUserData,
-// );
-
 module.exports = router;

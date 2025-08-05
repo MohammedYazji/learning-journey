@@ -5,21 +5,22 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const updateData = async (name, email) => {
+// also update the password here so called it updateSettings
+// type is either password or data
+export const updateSettings = async (data, type) => {
   try {
+    const url = type === 'password' ? 'updateMyPassword' : 'updateMe';
     // result
     const res = await axios({
       method: 'PATCH',
-      url: 'http://localhost:3000/api/v1/users/updateMe',
-      data: {
-        name,
-        email,
-      },
+      // choose the right url based on the type
+      url: 'http://localhost:3000/api/v1/users/' + url,
+      data,
     });
 
     // implement that when i make the update request and the response get with status success so reload the page
     if (res.data.status === 'success') {
-      showAlert('success', 'Data updated successfully!');
+      showAlert('success', `${type.toUpperCase()} updated successfully!`);
     }
   } catch (err) {
     showAlert('error', err.response.data.message);

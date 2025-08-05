@@ -52,26 +52,3 @@ exports.getAccount = (req, res) => {
     title: 'Your account',
   });
 };
-
-// I make it as comment because I don't need it I was use it when make the request from the form
-// but now I use the API 💪
-// exports.updateUserData = catchAsync(async (req, res, next) => {
-//   // just update name and email
-//   const updatedUser = await User.findByIdAndUpdate(
-//     req.user.id,
-//     {
-//       name: req.body.name,
-//       email: req.body.email,
-//     },
-//     {
-//       new: true,
-//       runValidators: true,
-//     },
-//   );
-
-//   // rerender the account with the updated user information by sending the updated user here instead of req.user from the protect middleware
-//   res.status(200).render('account', {
-//     title: 'Your account',
-//     user: updatedUser,
-//   });
-// });
