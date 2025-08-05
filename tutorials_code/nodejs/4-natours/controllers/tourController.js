@@ -1,7 +1,41 @@
+const multer = require('multer');
+const sharp = require('sharp');
 const Tour = require('../models/tourModel');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
 const AppError = require('../utils/appError');
+
+// we need to store photos in memory instead of disk
+const multerStorage = multer.memoryStorage();
+
+// check if the file is image
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('Not an image! Please upload only images.', 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+// unlike single here we have multiple files
+exports.uploadTourImages = upload.fields([
+  { name: 'imageCover', maxCount: 1 },
+  { name: 'images', maxCount: 3 },
+]);
+
+// upload.single('image'); // for single file
+// upload.array('images', 5); // for multiple files
+// upload.fields([]); // for multiple files mixed
+
+exports.resizeTourImages = catchAsync(async (req, res, next) => {
+  console.log(req.files);
+  next();
+});
 
 // middleware for '/top-5-cheap'
 // 5 best and cheapest tours
