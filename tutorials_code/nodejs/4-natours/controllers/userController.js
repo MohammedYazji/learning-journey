@@ -23,6 +23,10 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
+  // multer will store the file in req.file because we put it in the middleware stack before this middleware
+  console.log(req.file);
+  console.log(req.body);
+
   // 1) if user POST password data create error
   if (req.body.password || req.body.passwordConfirm) {
     return next(

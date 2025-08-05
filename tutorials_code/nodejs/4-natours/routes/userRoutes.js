@@ -1,6 +1,12 @@
 const express = require('express');
+const multer = require('multer');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+
+// to upload files, we need a middleware from multer
+// so this just for make configuration formulter and then we will make a middleware using single
+// so we not upload the images in DB we just store them in the disk and link them to the user in DB via normal string
+const upload = multer({ dest: 'public/img/users' });
 
 const router = express.Router();
 
@@ -21,7 +27,7 @@ router.patch('/updateMyPassword', authController.updatePassword);
 // and we make getMe middleware to fake that the id came from url but its from protect auth controller
 router.route('/me').get(userController.getMe, userController.getUser);
 
-router.patch('/updateMe', userController.updateMe);
+router.patch('/updateMe', upload.single('photo'), userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 
 // RESTRICT ALL ROUTES AFTER THIS MIDDLEWARE JUST FOR ADMIN //
