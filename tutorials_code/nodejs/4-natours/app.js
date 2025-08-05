@@ -34,6 +34,9 @@ app.use(helmet());
 const scriptSrcUrls = [
   'https://api.tiles.mapbox.com/',
   'https://api.mapbox.com/',
+  'https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js',
+  'https://js.stripe.com',
+  'https://m.stripe.network',
 ];
 const styleSrcUrls = [
   'https://api.mapbox.com/',
@@ -45,19 +48,34 @@ const connectSrcUrls = [
   'https://a.tiles.mapbox.com/',
   'https://b.tiles.mapbox.com/',
   'https://events.mapbox.com/',
+  'https://api.stripe.com',
+  'https://m.stripe.network',
 ];
 const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: [],
+      defaultSrc: ["'self'", 'https://js.stripe.com', 'https://m.stripe.network'],
       connectSrc: ["'self'", ...connectSrcUrls],
       scriptSrc: ["'self'", ...scriptSrcUrls],
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", 'blob:'],
       objectSrc: [],
-      imgSrc: ["'self'", 'blob:', 'data:'],
+      imgSrc: [
+        "'self'", 
+        'blob:', 
+        'data:',
+        'https://*.stripe.com',
+        'https://q.stripe.com',
+        'https://js.stripe.com',
+        'https://stripe-camo.global.ssl.fastly.net',
+        'https://d1wqzb5bdbcre6.cloudfront.net',
+        'https://qr.stripe.com',
+        'https://b.stripecdn.com',
+        'https://files.stripe.com'
+      ],
       fontSrc: ["'self'", ...fontSrcUrls],
+      frameSrc: ["'self'", 'https://js.stripe.com', 'https://hooks.stripe.com'],
     },
   }),
 );
