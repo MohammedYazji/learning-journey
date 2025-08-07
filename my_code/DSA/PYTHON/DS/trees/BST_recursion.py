@@ -88,6 +88,15 @@ class BST:
         while current.left:
             current = current.left
         return current
+    
+    def findMax(self, node):
+        # first current is pointer catch the root node of the right subtree
+        current = node
+
+        # then we need to get the maximum value in this subtree, so get the rightmost node [the largest one]
+        while current.right:
+            current = current.right
+        return current
 
     # left -> node -> right
     def inorder(self, node):

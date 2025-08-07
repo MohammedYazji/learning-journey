@@ -240,7 +240,7 @@ class Node:
     D  E F
 ```
 
-### 5. Balanced Tree (AVL)
+### 5. [Balanced Tree (AVL)](./5-avl_tree.md)
 
 - For every node, height difference between left & right subtrees ≤ 1.
 
@@ -251,8 +251,6 @@ class Node:
     /
    10
 ```
-
-🗂️ See my code: [NOT READY YET]()
 
 ### 6. Binary Search Tree (BST)
 
@@ -267,7 +265,7 @@ class Node:
 ```
 
 - 🗂️ See my code: [BST Iteratively](../../../../my_code/DSA/PYTHON/DS/trees/Binary%20Search%20Tree%20[Iteritavely].py)
-- 🗂️ See my code: [BST Recursion NOT READY YET]()
+- 🗂️ See my code: [BST Recursion NOT READY YET](../../../../my_code/DSA/PYTHON/DS/trees/BST_recursion.py)
 
 #### Big O Complexity (BST)
 
@@ -311,6 +309,8 @@ Postorder: D E B C A
 
 - Implement tree traversals
 - Validate if a binary tree is BST
+- Compute the Height of a Binary Tree
 
 > 🔗 [Tree Traversal in BT Code](../../../../my_code/DSA/PYTHON/DS/trees/Binary%20Tree.py)
-> 🔗 [Validate BST Code NOT READY YET]()
+> 🔗 [Validate BST Code](../../../../my_code/DSA/PYTHON/DS/trees/BST_recursion.py)
+> 🔗 [Compute the Height of a Binary Tree Code](../../../../my_code/DSA/PYTHON/DS/trees/Binary%20Tree.py)
