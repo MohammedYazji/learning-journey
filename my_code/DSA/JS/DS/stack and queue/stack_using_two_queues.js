@@ -1,10 +1,14 @@
-// Queue needs to remove first element => FIFO
-// but Stack only allows removing the last element => LIFO
+// Stack Using Queue:
+// This solution uses two queues: pop-heavy approach
 
-// To implement this, we need two queues...
-// one to enqueue new elements normally
-// then reverse the queue and pass it to the second queue to dequeue from the first
+// The problem:
+// Queue removes first element => FIFO
+// Stack removes last element => LIFO
 
+// To implement this, we use two queues:
+// 1) One queue to enqueue new elements normally
+// 2) On pop, move all elements except the last from first queue to second,
+//    then dequeue the last element from the first queue
 class ArrayQueue {
   constructor(capacity) {
     this.queue = [];
@@ -12,94 +16,88 @@ class ArrayQueue {
   }
 
   enqueue(value) {
-    if (this.queue.length >= this.capacity) {
-      console.log("Queue is full");
-      return;
+    if (this.queue.length === this.capacity) {
+      throw new Error("Queue is full");
     }
     this.queue.push(value);
   }
 
   dequeue() {
     if (this.isEmpty()) {
-      console.log("Queue is empty");
-      return null;
+      throw new Error("Queue is empty");
     }
-    return this.queue.shift(); // remove first (FIFO)
+    return this.queue.shift();
   }
 
   isEmpty() {
     return this.queue.length === 0;
   }
 
-  get size() {
+  size() {
     return this.queue.length;
   }
 }
 
 class StackUsingArrayQueues {
   constructor(capacity) {
+    // Create two queues
     this.q1 = new ArrayQueue(capacity);
     this.q2 = new ArrayQueue(capacity);
-    this.capacity = capacity;
   }
 
   isEmpty() {
     return this.q1.isEmpty();
   }
 
-  // Push is normal enqueue to q1
+  // Time complexity: O(1)
   push(x) {
+    // Push is normal enqueue into q1
     this.q1.enqueue(x);
   }
 
-  // To pop:
-  // - Move all elements except the last from q1 to q2
-  // - Dequeue the last from q1 (which is the top of the stack)
-  // - Swap q1 and q2
+  // Time complexity: O(n) [pop-heavy solution]
   pop() {
     if (this.q1.isEmpty()) {
       console.log("Stack is empty");
       return null;
     }
 
-    while (this.q1.size > 1) {
+    // Move all elements except the last from q1 to q2
+    while (this.q1.size() > 1) {
       this.q2.enqueue(this.q1.dequeue());
     }
 
+    // Dequeue and save the last element (top of the stack)
     const top = this.q1.dequeue();
+
+    // Swap q1 and q2
     [this.q1, this.q2] = [this.q2, this.q1];
+
     return top;
   }
 
-  // To peek:
-  // - Move all elements from q1 to q2 while keeping track of the last one
-  // - That last one is the top
-  // - Swap back q1 and q2 to maintain original order
+  // Get the last element in the stack without removing it
   peek() {
-    if (this.q1.isEmpty()) return null;
+    if (this.q1.isEmpty()) {
+      return null;
+    }
 
     let top = null;
-    const originalSize = this.q1.size;
+    const originalSize = this.q1.size();
 
+    // pop all elements except the last and push them to the second queue
     for (let i = 0; i < originalSize; i++) {
       const val = this.q1.dequeue();
       this.q2.enqueue(val);
+      // if we reach the last element after popping and pushing the last element set the top to be this element
       if (i === originalSize - 1) {
         top = val;
       }
     }
 
+    // finally return all the elements from the second queue to the first queue
     [this.q1, this.q2] = [this.q2, this.q1];
+
     return top;
   }
 }
-
-// Test the stack
-const myStack = new StackUsingArrayQueues(10);
-myStack.push(100);
-myStack.push(200);
-myStack.push(300); // last in
-
-console.log(myStack.pop()); // 300
-console.log(myStack.pop()); // 200
-console.log(myStack.pop()); // 100
