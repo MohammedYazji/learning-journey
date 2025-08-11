@@ -1,26 +1,32 @@
 // linked list implementation [top]
 
 class Node {
-  constructor(val) {
-    this.val = val;
+  // each element in the stack must have data and pointer to the nest element
+  constructor(data) {
+    this.data = data;
     this.next = null;
   }
 }
 
 class Stack {
   constructor() {
+    // top pointer for each stack instance to track the top element
     this.top = null;
   }
 
+  // time complexity O(1)
   peek() {
+    // if the top [last element] is not empty [None] return its data
     if (!this.top) {
       return null;
     } else {
-      return this.top.val;
+      return this.top.data;
     }
   }
 
+  // time complexity O(1)
   isEmpty() {
+    // if the top is empty then return true
     if (!this.top) {
       return true;
     } else {
@@ -28,18 +34,21 @@ class Stack {
     }
   }
 
+  // time complexity O(1)
   clear() {
     // remove the access (pointer which catch the list)
+    // so now my pointer not refer anywhere
     this.top = null;
   }
 
-  // add to the top of the list
-  // its unshift but I called it push
-  // to be O(1), while real push take O(n)
-  push(val) {
+  // push the data to the start of the list [top]
+  // because in list the top refer to the first element O(1)
+  // but in our stack the top refer to the last in element
+  // time complexity O(1)
+  push(data) {
     // create a new node to add it
-    const newNode = new Node(val);
-    // set the newNode next to point to the previous start
+    const newNode = new Node(data);
+    // set the newNode next to point to the previous start of the list
     newNode.next = this.top;
     // set the start to be the new node
     this.top = newNode;
@@ -48,11 +57,13 @@ class Stack {
     return this;
   }
 
-  // remove the first node of the list
-  // its shift but I called it pop
-  // to be O(1), while real pop take O(n)
+  // remove the data to the start of the list [top]
+  // because in list the top refer to the first element O(1)
+  // but in our stack the top refer to the last in element
+  // time complexity O(1)
   pop() {
-    if (!this.top) {
+    // if the stack is empty return null
+    if (this.isEmpty()) {
       return null;
     }
 
@@ -61,20 +72,8 @@ class Stack {
     // make the first node be the next node
     this.top = this.top.next;
 
-    return poppedNode.val;
+    return poppedNode.data;
   }
 }
-
-// Commenting for Testing
-// let stack = new Stack();
-// stack.push(10);
-// stack.push(20);
-// stack.push(32);
-// stack.push(1);
-// stack.push(88);
-// console.log(stack.pop());
-// console.log(stack.pop());
-// console.log(stack.pop());
-// console.log(stack.pop());
 
 module.exports = Stack;
