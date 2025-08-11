@@ -265,7 +265,7 @@ class Node:
 ```
 
 - 🗂️ See my code: [BST Iteratively](../../../../my_code/DSA/PYTHON/DS/trees/Binary%20Search%20Tree%20[Iteritavely].py)
-- 🗂️ See my code: [BST Recursion NOT READY YET](../../../../my_code/DSA/PYTHON/DS/trees/BST_recursion.py)
+- 🗂️ See my code: [BST Recursion](../../../../my_code/DSA/PYTHON/DS/trees/BST_recursion.py)
 
 #### Big O Complexity (BST)
 
